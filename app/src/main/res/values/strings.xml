@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">رفيق</string>
+    <string name="medications">التذكير بالأدوية</string>
+    <string name="bills">التذكير بالفواتير</string>
+    <string name="magnifier">العدسة المكبرة</string>
+    <string name="activities">الأنشطة</string>
+</resources>
