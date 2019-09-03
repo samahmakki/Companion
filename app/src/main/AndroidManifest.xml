@@ -16,14 +16,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MedicationActivity"
-            android:label="@string/medications"/>
-        <activity android:name=".BillsActivity"
-            android:label="@string/bills"/>
-        <activity android:name=".MagnifierActivity"
-            android:label="@string/magnifier"/>
-        <activity android:name=".ActivitiesActivity"
-            android:label="@string/activities"></activity>
+        <activity
+            android:name=".MedicationActivity"
+            android:label="@string/medications" />
+        <activity
+            android:name=".BillsActivity"
+            android:label="@string/bills" />
+        <activity
+            android:name=".MagnifierActivity"
+            android:label="@string/magnifier" />
+        <activity
+            android:name=".ActivitiesActivity"
+            android:label="@string/activities" />
+        <activity android:name=".flashlightActivity"></activity>
     </application>
 
 </manifest>

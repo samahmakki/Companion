@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -13,6 +12,7 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout billsLayout;
     LinearLayout magnifierLayout;
     LinearLayout activitiesLayout;
+    LinearLayout flashlightLayout;
 
 
     @Override
@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
         billsLayout = findViewById(R.id.bills);
         magnifierLayout = findViewById(R.id.magnifier);
         activitiesLayout = findViewById(R.id.activities);
+        flashlightLayout = findViewById(R.id.flashlight);
+
 
         medicationLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +56,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent activitiesIntent = new Intent(MainActivity.this, ActivitiesActivity.class);
                 startActivity(activitiesIntent);
+            }
+        });
+
+
+        flashlightLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent flashlightIntent = new Intent(MainActivity.this, flashlightActivity.class);
+                startActivity(flashlightIntent);
             }
         });
     }
