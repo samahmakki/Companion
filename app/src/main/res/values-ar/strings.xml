@@ -5,4 +5,7 @@
     <string name="bills">التذكير بالفواتير</string>
     <string name="magnifier">العدسة المكبرة</string>
     <string name="activities">الأنشطة</string>
+    <string name="flash_light">المصباح اليدوي</string>
+    <string name="switchOnCamera">افتح الاضاءة</string>
+    <string name="flashlight">المصباح اليدوي</string>
 </resources>

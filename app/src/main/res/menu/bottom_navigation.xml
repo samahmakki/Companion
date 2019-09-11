@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+ <item
+     android:id="@+id/nav_today"
+     android:icon="@drawable/ic_today_black_24dp"
+      android:title="@string/today"/>
+ <item
+  android:id="@+id/nav_addmed"
+  android:icon="@drawable/ic_add_box_black_24dp"
+  android:title="@string/add_medicine"/>
+
+ <item
+     android:id="@+id/nav_medbox"
+     android:icon="@drawable/ic_assignment_black_24dp"
+     android:title="@string/all_medicines"/>
+
+</menu>
