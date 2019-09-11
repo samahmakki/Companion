@@ -1,10 +1,13 @@
 package com.samahmakki.companion;
 
+import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -14,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout activitiesLayout;
     LinearLayout flashlightLayout;
 
-
+    @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
         activitiesLayout = findViewById(R.id.activities);
         flashlightLayout = findViewById(R.id.flashlight);
 
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.custom_actionbar);
 
         medicationLayout.setOnClickListener(new View.OnClickListener() {
             @Override

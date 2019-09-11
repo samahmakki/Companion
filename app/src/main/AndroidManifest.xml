@@ -12,23 +12,57 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".MedicationActivity"
-            android:label="@string/medications" />
+            android:label="@string/medications"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.samahmakki.companion.MainActivity" />
+        </activity>
         <activity
             android:name=".BillsActivity"
-            android:label="@string/bills" />
+            android:label="@string/bills"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.samahmakki.companion.MainActivity" />
+        </activity>
         <activity
             android:name=".MagnifierActivity"
-            android:label="@string/magnifier" />
+            android:label="@string/magnifier"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.samahmakki.companion.MainActivity" />
+        </activity>
         <activity
             android:name=".ActivitiesActivity"
-            android:label="@string/activities" />
-        <activity android:name=".flashlightActivity"></activity>
+            android:label="@string/activities"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.samahmakki.companion.MainActivity" />
+        </activity>
+
+        <activity android:name=".flashlightActivity"
+            android:label="@string/flashlight"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.samahmakki.companion.MainActivity" />
+        </activity>
+        <activity
+            android:name=".AddBillActivity"
+            android:label="@string/add_bill_button"
+            android:parentActivityName=".BillsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.samahmakki.companion.BillsActivity" />
+        </activity>
     </application>
 
 </manifest>

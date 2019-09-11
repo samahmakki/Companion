@@ -5,4 +5,15 @@
     <string name="magnifier">العدسة المكبرة</string>
     <string name="activities">الأنشطة</string>
     <string name="flashlight">المصباح اليدوي</string>
+    <string name="add_bill_button">إضافة فاتورة</string>
+    <string name="add_bill">أضف فاتورة</string>
+
+    <string name="billName_is_required">يجب اختيار اسم الفاتورة</string>
+    <string name="date_is_required">يجب ادخال الناريخ</string>
+    <string name="time_is_required">يجب ادخال الوقت</string>
+
+    <string name="Quit">هل أنت متأكد انك تريد الخروج؟</string>
+    <string name="Rate_app">تقييم التطبيق</string>
+    <string name="Yes">نعم</string>
+    <string name="No">لا</string>
 </resources>
