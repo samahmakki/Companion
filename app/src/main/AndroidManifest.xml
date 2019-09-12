@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.samahmakki.companion">
+
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera" />
 
     <application
         android:allowBackup="true"
+        android:fullBackupContent="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -16,6 +23,7 @@
             </intent-filter>
         </activity>
         <activity
+<<<<<<< HEAD
             android:name=".MedicationActivity"
             android:label="@string/medications"
             android:parentActivityName=".MainActivity">
@@ -32,6 +40,8 @@
                 android:value="com.samahmakki.companion.MainActivity" />
         </activity>
         <activity
+=======
+>>>>>>> d6a96054b745b669bff2ba9cee908dfe4e7031a5
             android:name=".MagnifierActivity"
             android:label="@string/magnifier"
             android:parentActivityName=".MainActivity">
@@ -41,6 +51,7 @@
         </activity>
         <activity
             android:name=".ActivitiesActivity"
+<<<<<<< HEAD
             android:label="@string/activities"
             android:parentActivityName=".MainActivity">
             <meta-data
@@ -63,6 +74,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.samahmakki.companion.BillsActivity" />
         </activity>
+=======
+            android:label="@string/activities" />
+        <activity android:name=".flashlightActivity" />
+        <activity
+            android:name=".BillsActivity"
+            android:label="@string/title_activity_bills" />
+        <activity
+            android:name=".MedicationActivity"
+            android:label="@string/title_activity_medications"></activity>
+>>>>>>> d6a96054b745b669bff2ba9cee908dfe4e7031a5
     </application>
 
 </manifest>

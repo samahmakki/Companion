@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">رفيق</string>
+    <string name="medications">medicine</string>
+    <string name="bills">bills</string>
+    <string name="magnifier">magnifying lens</string>
+    <string name="activities">activities</string>
+    <string name="flash_light">Flashlight</string>
+    <string name="flashlight">flashlight</string>
+    <string name="switchOnCamera">Switch On FlashLight</string>
+</resources>

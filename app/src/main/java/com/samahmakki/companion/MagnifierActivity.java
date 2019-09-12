@@ -2,6 +2,7 @@ package com.samahmakki.companion;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ImageButton;
 
 public class MagnifierActivity extends AppCompatActivity {
 
@@ -9,5 +10,7 @@ public class MagnifierActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_magnifier);
+
+
     }
 }
