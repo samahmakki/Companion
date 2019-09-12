@@ -8,6 +8,7 @@ import android.widget.DatePicker;
 
 import java.util.Calendar;
 import java.util.Locale;
+<<<<<<< Updated upstream
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.DatePickerDialog;
@@ -32,6 +33,8 @@ import android.widget.TextView;
 import com.kd.dynamic.calendar.generator.ImageGenerator;
 
 import java.time.Year;
+=======
+>>>>>>> Stashed changes
 
 public class MedicationActivity extends AppCompatActivity {
     DatePicker datePicker;
@@ -66,12 +69,17 @@ public class MedicationActivity extends AppCompatActivity {
 
     };
 
+    DatePicker datePicker;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medication);
 
         datePicker = findViewById(R.id.datePicker);
+<<<<<<< Updated upstream
+=======
+        datePicker.setFirstDayOfWeek(Calendar.SATURDAY);
+>>>>>>> Stashed changes
 
         Locale locale = getResources().getConfiguration().locale;
         Locale.setDefault(locale);
@@ -80,6 +88,7 @@ public class MedicationActivity extends AppCompatActivity {
         int mYear = c.get(Calendar.YEAR);
         int mMonth = c.get(Calendar.MONTH);
         int mDay = c.get(Calendar.DAY_OF_MONTH);
+<<<<<<< Updated upstream
         /*DatePickerDialog dialog = new DatePickerDialog(Context);
         dialog.getDatePicker().setMaxDate(c.getTimeInMillis());
         dialog.setTitle(R.string.activities);
@@ -130,4 +139,11 @@ public class MedicationActivity extends AppCompatActivity {
         }
 
 
+=======
+        DatePickerDialog dialog = new DatePickerDialog();
+        dialog.getDatePicker().setMaxDate(c.getTimeInMillis());
+        dialog.setTitle(R.string.activities);
+        dialog.show();
+    }
+>>>>>>> Stashed changes
 }

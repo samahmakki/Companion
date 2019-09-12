@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,7 +16,10 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout activitiesLayout;
     LinearLayout flashlightLayout;
 
+<<<<<<< Updated upstream
     @SuppressLint("RestrictedApi")
+=======
+>>>>>>> Stashed changes
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

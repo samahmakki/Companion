@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
+<<<<<<< Updated upstream
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+=======
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+>>>>>>> Stashed changes
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+<<<<<<< Updated upstream
     android:orientation="vertical"
     tools:context=".MedicationActivity">
 
@@ -52,3 +58,15 @@
 
     </RelativeLayout>
 </ScrollView>
+=======
+    tools:context=".MedicationActivity"
+    android:orientation="vertical">
+
+    <DatePicker
+        android:id="@+id/datePicker"
+        android:layout_width="match_parent"
+        android:layout_height="20dp">
+    </DatePicker>
+
+</ScrollView>
+>>>>>>> Stashed changes
