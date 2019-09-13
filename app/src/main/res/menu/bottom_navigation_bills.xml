@@ -4,11 +4,11 @@
  <item
      android:id="@+id/nav_current"
      android:icon="@drawable/ic_current_bills"
-      android:title="@string/currentBills"/>
+     android:title="@string/currentBills"/>
  <item
-  android:id="@+id/nav_missed"
-  android:icon="@drawable/ic_missed_bills"
-  android:title="@string/missedBills"/>
+     android:id="@+id/nav_missed"
+     android:icon="@drawable/ic_missed_bills"
+     android:title="@string/missedBills" />
 
  <item
      android:id="@+id/nav_finished"

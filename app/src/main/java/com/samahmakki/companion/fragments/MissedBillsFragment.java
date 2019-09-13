@@ -1,6 +1,15 @@
 package com.samahmakki.companion.fragments;
 
-import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 
-public class MissedBillsFragment extends Fragment {
+import com.samahmakki.companion.R;
+
+public class MissedBillsFragment extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_missed_bills_fragment);
+    }
 }

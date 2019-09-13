@@ -29,18 +29,17 @@
         android:layout_height="match_parent"
         android:layout_above="@id/bottom_nav">
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fabm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:src="@drawable/ic_launcher"
-            app:backgroundTint="@android:color/white"
-            app:elevation="6dp"
-            app:fabSize="normal"
-            app:pressedTranslationZ="12dp" />
+        <Button
+            android:id="@+id/add_bill_button"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_gravity="bottom|left"
+            android:text="@string/add_bill"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/add_bill_button"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="#ffffff"/>
     </android.support.design.widget.CoordinatorLayout>
 </RelativeLayout>

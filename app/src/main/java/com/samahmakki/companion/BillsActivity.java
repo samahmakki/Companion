@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -19,17 +18,10 @@ import android.view.View;
 import android.widget.Button;
 import android.support.design.widget.BottomNavigationView;
 
-import com.samahmakki.companion.fragments.FinishedBillsfragment;
-import com.samahmakki.companion.fragments.CurrentBillsFragment;
-import com.samahmakki.companion.fragments.MissedBillsFragment;
-
-
 
 public class BillsActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
 
     Button addBillButton;
-
-    FloatingActionButton fab;
 
     String updateGoal = "0";
     int goalActivityNumber = 1;
@@ -50,9 +42,8 @@ public class BillsActivity extends AppCompatActivity implements BottomNavigation
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragments_container, new CurrentBillsFragment()).commit();
 
-        fab = findViewById(R.id.fabm);
-
-        fab.setOnClickListener(new View.OnClickListener() {
+        addBillButton = findViewById(R.id.add_bill_button);
+        addBillButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(BillsActivity.this, AddBillActivity.class);
@@ -67,15 +58,15 @@ public class BillsActivity extends AppCompatActivity implements BottomNavigation
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Fragment selectedFragment = null;
         switch (item.getItemId()) {
-            case R.id.nav_today:
+            case R.id.nav_current:
               selectedFragment = new CurrentBillsFragment();
                 goalActivityNumber = 1;
                 break;
-            case R.id.nav_addmed:
+            case R.id.nav_missed:
                selectedFragment = new MissedBillsFragment();
                 goalActivityNumber = 2;
                 break;
-            case R.id.nav_medbox:
+            case R.id.nav_finished:
                 selectedFragment = new FinishedBillsfragment();
                 goalActivityNumber = 3;
                 break;
