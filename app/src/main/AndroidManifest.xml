@@ -23,13 +23,12 @@
             </intent-filter>
         </activity>
         <activity
-<<<<<<< HEAD
             android:name=".MedicationActivity"
             android:label="@string/medications"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.samahmakki.companion.MainActivity" />
+                android:value="com.samahmakki.companion.MainActivity"/>
         </activity>
         <activity
             android:name=".BillsActivity"
@@ -40,8 +39,6 @@
                 android:value="com.samahmakki.companion.MainActivity" />
         </activity>
         <activity
-=======
->>>>>>> d6a96054b745b669bff2ba9cee908dfe4e7031a5
             android:name=".MagnifierActivity"
             android:label="@string/magnifier"
             android:parentActivityName=".MainActivity">
@@ -51,7 +48,6 @@
         </activity>
         <activity
             android:name=".ActivitiesActivity"
-<<<<<<< HEAD
             android:label="@string/activities"
             android:parentActivityName=".MainActivity">
             <meta-data
@@ -74,16 +70,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.samahmakki.companion.BillsActivity" />
         </activity>
-=======
-            android:label="@string/activities" />
-        <activity android:name=".flashlightActivity" />
-        <activity
-            android:name=".BillsActivity"
-            android:label="@string/title_activity_bills" />
-        <activity
-            android:name=".MedicationActivity"
-            android:label="@string/title_activity_medications"></activity>
->>>>>>> d6a96054b745b669bff2ba9cee908dfe4e7031a5
     </application>
 
 </manifest>

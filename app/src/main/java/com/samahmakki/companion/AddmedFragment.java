@@ -11,6 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.samahmakki.companion.R;
+import com.samahmakki.companion.RecyclerViewAdapter;
+
 import java.util.ArrayList;
 
 public class AddmedFragment extends Fragment {

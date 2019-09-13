@@ -19,7 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.support.design.widget.BottomNavigationView;
 
-import com.samahmakki.companion.fragments.Achievement_fragment;
+import com.samahmakki.companion.fragments.FinishedBillsfragment;
 import com.samahmakki.companion.fragments.CurrentBillsFragment;
 import com.samahmakki.companion.fragments.MissedBillsFragment;
 
@@ -67,16 +67,16 @@ public class BillsActivity extends AppCompatActivity implements BottomNavigation
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Fragment selectedFragment = null;
         switch (item.getItemId()) {
-            case R.id.nav_current_goal:
+            case R.id.nav_today:
               selectedFragment = new CurrentBillsFragment();
                 goalActivityNumber = 1;
                 break;
-            case R.id.nav_missed_goals:
+            case R.id.nav_addmed:
                selectedFragment = new MissedBillsFragment();
                 goalActivityNumber = 2;
                 break;
-            case R.id.nav_achievements:
-                selectedFragment = new Achievement_fragment();
+            case R.id.nav_medbox:
+                selectedFragment = new FinishedBillsfragment();
                 goalActivityNumber = 3;
                 break;
         }

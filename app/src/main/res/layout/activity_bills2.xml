@@ -17,12 +17,12 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_alignParentBottom="true"
-        android:background="@android:color/darker_gray"
+        android:background="@android:color/white"
         android:elevation="8dp"
         app:itemBackground="@drawable/nav_item_background"
         app:itemIconTint="@drawable/nav_item_foreground"
         app:itemTextColor="@drawable/nav_item_foreground"
-        app:menu="@menu/bottom_navigation" />
+        app:menu="@menu/bottom_navigation_bills" />
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"

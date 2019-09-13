@@ -16,10 +16,7 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout activitiesLayout;
     LinearLayout flashlightLayout;
 
-<<<<<<< Updated upstream
     @SuppressLint("RestrictedApi")
-=======
->>>>>>> Stashed changes
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

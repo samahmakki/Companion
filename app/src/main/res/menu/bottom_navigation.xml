@@ -1,22 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<<<<<<< HEAD
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
-
-    <item android:id="@+id/nav_current_goal"
-        android:icon="@drawable/ic_launcher"
-        android:title="@string/app_name"/>
-
-    <item android:id="@+id/nav_missed_goals"
-        android:icon="@drawable/ic_launcher"
-        android:title="@string/app_name"/>
-
-    <item android:id="@+id/nav_achievements"
-        android:icon="@drawable/ic_launcher"
-        android:title="@string/app_name"/>
-=======
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
  <item
      android:id="@+id/nav_today"
      android:icon="@drawable/ic_today_black_24dp"
@@ -30,6 +14,4 @@
      android:id="@+id/nav_medbox"
      android:icon="@drawable/ic_assignment_black_24dp"
      android:title="@string/all_medicines"/>
->>>>>>> d6a96054b745b669bff2ba9cee908dfe4e7031a5
-
 </menu>
