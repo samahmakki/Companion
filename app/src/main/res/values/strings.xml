@@ -38,5 +38,6 @@
     <string name="currentBills">الفواتير الحالية</string>
     <string name="missedBills">الفواتير الفائتة</string>
     <string name="finishedBills">الفواتير المنتهية</string>
+    <string name="empty_state">لا توجد فواتير</string>
 
 </resources>

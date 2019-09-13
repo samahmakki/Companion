@@ -18,6 +18,10 @@ import android.view.View;
 import android.widget.Button;
 import android.support.design.widget.BottomNavigationView;
 
+import com.samahmakki.companion.fragments.CurrentBillsFragment;
+import com.samahmakki.companion.fragments.FinishedBillsFragment;
+import com.samahmakki.companion.fragments.MissedBillsFragment;
+
 
 public class BillsActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
 
@@ -67,7 +71,7 @@ public class BillsActivity extends AppCompatActivity implements BottomNavigation
                 goalActivityNumber = 2;
                 break;
             case R.id.nav_finished:
-                selectedFragment = new FinishedBillsfragment();
+                selectedFragment = new FinishedBillsFragment();
                 goalActivityNumber = 3;
                 break;
         }

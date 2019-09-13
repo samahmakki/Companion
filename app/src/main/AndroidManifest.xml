@@ -71,9 +71,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.samahmakki.companion.BillsActivity" />
         </activity>
-        <activity android:name=".fragments.CurrentBillsFragment" />
         <activity android:name=".fragments.MissedBillsFragment" />
-        <activity android:name=".fragments.FinishedBillsFragment"></activity>
+        <activity android:name=".fragments.FinishedBillsFragment" />
+        <activity android:name=".fragments.CurrentBillsFragment"></activity>
     </application>
 
 </manifest>
