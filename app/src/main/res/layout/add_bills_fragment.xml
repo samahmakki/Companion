@@ -4,13 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    tools:context=".AddBillActivity">
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#EEEEEE"
+        android:layout_height="wrap_content"
+        android:background="#e4e4e4"
         android:orientation="vertical">
 
         <LinearLayout
@@ -30,14 +29,16 @@
                 android:layout_marginBottom="8dp"
                 android:text="اسم الفاتورة"
                 android:textAppearance="?android:textAppearanceLarge"
-                android:textColor="@color/colorPrimaryDark" />
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold"/>
 
             <AutoCompleteTextView
                 android:id="@+id/bill_autocomplete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:textAppearanceMedium"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:inputType="text"/>
 
         </LinearLayout>
 
@@ -103,7 +104,7 @@
                     android:id="@+id/reminder_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="2019-9-9"
+                    android:hint="اختر التاريخ"
                     android:textAppearance="?android:textAppearanceMedium"
                     android:textColor="@color/colorPrimaryDark"
                     android:textColorHint="@color/colorPrimary" />

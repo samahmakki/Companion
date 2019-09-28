@@ -8,4 +8,8 @@
     <string name="flash_light">المصباح اليدوي</string>
     <string name="switchOnCamera">افتح الاضاءة</string>
     <string name="flashlight">المصباح اليدوي</string>
+    <string name="Update">تعديل</string>
+    <string name="Delete">حذف</string>
+    <string name="Choose_an_action">اختر اجراء</string>
+
 </resources>
