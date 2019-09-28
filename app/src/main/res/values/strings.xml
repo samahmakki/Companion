@@ -7,11 +7,11 @@
     <string name="flashlight">المصباح اليدوي</string>
     <string name="add_bill_button">إضافة فاتورة</string>
     <string name="add_bill">أضف فاتورة</string>
-
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
     <string name="billName_is_required">يجب اختيار اسم الفاتورة</string>
     <string name="date_is_required">يجب ادخال الناريخ</string>
     <string name="time_is_required">يجب ادخال الوقت</string>
-
     <string name="Quit">هل أنت متأكد انك تريد الخروج؟</string>
     <string name="Rate_app">تقييم التطبيق</string>
     <string name="Yes">نعم</string>
@@ -19,25 +19,63 @@
     <string name="switchOnCamera">افتح المصباح اليدوي</string>
     <string name="flash_light">المصباح اليدوي</string>
     <string name="magnifier_glass">العدسة المكبرة</string>
-    <string name="today">Today</string>
-    <string name="add_medicine">add medicine</string>
-    <string name="all_medicines">all medicines</string>
-    <string name="title_activity_bills">bills</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-    <string name="title_activity_medications">medications</string>
-    <string name="dd_mm_yyyy">DD,,MM,,YYYY</string>
-    <string name="medicine_shape">نوع الدواء</string>
+    <string name="today">اليوم</string>
+    <string name="add_medicine">إضافة دواء</string>
+    <string name="all_medicines">جميع الأدوية</string>
+    <string name="title_activity_bills">الفواتير</string>
+    <string name="title_home">الصفحة الرئيسية</string>
+    <string name="title_dashboard" translatable="false">Dashboard</string>
+    <string name="title_activity_medications">الأدوية</string>
+    <string name="dd_mm_yyyy" translatable="false">DD,,MM,,YYYY</string>
     <string name="enter_medicine_name">ادخل اسم الدواء</string>
     <string name="medicine_name">اسم الدواء</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
     <string name="currentBills">الفواتير الحالية</string>
     <string name="missedBills">الفواتير الفائتة</string>
     <string name="finishedBills">الفواتير المنتهية</string>
     <string name="empty_state">لا توجد فواتير</string>
+    <string name="set">ضبط</string>
+    <string name="date_of_day">تاريخ اليوم</string>
+    <string name="capture_medicine_picture">صورة علبة الدواء</string>
+    <string name="medname">medName</string>
+    <string name="date">التاريخ</string>
+    <string name="title_activity_nav__drawer">Nav_Drawer</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+    <string name="action_example" translatable="false">Example action</string>
+    <string name="action_settings">الإعدادات</string>
+    <string name="night_mode">تشغيل الوضع الليلي</string>
+    <string name="title_activity_main" translatable="false">MainActivity</string>
+    <string name="language">اللغة</string>
+    <string name="choose_country">اختر الدولة</string>
+    <string name="settings">الضبط</string>
+    <string name="share_app">شارك التطبيق</string>
+    <string name="rate_app">التقييم</string>
+    <string name="exit">خروج</string>
+    <string name="social">وسائل التواصل</string>
+    <string name="title_notifications">الإشعارات</string>
+    <string name="open_calendar">افتح التقويم</string>
+    <string name="capture_pic">التقط صورة للدواء</string>
+    <string name="new_medicine">إضافة دواء جديد</string>
+    <string name="select_time">اختر الوقت</string>
+    <string name="added_succefully">تمت الإضافة بنجاح</string>
+    <string name="choose_start_time">وقت البدء</string>
+    <string name="choosee_start_time">اختر وقت البدء</string>
+    <string name="reminders">التذكير</string>
+    <string name="select_frequency">اختر مرات التكرار</string>
+    <string name="once_daily">مرة يومياً (كل 24 ساعة)</string>
+    <string name="twice_daily">مرتين في اليوم (كل 12 ساعة)</string>
+    <string name="three_times_daily">3 مرات باليوم (كل 8 ساعات)</string>
+    <string name="four_times_daily">اربع مرات باليوم (كل 6 ساعة)</string>
+    <string name="select_period_of_medication">اختر مدة اخذ العلاج</string>
+    <string name="period">المدة</string>
+    <string name="Forever">دائماً</string>
+    <string name="for_two_weeks">لمدة اسبوعين</string>
+    <string name="for_ten_days">لمدة عشر ايام</string>
+    <string name="for_a_week">لمدة اسبوع</string>
+    <string name="medicine_image">medicine image</string>
+    <string name="medication_for_today">أدوية هذا اليوم</string>
+    <string name="edit_photo">تعديل الصورة</string>
+    <string name="done">تم</string>
 
 </resources>

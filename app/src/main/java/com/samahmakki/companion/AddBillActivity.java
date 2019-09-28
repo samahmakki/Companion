@@ -23,7 +23,7 @@ import com.kd.dynamic.calendar.generator.ImageGenerator;
 
 public class AddBillActivity extends AppCompatActivity {
 
-    String[] bills = {"فاتورة كهرباء", "فاتورة مياة", "فاتورة غاز", "فاتورة انترنت", "فاتورة تليفون"};
+    String[] bills = {"فاتورة كهرباء", "فاتورة مياه", "فاتورة غاز", "فاتورة انترنت", "فاتورة تليفون"};
 
     AutoCompleteTextView billAutoCompleteTextView;
     String completeText;

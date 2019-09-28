@@ -4,10 +4,17 @@
     package="com.samahmakki.companion">
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name = "android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
 
     <uses-feature android:name="android.hardware.camera" />
 
     <application
+
         android:allowBackup="true"
         android:fullBackupContent="false"
         android:icon="@mipmap/ic_launcher"
@@ -16,20 +23,24 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".MainActivity">
+
+        <activity android:name=".MainActivity"
+            android:theme = "@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".MedicationActivity"
             android:label="@string/medications"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.samahmakki.companion.MainActivity" />
+                android:value="com.samahmakki.companion.MainActivity"
+                />
         </activity>
         <activity
             android:name=".BillsActivity"
@@ -71,9 +82,19 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.samahmakki.companion.BillsActivity" />
         </activity>
-        <activity android:name=".fragments.MissedBillsFragment" />
-        <activity android:name=".fragments.FinishedBillsFragment" />
-        <activity android:name=".fragments.CurrentBillsFragment"></activity>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.Rafeeq.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <service android:name=".ShakeDetectionService" />
+
     </application>
 
 </manifest>

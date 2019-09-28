@@ -36,61 +36,11 @@ public class CurrentBillsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        loadLocale();//load language setting
-
-        View rootView = inflater.inflate(R.layout.current_goals_fragment, container, false);
 
 
-        return rootView;
-    }
+return currentListView;
 
-    @Override
-    public void onViewCreated(final View rootView, @Nullable Bundle savedInstanceState) {
-        currentListView = rootView.findViewById(R.id.current_goal_list);
-        emptyView = rootView.findViewById(R.id.empty_view);
 
-        Calendar calendar = Calendar.getInstance();
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        int month = calendar.get(Calendar.MONTH);
-        int year = calendar.get(Calendar.YEAR);
-        month = month + 1;
+    }}
 
-        currentDate = year + "-" + month + "-" + day;
 
-        currentListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, final View view, int position, final long id) {
-
-                final PopupMenu popupMenu = new PopupMenu(rootView.getContext(), view);
-                popupMenu.inflate(R.menu.pop_up_menu);
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        selectedItem = item.getItemId();
-                        if (selectedItem == R.id.update) {
-                            updateGoal = "1";
-                            updateTask = "1";
-                            goalActivityNumber = 1;
-                            Intent intent = new Intent(rootView.getContext(), GoalActivity.class);
-                            intent.putExtra("goalId", id);
-                            intent.putExtra("updateGoal", updateGoal);
-                            intent.putExtra("goalActivity", goalActivityNumber);
-                            startActivity(intent);
-
-                        } else if (selectedItem == R.id.delete) {
-                            helper.deleteGoal(id);
-                            Cursor cursor1 = updateUi();
-                            adapter = new GoalAdapter(getContext(), cursor1);
-                            currentListView.setAdapter(adapter);
-                        }
-                        return true;
-                    }
-                });
-                popupMenu.show();
-                return true;
-            }
-        });
-        currentListView.setAdapter(adapter);
-    }
-
-    }

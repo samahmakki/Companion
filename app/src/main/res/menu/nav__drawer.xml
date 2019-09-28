@@ -1,0 +1,57 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.samahmakki.companion.Nav_Drawer"
+    tools:showIn="navigation_view">
+
+
+    <item
+        android:icon="@drawable/ic_setting"
+        android:title="@string/settings">
+        <menu>
+
+            <item
+                android:id="@+id/night"
+                android:icon="@drawable/ic_night"
+                android:title="@string/night_mode" />
+
+
+            <item
+                android:id="@+id/lang"
+                android:icon="@drawable/ic_language"
+                android:title="@string/language" />
+
+            <item
+                android:id="@+id/country"
+                android:icon="@drawable/ic_contry"
+                android:title="@string/choose_country" />
+
+        </menu>
+
+
+    </item>
+
+
+    <item android:title="@string/social">
+        <menu>
+            <item
+                android:id="@+id/share"
+                android:icon="@drawable/ic_share"
+                android:title="@string/share_app" />
+
+            <item
+                android:id="@+id/rate"
+                android:icon="@drawable/ic_stars"
+                android:title="@string/rate_app" />
+        </menu>
+    </item>
+
+
+    <group android:checkableBehavior="all">
+        <item
+            android:id="@+id/exit"
+            android:icon="@drawable/ic_exit"
+            android:title="@string/exit" />
+    </group>
+
+
+</menu>
