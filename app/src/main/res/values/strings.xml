@@ -30,9 +30,15 @@
     <string name="enter_medicine_name">ادخل اسم الدواء</string>
     <string name="medicine_name">اسم الدواء</string>
     <string name="currentBills">الفواتير الحالية</string>
-    <string name="missedBills">الفواتير الفائتة</string>
-    <string name="finishedBills">الفواتير المنتهية</string>
+    <string name="addBill">إضافة فاتورة</string>
+    <string name="allBills">جميع الفواتير</string>
     <string name="empty_state">لا توجد فواتير</string>
+    <string name="Description">وصف</string>
+    <string name="missedBills">الفواتير الفائتة</string>
+    <string name="finishedBills">الفواتير المدفوعة</string>
+    <string name="Update">تعديل</string>
+    <string name="Delete">حذف</string>
+    <string name="Choose_an_action">اختر منهما</string>
     <string name="set">ضبط</string>
     <string name="date_of_day">تاريخ اليوم</string>
     <string name="capture_medicine_picture">صورة علبة الدواء</string>
@@ -80,7 +86,7 @@
     <string name="set_alarm">ضبط التنبيه</string>
     <string name="choose_start_day">اختر يوم البدء</string>
     <string name="ok">OK</string>
-    <string name="title_msg">Time to take medicine</string>
+    <string name="title_msg">حان وقت الدواء</string>
     <string name="titlee">title</string>
     <string name="title">title</string>
     <string name="titttle">title</string>

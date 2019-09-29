@@ -69,10 +69,24 @@
     <string name="for_a_week">For Week</string>
     <string name="medicine_image">Medicine Image</string>
     <string name="medication_for_today">Medication For Today</string>
-
+    <string name="addBill">Add Bill</string>
+    <string name="allBills">All Bills</string>
+    <string name="Description">وصف</string>
+    <string name="Update">تعديل</string>
+    <string name="Delete">حذف</string>
+    <string name="Choose_an_action">اختر منهما</string>
     <string name="edit_photo">Change Phaoto</string>
     <string name="done">Done</string>
     <string name="set_alarm">Set Alarm</string>
     <string name="choose_start_day">Choose Start Day</string>
+    <string name="ok">OK</string>
+    <string name="title_msg">Time to take medicine</string>
+    <string name="titlee">title</string>
+    <string name="title">title</string>
+    <string name="titttle">title</string>
+    <string name="alert_content">Alert content</string>
+    <string name="hour_minutes">HH:mm</string>
+    <string name="dateformate">dd/MM/yyyy</string>
+    <string name="time">Time</string>
 
 </resources>

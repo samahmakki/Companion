@@ -21,9 +21,6 @@ import java.util.Objects;
 
 public class MedicationActivity extends AppCompatActivity {
 
-
-
-
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {

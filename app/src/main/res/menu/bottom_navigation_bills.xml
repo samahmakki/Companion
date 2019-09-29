@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
  <item
      android:id="@+id/nav_current"
-     android:icon="@drawable/ic_current_bills"
-     android:title="@string/currentBills"/>
+     android:icon="@drawable/ic_playlist_play_black_24dp"
+     android:title="@string/currentBills" />
  <item
-     android:id="@+id/nav_missed"
-     android:icon="@drawable/ic_missed_bills"
-     android:title="@string/missedBills" />
+     android:id="@+id/nav_addBill"
+     android:icon="@drawable/ic_playlist_add_black_24dp"
+     android:title="@string/addBill" />
 
  <item
-     android:id="@+id/nav_finished"
-     android:icon="@drawable/ic_finished_bills"
-     android:title="@string/finishedBills"/>
+     android:id="@+id/nav_allBills"
+     android:icon="@drawable/ic_format_list_numbered_black_24dp"
+     android:title="@string/allBills"/>
 </menu>

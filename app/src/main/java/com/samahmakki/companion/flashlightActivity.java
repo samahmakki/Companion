@@ -32,11 +32,11 @@ public class flashlightActivity extends AppCompatActivity  {
     }
 
     public void toggle(View view) throws CameraAccessException {
-        if (tvopen.getText().equals("افتح المصباح اليدوي")) {
-            tvopen.setText("اغلق المصباح اليدوي");
+        if (tvopen.getText().equals("Ø§ÙØªØ­ Ø§Ù„Ù…ØµØ¨Ø§Ø­ Ø§Ù„ÙŠØ¯ÙˆÙŠ")) {
+            tvopen.setText("Ø§ØºÙ„Ù‚ Ø§Ù„Ù…ØµØ¨Ø§Ø­ Ø§Ù„ÙŠØ¯ÙˆÙŠ");
             toggleLED("on");
         } else {
-            tvopen.setText("افتح المصباح اليدوي");
+            tvopen.setText("Ø§ÙØªØ­ Ø§Ù„Ù…ØµØ¨Ø§Ø­ Ø§Ù„ÙŠØ¯ÙˆÙŠ");
             toggleLED("off");
 
         }

@@ -70,14 +70,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.samahmakki.companion.MainActivity" />
         </activity>
-        <activity
-            android:name=".AddBillActivity"
-            android:label="@string/add_bill_button"
-            android:parentActivityName=".BillsActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.samahmakki.companion.BillsActivity" />
-        </activity>
+        <activity android:name=".DisplayBillScreen" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -91,7 +84,8 @@
 
         <service android:name=".ShakeDetectionService" />
 
-        <activity android:name=".Alert"></activity>
+        <activity android:name=".Alert" />
+        <activity android:name=".UpdateBillActivity" />
     </application>
 
 </manifest>

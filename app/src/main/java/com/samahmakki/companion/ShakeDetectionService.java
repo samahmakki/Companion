@@ -14,17 +14,17 @@ import android.os.Vibrator;
 
 public class ShakeDetectionService extends Service implements SensorEventListener {
 
-public  static final int Min_Time_Between_Shake = 3000;
-SensorManager sensorManager = null;
-Vibrator vibrator = null;
-private long lastShakeTime = 0;
-private boolean isFlashLightOn = false;
-public static final Float shakeThreshold = 10.25f;
-Utility utility;
+    public  static final int Min_Time_Between_Shake = 1000;
+    SensorManager sensorManager = null;
+    Vibrator vibrator = null;
+    private long lastShakeTime = 0;
+    private boolean isFlashLightOn = false;
+    public static final Float shakeThreshold = 10.25f;
+    Utility utility;
 
 
 
-public  ShakeDetectionService(){}
+    public  ShakeDetectionService(){}
 
     @Override
     public void onCreate() {
@@ -51,34 +51,34 @@ public  ShakeDetectionService(){}
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-    if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
-        long curTime = System.currentTimeMillis();
-        if((curTime - lastShakeTime)> Min_Time_Between_Shake) {
-            float x = event.values[0];
-            float y = event.values[1];
-            float z = event.values[2];
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
+            long curTime = System.currentTimeMillis();
+            if((curTime - lastShakeTime)> Min_Time_Between_Shake) {
+                float x = event.values[0];
+                float y = event.values[1];
+                float z = event.values[2];
 
-            double acceleration = Math.sqrt(Math.pow(x,2)+Math.pow(y,2)+Math.pow(z,2))-SensorManager.GRAVITY_EARTH;
-             if (acceleration > shakeThreshold){
-                 lastShakeTime = curTime;
-                 if (!isFlashLightOn){
-                     try {
-                         isFlashLightOn= utility.torchToggle("on");
-                     } catch ( @SuppressLint("NewApi") CameraAccessException e) {
-                         e.printStackTrace();
-                     }
+                double acceleration = Math.sqrt(Math.pow(x,2)+Math.pow(y,2)+Math.pow(z,2))-SensorManager.GRAVITY_EARTH;
+                if (acceleration > shakeThreshold){
+                    lastShakeTime = curTime;
+                    if (!isFlashLightOn){
+                        try {
+                            isFlashLightOn= utility.torchToggle("on");
+                        } catch ( @SuppressLint("NewApi") CameraAccessException e) {
+                            e.printStackTrace();
+                        }
 
-                 }
-                 else {
-                     try {
-                         isFlashLightOn = utility.torchToggle("off");
-                     } catch (@SuppressLint("NewApi") CameraAccessException e) {
-                         e.printStackTrace();
-                     }
-                 }
-             }
+                    }
+                    else {
+                        try {
+                            isFlashLightOn = utility.torchToggle("off");
+                        } catch (@SuppressLint("NewApi") CameraAccessException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
 
-        }
+            }
         }
     }
 
