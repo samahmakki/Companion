@@ -12,7 +12,7 @@ import com.samahmakki.companion.data.BillContract.BillEntry;
 
 public class BillDbHelper extends SQLiteOpenHelper {
     //DataBase Name
-    private static final String DATABASE_NAME = "bills.db";
+    private static final String DATABASE_NAME = "BILLS";
     //DataBase Version
     private static final int DATABASE_VERSION = 1;
 
@@ -22,14 +22,15 @@ public class BillDbHelper extends SQLiteOpenHelper {
     String SQL_CREATE_BILLS_TABLE = "CREATE TABLE " + BillEntry.TABLE_NAME + " ("
             + BillEntry._Id + " INTEGER  PRIMARY KEY  AUTOINCREMENT , "
             + BillEntry.COLUMN_Bill_Name + " TEXT NOT NULL, "
-            + BillEntry.COLUMN_Bill_TIME + " TIME NOT NULL, "
-            + BillEntry.COLUMN_Bill_DATE + " DATE NOT NULL, "
+            + BillEntry.COLUMN_Bill_TIME + " TEXT NOT NULL, "
+            + BillEntry.COLUMN_Bill_DATE + " TEXT NOT NULL, "
             + BillEntry.COLUMN_Bill_REMINDER_DAYS + " INTEGER NOT NULL);";
 
     //Constructor
     public BillDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_BILLS_TABLE);
@@ -64,6 +65,10 @@ public class BillDbHelper extends SQLiteOpenHelper {
                 */
     }
 
+    public void queryData(String sql) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL(sql);
+    }
 
 
 
@@ -76,18 +81,66 @@ public class BillDbHelper extends SQLiteOpenHelper {
         statement.execute();
         db.close();
     }
+
+    public Cursor getData(String sql) {
+        SQLiteDatabase db = getReadableDatabase();
+        return db.rawQuery(sql, null);
+    }
+
     //get all data from database
 
     public Cursor getData() {
-        SQLiteDatabase db = getReadableDatabase();
-        return db.query(
-                BillEntry.TABLE_NAME,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null);
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + BillEntry.TABLE_NAME;
+        Cursor data = db.rawQuery(query, null);
+        return data;
+    }
+
+    public Cursor getItemID(String name){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT " + BillEntry._Id + " FROM " + BillEntry.TABLE_NAME +
+                " WHERE " + BillEntry.COLUMN_Bill_Name + " = '" + name + "'";
+        Cursor data = db.rawQuery(query, null);
+        return data;
+    }
+
+    public Cursor getItemID2(String name, String time, String date){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT " + BillEntry._Id + " FROM " + BillEntry.TABLE_NAME +
+                " WHERE " + BillEntry.COLUMN_Bill_Name + " = '" + name + "'" +
+                " AND " + BillEntry.COLUMN_Bill_TIME + " = '" + time + "'" +
+                " AND " + BillEntry.COLUMN_Bill_DATE + " = '" + date + "'";
+        Cursor data = db.rawQuery(query, null);
+        return data;
+    }
+
+    public void updateName(String newName, int id, String oldName){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "UPDATE " + BillEntry.TABLE_NAME + " SET " + BillEntry.COLUMN_Bill_Name +
+                " = '" + newName + "' WHERE " + BillEntry._Id + " = '" + id + "'" +
+                " AND " + BillEntry.COLUMN_Bill_Name + " = '" + oldName + "'";
+        db.execSQL(query);
+    }
+
+    public void updateName(String newName, int id, String oldName, String newTime, String oldTime, String newDate, String oldDate){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "UPDATE " + BillEntry.TABLE_NAME + " SET " + BillEntry.COLUMN_Bill_Name +
+                " = '" + newName +  "' , " + BillEntry.COLUMN_Bill_TIME + " = '" + newTime + "'" +
+                " , " + BillEntry.COLUMN_Bill_DATE + " = '" + newDate + "'" +
+                " WHERE " + BillEntry._Id + " = '" + id + "'" +
+                " AND " + BillEntry.COLUMN_Bill_Name + " = '" + oldName + "'" +
+                " AND " + BillEntry.COLUMN_Bill_TIME + " = '" + oldTime + "'" +
+                " AND " + BillEntry.COLUMN_Bill_DATE + " = '" + oldDate + "'";
+        db.execSQL(query);
+    }
+
+
+    public void deleteName(int id, String name){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "DELETE FROM " + BillEntry.TABLE_NAME + " WHERE " +
+                BillEntry._Id + " = '" + id + "'" + " AND " + BillEntry.COLUMN_Bill_Name +
+                " = '" + name + "'";
+        db.execSQL(query);
     }
 
 

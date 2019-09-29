@@ -29,7 +29,8 @@ import java.util.Calendar;
 
 public class AddBillsFragment extends Fragment {
 
-    String[] bills = {"فاتورة كهرباء", "فاتورة مياة", "فاتورة غاز", "فاتورة انترنت", "فاتورة تليفون"};
+    String[] bills = {"فاتورة كهرباء", "فاتورة مياه", "فاتورة غاز", "فاتورة انترنت", "فاتورة تليفون"};
+
     AutoCompleteTextView billAutoCompleteTextView;
     String completeText;
     TextView reminderTimesTextView, reminderDateTextView;
@@ -61,8 +62,6 @@ public class AddBillsFragment extends Fragment {
         weeklyRadioButton = rootView.findViewById(R.id.weekly);
 
         saveButton = rootView.findViewById(R.id.save_button);
-        mBillHelper = new BillDbHelper(rootView.getContext());
-
 
         /*
         AutoCompleteText for bills
@@ -111,17 +110,14 @@ public class AddBillsFragment extends Fragment {
                 year = mCurrentDate.get(Calendar.YEAR);
                 month = mCurrentDate.get(Calendar.MONTH);
                 day = mCurrentDate.get(Calendar.DAY_OF_MONTH);
-                //final String abc= getAge(year, month, day);
 
                 mPickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int Year, int Month, int Day) {
                         startDate = Year + "-" + (Month + 1) + "-" + Day;
                         reminderDateTextView.setText(startDate);
-                        //  Toast.makeText(RegisterPatientActivity.this,"Your age= "+abc, Toast.LENGTH_LONG).show();
 
                         mCurrentDate.set(Year, (Month + 1), Day);
-                        //   mImageGenerator.generateDateImage(mCurrentDate, R.drawable.empty_calendar);
                     }
                 }, year, month, day);
                 mPickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
@@ -179,7 +175,13 @@ public class AddBillsFragment extends Fragment {
                 } else if (mReminderDays == "weekly") {
                     sReminderDays = 1;
                 }
+                mBillHelper = new BillDbHelper(rootView.getContext());
                 long newRowId = mBillHelper.insertBill(completeText, startTime, startDate, sReminderDays);
+                billAutoCompleteTextView.setText("");
+                reminderTimesTextView.setText("");
+                reminderDateTextView.setText("");
+                radioGroup.clearCheck();
+
 
                 if (newRowId == -1) {
                     Toast.makeText(getContext(), "إعادة إضافة الفاتورة", Toast.LENGTH_SHORT).show();

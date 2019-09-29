@@ -8,7 +8,7 @@ public final class BillContract{
     }
 
     public static final class BillEntry implements BaseColumns{
-        public static final String TABLE_NAME = "Bill";
+        public static final String TABLE_NAME = "BILLS";
 
         public final static  String _Id = BaseColumns._ID;
         public final static  String COLUMN_Bill_Name = "bill_name";
