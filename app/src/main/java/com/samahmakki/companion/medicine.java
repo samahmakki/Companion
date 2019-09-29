@@ -4,11 +4,15 @@ public class medicine {
     private String medName;
     private byte[] medimg;
     private int id;
+    private String time;
+    private String date;
 
 
-    public medicine(int id,String medName, byte[] medimg) {
+    public medicine(int id, String medName, byte[] medimg, String date, String time) {
         this.medName = medName;
         this.medimg = medimg;
+        this.date = date;
+        this.time = time;
         this.id = id;
 
     }
@@ -25,8 +29,16 @@ public class medicine {
         return medName;
     }
 
+
     public byte[] getMedimg() {
         return medimg;
+    }
+
+    public String getdate() {
+        return date;
+    }
+    public String gettime() {
+        return time;
     }
 
     //setter

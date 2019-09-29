@@ -70,5 +70,9 @@
     <string name="medicine_image">Medicine Image</string>
     <string name="medication_for_today">Medication For Today</string>
 
+    <string name="edit_photo">Change Phaoto</string>
+    <string name="done">Done</string>
+    <string name="set_alarm">Set Alarm</string>
+    <string name="choose_start_day">Choose Start Day</string>
 
 </resources>

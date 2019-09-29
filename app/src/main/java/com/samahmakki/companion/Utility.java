@@ -19,7 +19,7 @@ class Utility {
 
     boolean torchToggle(String command) throws CameraAccessException {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            CameraManager cameraManager = (CameraManager) context.getSystemService
+            CameraManager cameraManager = (CameraManager)context.getSystemService
                     (Context.CAMERA_SERVICE);
             String cameraId = null;
 
@@ -37,6 +37,10 @@ class Utility {
                     cameraManager.setTorchMode(cameraId, false);
                     isSwitchedOn = false;
                 }
+
+
+
+
             }
 
         }

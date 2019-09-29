@@ -77,5 +77,17 @@
     <string name="medication_for_today">أدوية هذا اليوم</string>
     <string name="edit_photo">تعديل الصورة</string>
     <string name="done">تم</string>
+    <string name="set_alarm">ضبط التنبيه</string>
+    <string name="choose_start_day">اختر يوم البدء</string>
+    <string name="ok">OK</string>
+    <string name="title_msg">Time to take medicine</string>
+    <string name="titlee">title</string>
+    <string name="title">title</string>
+    <string name="titttle">title</string>
+    <string name="alert_content">Alert content</string>
+    <string name="hour_minutes">HH:mm</string>
+    <string name="dateformate">dd/MM/yyyy</string>
+    <string name="time">الوقت</string>
+
 
 </resources>

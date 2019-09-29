@@ -14,13 +14,15 @@ import android.os.Vibrator;
 
 public class ShakeDetectionService extends Service implements SensorEventListener {
 
-public final int Min_Time_Between_Shake = 1000;
+public  static final int Min_Time_Between_Shake = 3000;
 SensorManager sensorManager = null;
 Vibrator vibrator = null;
 private long lastShakeTime = 0;
 private boolean isFlashLightOn = false;
-private Float shakeThreshold = 10.0f;
+public static final Float shakeThreshold = 10.25f;
 Utility utility;
+
+
 
 public  ShakeDetectionService(){}
 
@@ -28,8 +30,11 @@ public  ShakeDetectionService(){}
     public void onCreate() {
         super.onCreate();
         vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
-        sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
+        sensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
         utility = new Utility(this);
+
+
+
 
         if(sensorManager != null){
             Sensor accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -56,7 +61,7 @@ public  ShakeDetectionService(){}
             double acceleration = Math.sqrt(Math.pow(x,2)+Math.pow(y,2)+Math.pow(z,2))-SensorManager.GRAVITY_EARTH;
              if (acceleration > shakeThreshold){
                  lastShakeTime = curTime;
-                 if (isFlashLightOn){
+                 if (!isFlashLightOn){
                      try {
                          isFlashLightOn= utility.torchToggle("on");
                      } catch ( @SuppressLint("NewApi") CameraAccessException e) {

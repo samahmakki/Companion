@@ -3,6 +3,7 @@ package com.samahmakki.companion;
 import android.Manifest;
 import android.app.ActionBar;
 import android.app.AlarmManager;
+import android.app.DatePickerDialog;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
@@ -24,19 +25,29 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.io.ByteArrayOutputStream;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
 import static android.app.Activity.RESULT_OK;
@@ -47,24 +58,37 @@ public class AddmedFragment extends Fragment {
     private final static int REQUEST_IMAGE_CAPTURE = 1;
     private final static int REQUEST_CAMERA = 3;
     private final static int PERMISSION_CODE = 2;
-     public static DBHelper dbHelper;
+    public static DBHelper dbHelper;
     ImageButton btnopen;
     EditText etadd;
     Calendar currentTime;
     TextView starttime;
-String startTime;
-    int hour,minute;
+    String startTime;
+    int hour, minute;
     ImageButton btnpick;
     Bitmap bitmap;
     Button addbtn;
     Uri imageUri;
     ImageView imageView;
+    TextView etdate;
+    TextView startdate;
+    LinearLayout visiblelist;
+    CheckBox checkBox;
+    DatePicker pickerDate;
+    TimePicker pickerTime;
+
+    public static byte[] imageViewToByte(ImageView image) {
+        Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+        return byteArray;
+    }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
     }
-
 
     @Nullable
     @Override
@@ -75,19 +99,26 @@ String startTime;
         View view = inflater.inflate(R.layout.fragment_add, container, false);
 
         //VIEWS
-        android.support.v7.app.ActionBar actionBar = ((AppCompatActivity)Objects.requireNonNull(getActivity())).getSupportActionBar();
+        android.support.v7.app.ActionBar actionBar = ((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar();
         actionBar.setTitle(getString(R.string.new_medicine));
+        etdate = view.findViewById(R.id.et_Date);
 
+        visiblelist = view.findViewById(R.id.visiblelist);
         etadd = view.findViewById(R.id.addet);
         btnopen = view.findViewById(R.id.openbtn);
         imageView = view.findViewById(R.id.img);
+        checkBox = view.findViewById(R.id.chckbox);
         btnpick = view.findViewById(R.id.pickbtn);
         addbtn = view.findViewById(R.id.addmedbtn);
-        starttime =view.findViewById(R.id.start_time);
-        dbHelper = new DBHelper(getContext(),"RafeeqDB",null,1);
-         //creating table in database
-        dbHelper.queryData("CREATE TABLE IF NOT EXISTS MEDICINE (id INTEGER PRIMARY KEY AUTOINCREMENT ,name VARCHAR,image BLOB)");
-
+        final Calendar calendar = Calendar.getInstance();
+        startdate = view.findViewById(R.id.start_date);
+        final int year = calendar.get(Calendar.YEAR);
+        final int month = calendar.get(Calendar.MONTH);
+        final int day = calendar.get(Calendar.DAY_OF_MONTH);
+        starttime = view.findViewById(R.id.start_time);
+        dbHelper = new DBHelper(getContext(), "RafeeqDB", null, 1);
+        //creating table in database
+        dbHelper.queryData("CREATE TABLE IF NOT EXISTS MEDICINE (id INTEGER PRIMARY KEY AUTOINCREMENT ,name VARCHAR,image BLOB,date VARCHAR,time VARCHAR)");
 
 
         starttime.setOnClickListener(new View.OnClickListener() {
@@ -110,9 +141,6 @@ String startTime;
                 mTimePicker.show();
             }
         });
-
-
-
 
 
         //capture picture by camera
@@ -143,9 +171,21 @@ String startTime;
                 }
             }
         });
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    visiblelist.setVisibility(View.VISIBLE);
+                    alarmSet();
+
+                } else {
+                    visiblelist.setVisibility(View.GONE);
+                }
+            }
+        });
 
 
-         // pick image from gallery
+        // pick image from gallery
 
         btnpick.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,35 +209,119 @@ String startTime;
 
 
         //add to sqlite
-      addbtn.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
-            try{  dbHelper.insertData(etadd.getText().toString().trim(),
-                      imageViewToByte(imageView)
+        addbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    dbHelper.insertData(etadd.getText().toString().trim(),
+                            imageViewToByte(imageView),
+                            startdate.getText().toString().trim(),
+                            starttime.getText().toString().trim()
 
-              );
-              Toast.makeText(getContext(),getString(R.string.added_succefully),Toast.LENGTH_SHORT).show();
 
-              //Reset views
-               etadd.setText("");
-               imageView.setImageResource(R.drawable.add_new_photo);
-          }
-          catch (Exception e){
-              e.printStackTrace();
-          }}
-      });
+                    );
+                    Toast.makeText(getContext(), getString(R.string.added_succefully), Toast.LENGTH_SHORT).show();
+
+                    //Reset views
+                    etadd.setText("");
+                    imageView.setImageResource(R.drawable.add_new_photo);
+                    startdate.setText("");
+                    starttime.setText("");
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        startdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(Objects.requireNonNull(getActivity()), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int day) {
+                        month = month + 1;
+                        String date = day + "/" + month + "/" + year;
+                        startdate.setText(date);
+
+
+                    }
+                }, year, month, day);
+                datePickerDialog.show();
+            }
+        });
 
 
         return view;
 
 
     }
-    public static byte[] imageViewToByte(ImageView image) {
-        Bitmap bitmap = ((BitmapDrawable)image.getDrawable()).getBitmap();
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG,100,stream);
-        byte[]byteArray = stream.toByteArray();
-        return byteArray;
+
+    //private void notificationset() {
+     //   Calendar calender = Calendar.getInstance();
+       // calender.clear();
+       // calender.set(Calendar.MONTH, pickerDate.getMonth());
+      //  calender.set(Calendar.DAY_OF_MONTH, pickerDate.getDayOfMonth());
+       // calender.set(Calendar.YEAR, pickerDate.getYear());
+       // calender.set(Calendar.HOUR, pickerTime.getCurrentHour());
+      //  calender.set(Calendar.MINUTE, pickerTime.getCurrentMinute());
+        //calender.set(Calendar.SECOND, 0);
+
+        //SimpleDateFormat formatter = new SimpleDateFormat(getString(R.string.hour_minutes));
+       // String timeString = formatter.format(new Date(calender.getTimeInMillis()));
+        //SimpleDateFormat dateformatter = new SimpleDateFormat(getString(R.string.dateformate));
+        //String dateString = dateformatter.format(new Date(calender.getTimeInMillis()));
+
+       // AlarmManager alarmMgr = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
+        //Intent intent = new Intent(getContext(), NotificationManager.class);
+        //tring alertTitle = etadd.getText().toString();
+        //intent.putExtra(getString(R.string.medicine_name), alertTitle);
+        // intent.putExtra(getString(R.string.alert_content), alertContent);
+
+        //PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), 0, intent, 0);
+        //ContentValues cv = new ContentValues();
+
+        //alarmMgr.set(AlarmManager.RTC_WAKEUP, calender.getTimeInMillis(), pendingIntent);
+        //cv.put(dbHelper.time, timeString);
+        //cv.put(dbHelper.date, dateString);
+    //}
+
+
+
+
+
+    private void alarmSet() {
+
+        Calendar calender = Calendar.getInstance();
+        calender.clear();
+        calender.set(Calendar.MONTH, pickerDate.getMonth());
+        calender.set(Calendar.DAY_OF_MONTH, pickerDate.getDayOfMonth());
+        calender.set(Calendar.YEAR, pickerDate.getYear());
+        calender.set(Calendar.HOUR, pickerTime.getCurrentHour());
+        calender.set(Calendar.MINUTE, pickerTime.getCurrentMinute());
+        calender.set(Calendar.SECOND, 0);
+
+        SimpleDateFormat formatter = new SimpleDateFormat(getString(R.string.hour_minutes));
+        String timeString = formatter.format(new Date(calender.getTimeInMillis()));
+        SimpleDateFormat dateformatter = new SimpleDateFormat(getString(R.string.dateformate));
+        String dateString = dateformatter.format(new Date(calender.getTimeInMillis()));
+
+        AlarmManager alarmMgr = (AlarmManager)getActivity().getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(getContext(), AlarmReciever.class);
+
+        String alertTitle = etadd.getText().toString();
+        intent.putExtra(getString(R.string.medicine_name), alertTitle);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), 0, intent, 0);
+        ContentValues cv = new ContentValues();
+
+        alarmMgr.set(AlarmManager.RTC_WAKEUP, calender.getTimeInMillis(), pendingIntent);
+        cv.put(DBHelper.time, timeString);
+        cv.put(DBHelper.date, dateString);
+
+
     }
 
     private void openCamera() {
@@ -212,22 +336,21 @@ String startTime;
 
     }
 
-   // public void createNotification() {
-     //   Intent myIntent = new Intent(Objects.requireNonNull(getActivity()).getApplicationContext() , NotifyService. class ) ;
-      //  AlarmManager alarmManager = (AlarmManager)getActivity().getSystemService(ALARM_SERVICE);
-      //  PendingIntent pendingIntent = PendingIntent. getService ( getContext(), 0 , myIntent , 0 ) ;
-       // Calendar calendar = Calendar. getInstance () ;
-       // calendar.set(Calendar. SECOND , 0 ) ;
-       // calendar.set(Calendar. MINUTE , 0 ) ;
-      //  calendar.set(Calendar. HOUR , 0 ) ;
-        //calendar.set(Calendar. AM_PM , Calendar. AM ) ;
-      //  calendar.add(Calendar. DAY_OF_MONTH , 1 ) ;
-      //  alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-       //         SystemClock.elapsedRealtime() +
-       //                 60 * 1000, pendingIntent);
-       // alarmManager.setRepeating(AlarmManager. RTC_WAKEUP , calendar.getTimeInMillis() , 1000 * 60 * 60 * 24 , pendingIntent) ;
-   // }
-
+    // public void createNotification() {
+    //   Intent myIntent = new Intent(Objects.requireNonNull(getActivity()).getApplicationContext() , NotifyService. class ) ;
+    //  AlarmManager alarmManager = (AlarmManager)getActivity().getSystemService(ALARM_SERVICE);
+    //  PendingIntent pendingIntent = PendingIntent. getService ( getContext(), 0 , myIntent , 0 ) ;
+    // Calendar calendar = Calendar. getInstance () ;
+    // calendar.set(Calendar. SECOND , 0 ) ;
+    // calendar.set(Calendar. MINUTE , 0 ) ;
+    //  calendar.set(Calendar. HOUR , 0 ) ;
+    //calendar.set(Calendar. AM_PM , Calendar. AM ) ;
+    //  calendar.add(Calendar. DAY_OF_MONTH , 1 ) ;
+    //  alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+    //         SystemClock.elapsedRealtime() +
+    //                 60 * 1000, pendingIntent);
+    // alarmManager.setRepeating(AlarmManager. RTC_WAKEUP , calendar.getTimeInMillis() , 1000 * 60 * 60 * 24 , pendingIntent) ;
+    // }
 
 
     private void pickImageFromGallery() {
@@ -236,6 +359,7 @@ String startTime;
         intent.setType("image/*");
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), REQUEST_IMAGE_CAPTURE);
     }
+
     public String con(int time) {
         if (time >= 10) {
             return String.valueOf(time);
