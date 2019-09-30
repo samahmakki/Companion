@@ -49,12 +49,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-loadLocale();        setContentView(R.layout.activity_main);
+          loadLocale();
+          setContentView(R.layout.activity_main);
         drawer = findViewById(R.id.drawer_layout);
         medicationLayout = findViewById(R.id.medication);
         billsLayout = findViewById(R.id.bills);
-        magnifierLayout = findViewById(R.id.magnifier);
-        activitiesLayout = findViewById(R.id.activities);
         flashlightLayout = findViewById(R.id.flashlight);
         //Navigation drawer
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -96,23 +95,6 @@ loadLocale();        setContentView(R.layout.activity_main);
             }
         });
 
-        magnifierLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent magnifierIntent = new Intent(MainActivity.this, MagnifierActivity.class);
-                startActivity(magnifierIntent);
-            }
-        });
-
-        activitiesLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent activitiesIntent = new Intent(MainActivity.this, ActivitiesActivity.class);
-                startActivity(activitiesIntent);
-            }
-        });
-
-
         flashlightLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -128,12 +110,6 @@ loadLocale();        setContentView(R.layout.activity_main);
 
 
     //}
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.nav__drawer, menu);
-        return true;
-    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -243,12 +219,12 @@ loadLocale();        setContentView(R.layout.activity_main);
                     recreate();
                     Toast.makeText(MainActivity.this, "English Language Selected", Toast.LENGTH_LONG).show();
                 }
-                //dismiss Alert dialog when language selected
+                //dismiss BillAlert dialog when language selected
               dialog.dismiss();
             }
         });
         AlertDialog mDialog = mBuilder.create();
-        //show Alert Dialog
+        //show BillAlert Dialog
         mDialog.show();
     }
 

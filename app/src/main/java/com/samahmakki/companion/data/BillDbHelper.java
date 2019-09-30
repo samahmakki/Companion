@@ -14,7 +14,7 @@ public class BillDbHelper extends SQLiteOpenHelper {
     //DataBase Name
     private static final String DATABASE_NAME = "BILLS";
     //DataBase Version
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     SQLiteDatabase db;
 
@@ -23,8 +23,7 @@ public class BillDbHelper extends SQLiteOpenHelper {
             + BillEntry._Id + " INTEGER  PRIMARY KEY  AUTOINCREMENT , "
             + BillEntry.COLUMN_Bill_Name + " TEXT NOT NULL, "
             + BillEntry.COLUMN_Bill_TIME + " TEXT NOT NULL, "
-            + BillEntry.COLUMN_Bill_DATE + " TEXT NOT NULL, "
-            + BillEntry.COLUMN_Bill_REMINDER_DAYS + " INTEGER NOT NULL);";
+            + BillEntry.COLUMN_Bill_DATE + " TEXT NOT NULL);";
 
     //Constructor
     public BillDbHelper(Context context) {
@@ -43,7 +42,7 @@ public class BillDbHelper extends SQLiteOpenHelper {
     }
 
     //insert data into the Bills Table
-    final public long insertBill (String billName, String time, String date, int reminderDays) {
+    final public long insertBill (String billName, String time, String date) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -51,7 +50,6 @@ public class BillDbHelper extends SQLiteOpenHelper {
         values.put(BillEntry.COLUMN_Bill_Name, billName);
         values.put(BillEntry.COLUMN_Bill_TIME, time);
         values.put(BillEntry.COLUMN_Bill_DATE, date);
-        values.put(BillEntry.COLUMN_Bill_REMINDER_DAYS, reminderDays);
 
         long newRowId = db.insert(BillEntry.TABLE_NAME, null, values);
 
@@ -65,11 +63,25 @@ public class BillDbHelper extends SQLiteOpenHelper {
                 */
     }
 
-    public void queryData(String sql) {
-        SQLiteDatabase db = getWritableDatabase();
-        db.execSQL(sql);
+    public void updateName2(String newName, int id, String newTime, String newDate){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "UPDATE " + BillEntry.TABLE_NAME + " SET " + BillEntry.COLUMN_Bill_Name +
+                " = '" + newName +  "' , " + BillEntry.COLUMN_Bill_TIME + " = '" + newTime + "'" +
+                " , " + BillEntry.COLUMN_Bill_DATE + " = '" + newDate + "'" +
+                " WHERE " + BillEntry._Id + " = '" + id + "'";
+        db.execSQL(query);
     }
-
+    public void updateName(String newName, int id, String oldName, String newTime, String oldTime, String newDate, String oldDate){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "UPDATE " + BillEntry.TABLE_NAME + " SET " + BillEntry.COLUMN_Bill_Name +
+                " = '" + newName +  "' , " + BillEntry.COLUMN_Bill_TIME + " = '" + newTime + "'" +
+                " , " + BillEntry.COLUMN_Bill_DATE + " = '" + newDate + "'" +
+                " WHERE " + BillEntry._Id + " = '" + id + "'" +
+                " AND " + BillEntry.COLUMN_Bill_Name + " = '" + oldName + "'" +
+                " AND " + BillEntry.COLUMN_Bill_TIME + " = '" + oldTime + "'" +
+                " AND " + BillEntry.COLUMN_Bill_DATE + " = '" + oldDate + "'";
+        db.execSQL(query);
+    }
 
 
     //delete data
@@ -119,18 +131,6 @@ public class BillDbHelper extends SQLiteOpenHelper {
         String query = "UPDATE " + BillEntry.TABLE_NAME + " SET " + BillEntry.COLUMN_Bill_Name +
                 " = '" + newName + "' WHERE " + BillEntry._Id + " = '" + id + "'" +
                 " AND " + BillEntry.COLUMN_Bill_Name + " = '" + oldName + "'";
-        db.execSQL(query);
-    }
-
-    public void updateName(String newName, int id, String oldName, String newTime, String oldTime, String newDate, String oldDate){
-        SQLiteDatabase db = this.getWritableDatabase();
-        String query = "UPDATE " + BillEntry.TABLE_NAME + " SET " + BillEntry.COLUMN_Bill_Name +
-                " = '" + newName +  "' , " + BillEntry.COLUMN_Bill_TIME + " = '" + newTime + "'" +
-                " , " + BillEntry.COLUMN_Bill_DATE + " = '" + newDate + "'" +
-                " WHERE " + BillEntry._Id + " = '" + id + "'" +
-                " AND " + BillEntry.COLUMN_Bill_Name + " = '" + oldName + "'" +
-                " AND " + BillEntry.COLUMN_Bill_TIME + " = '" + oldTime + "'" +
-                " AND " + BillEntry.COLUMN_Bill_DATE + " = '" + oldDate + "'";
         db.execSQL(query);
     }
 

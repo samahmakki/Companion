@@ -126,21 +126,6 @@ public class AddBillsFragment extends Fragment {
             }
         });
 
-       /*
-        Radio Group
-         */
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                if (i == R.id.monthly) {
-                    mReminderDays = "monthly";
-                } else if (i == R.id.weekly) {
-                    mReminderDays = "weekly";
-                }
-            }
-        });
-
-
          /*
         Save Button
          */
@@ -170,18 +155,11 @@ public class AddBillsFragment extends Fragment {
                     return;
                 }
 
-                if (mReminderDays == "monthly") {
-                    sReminderDays = 0;
-                } else if (mReminderDays == "weekly") {
-                    sReminderDays = 1;
-                }
                 mBillHelper = new BillDbHelper(rootView.getContext());
-                long newRowId = mBillHelper.insertBill(completeText, startTime, startDate, sReminderDays);
+                long newRowId = mBillHelper.insertBill(completeText, startTime, startDate);
                 billAutoCompleteTextView.setText("");
                 reminderTimesTextView.setText("");
                 reminderDateTextView.setText("");
-                radioGroup.clearCheck();
-
 
                 if (newRowId == -1) {
                     Toast.makeText(getContext(), "إعادة إضافة الفاتورة", Toast.LENGTH_SHORT).show();

@@ -3,7 +3,7 @@
  <item
      android:id="@+id/nav_current"
      android:icon="@drawable/ic_playlist_play_black_24dp"
-     android:title="@string/currentBills" />
+     android:title="أسماء الفواتير" />
  <item
      android:id="@+id/nav_addBill"
      android:icon="@drawable/ic_playlist_add_black_24dp"

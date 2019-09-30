@@ -81,5 +81,15 @@
     <string name="medication_for_today">أدوية هذا اليوم</string>
     <string name="edit_photo">تعديل الصورة</string>
     <string name="done">تم</string>
+    <string name="titttle">title</string>
+    <string name="alarmtext">Alert: </string>
+    <string name="title_msg">title</string>
+    <string name="ok">Ok</string>
+    <string name="alert_content">alert_content</string>
+    <string name="alert_title">title</string>
+    <string name="hour_minutes">HH:mm</string>
+    <string name="dateformate">dd/MM/yyyy</string>
+
+
 
 </resources>
