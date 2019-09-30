@@ -2,7 +2,10 @@ package com.samahmakki.companion;
 
 import android.app.DatePickerDialog;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,13 +18,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.HashMap;
 import java.util.Objects;
 
 public class TodayFragment extends Fragment {
 
     TextView tvdate;
-    Button etdate;
+
     FloatingActionButton mFab;
 
     @Nullable
@@ -34,7 +40,6 @@ public class TodayFragment extends Fragment {
         tvdate = view.findViewById(R.id.tv_date);
 
         mFab = view.findViewById(R.id.fab_addmed);
-
 
         //floating button to add new medicine
         mFab.setOnClickListener(new View.OnClickListener() {
@@ -59,8 +64,15 @@ public class TodayFragment extends Fragment {
 
 
 
+
+
         return view;
     }
 
 
-}
+
+
+    }
+
+
+

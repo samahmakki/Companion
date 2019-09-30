@@ -14,15 +14,13 @@ import android.os.Vibrator;
 
 public class ShakeDetectionService extends Service implements SensorEventListener {
 
-    public  static final int Min_Time_Between_Shake = 1000;
+    public final int Min_Time_Between_Shake = 1000;
     SensorManager sensorManager = null;
     Vibrator vibrator = null;
     private long lastShakeTime = 0;
     private boolean isFlashLightOn = false;
-    public static final Float shakeThreshold = 10.25f;
+    private Float shakeThreshold = 10.0f;
     Utility utility;
-
-
 
     public  ShakeDetectionService(){}
 
@@ -30,11 +28,8 @@ public class ShakeDetectionService extends Service implements SensorEventListene
     public void onCreate() {
         super.onCreate();
         vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
-        sensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
+        sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
         utility = new Utility(this);
-
-
-
 
         if(sensorManager != null){
             Sensor accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);

@@ -5,21 +5,21 @@ import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraManager;
 import android.os.Build;
 
-class Utility {
+public class Utility {
 
-    private boolean isSwitchedOn = false;
+    public boolean isSwitchedOn = false;
     Context context;
 
-    Utility(Context context) {
+    public Utility(Context context) {
         this.context = context;
 
 
     }
 
 
-    boolean torchToggle(String command) throws CameraAccessException {
+     boolean torchToggle(String command) throws CameraAccessException {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            CameraManager cameraManager = (CameraManager)context.getSystemService
+            CameraManager cameraManager = (CameraManager) context.getSystemService
                     (Context.CAMERA_SERVICE);
             String cameraId = null;
 
@@ -37,10 +37,6 @@ class Utility {
                     cameraManager.setTorchMode(cameraId, false);
                     isSwitchedOn = false;
                 }
-
-
-
-
             }
 
         }

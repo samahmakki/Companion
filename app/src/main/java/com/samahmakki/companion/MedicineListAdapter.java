@@ -51,8 +51,7 @@ public class MedicineListAdapter extends BaseAdapter {
             row = inflater.inflate(layout, null);
             holder.txtName = row.findViewById(R.id.med_name);
             holder.imageView = row.findViewById(R.id.med_img);
-            holder.time = row.findViewById(R.id.time);
-            holder.date = row.findViewById(R.id.date);
+
 
 
             row.setTag(holder);
@@ -65,8 +64,7 @@ public class MedicineListAdapter extends BaseAdapter {
         byte[] medimage = med.getMedimg();
         Bitmap bitmap = BitmapFactory.decodeByteArray(medimage, 0, medimage.length);
         holder.imageView.setImageBitmap(bitmap);
-        holder.date.setText(med.getdate());
-        holder.time.setText(med.gettime());
+
 
 
 
@@ -76,7 +74,6 @@ public class MedicineListAdapter extends BaseAdapter {
     private class ViewHolder {
         ImageView imageView;
         TextView txtName;
-        TextView time;
-        TextView date;
+
     }
 }

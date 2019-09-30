@@ -94,6 +94,11 @@
     <string name="hour_minutes">HH:mm</string>
     <string name="dateformate">dd/MM/yyyy</string>
     <string name="time">الوقت</string>
+    <string name="switchoffflash">غلق المصباح اليدوي</string>
+    <string name="about">عن التطبيق</string>
+    <string name="rafeeq_app">تطبيق رفيق ..تجد به كل ما تحتاجه</string>
+    <string name="add_advertise">ضع إعلانك هنا</string>
+    <string name="copyright">حقوق الحفظ خاصة ب\"إس آر ديف\"</string>
 
 
 </resources>

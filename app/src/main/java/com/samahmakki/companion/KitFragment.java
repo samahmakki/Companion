@@ -2,9 +2,7 @@ package com.samahmakki.companion;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -23,15 +21,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Objects;
 import static android.app.Activity.RESULT_OK;
 
@@ -41,16 +35,6 @@ public class KitFragment extends Fragment {
     MedicineListAdapter adapter = null;
     ArrayList<medicine> list;
     ImageView imgView;
-    TextView edttime;
-    TextView edtdate;
-    Calendar currentTime;
-    String startTime;
-    int hour, minute;
-    final Calendar calendar = Calendar.getInstance();
-
-    final int year = calendar.get(Calendar.YEAR);
-    final int month = calendar.get(Calendar.MONTH);
-    final int day = calendar.get(Calendar.DAY_OF_MONTH);
 
 
     @Nullable
@@ -66,10 +50,9 @@ public class KitFragment extends Fragment {
         lstmed = view.findViewById(R.id.lst_med);
         list = new ArrayList<>();
         adapter = new MedicineListAdapter(getContext(), R.layout.item_medicine, list);
+        lstmed.setAdapter(adapter);
         //get all data from SQLite
         Cursor cursor = AddmedFragment.dbHelper.getData("SELECT * FROM MEDICINE");
-        lstmed.setAdapter(adapter);
-
         list.clear();
 
 
@@ -77,10 +60,7 @@ public class KitFragment extends Fragment {
             int id = cursor.getInt(0);
             String name = cursor.getString(1);
             byte[] image = cursor.getBlob(2);
-            String date = cursor.getString(3);
-            String time = cursor.getString(4);
-
-            list.add(new medicine(id, name, image,date,time));
+            list.add(new medicine(id, name, image));
         }
         adapter.notifyDataSetChanged();
 
@@ -93,7 +73,7 @@ public class KitFragment extends Fragment {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int position, long id) {
                 CharSequence[] items = { "Update","Delete"};
-                 AlertDialog.Builder dialog = new AlertDialog.Builder((getContext()));
+                AlertDialog.Builder dialog = new AlertDialog.Builder((getContext()));
                 dialog.setTitle("Choose an action");
                 dialog.setItems(items, new DialogInterface.OnClickListener() {
                     @Override
@@ -113,14 +93,14 @@ public class KitFragment extends Fragment {
 
                         if (which == 1){
 
-                           //delete
-                           Cursor c = AddmedFragment.dbHelper.getData("SELECT id FROM MEDICINE");
-                           ArrayList<Integer> arrID = new ArrayList<>();
-                           while (c.moveToNext()) {
-                               arrID.add(c.getInt(0));
-                           }
-                           showDialogDelete(arrID.get(position));
-                       }
+                            //delete
+                            Cursor c = AddmedFragment.dbHelper.getData("SELECT id FROM MEDICINE");
+                            ArrayList<Integer> arrID = new ArrayList<>();
+                            while (c.moveToNext()) {
+                                arrID.add(c.getInt(0));
+                            }
+                            showDialogDelete(arrID.get(position));
+                        }
 
 
 
@@ -142,14 +122,14 @@ public class KitFragment extends Fragment {
         dialogDelete.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-           try {
-               AddmedFragment.dbHelper.deleteData(medicineID);
-               Toast.makeText(getContext(), "Deleted Succefully", Toast.LENGTH_SHORT).show();
-           }
-           catch (Exception e){
-               Log.e("error",e.getMessage());
-           }
-          updateMedicineList();
+                try {
+                    AddmedFragment.dbHelper.deleteData(medicineID);
+                    Toast.makeText(getContext(), "Deleted Succefully", Toast.LENGTH_SHORT).show();
+                }
+                catch (Exception e){
+                    Log.e("error",e.getMessage());
+                }
+                updateMedicineList();
 
             }
         });
@@ -157,7 +137,7 @@ public class KitFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-           dialog.dismiss();
+                dialog.dismiss();
             }
         });
         dialogDelete.show();
@@ -169,9 +149,6 @@ public class KitFragment extends Fragment {
         dialog.setTitle("Update");
         imgView = dialog.findViewById(R.id.img);
         final EditText edtName = dialog.findViewById(R.id.addet);
-        final TextView edtdate = dialog.findViewById(R.id.edtdate);
-        final TextView edttime = dialog.findViewById(R.id.edttime);
-
         Button btnUpdate = dialog.findViewById(R.id.upbtn);
         //set width of dialog
         int width = (int) (activity.getResources().getDisplayMetrics().widthPixels * 0.95);
@@ -202,46 +179,6 @@ public class KitFragment extends Fragment {
             }
         });
 
-        edtdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                DatePickerDialog datePickerDialog = new DatePickerDialog(Objects.requireNonNull(getActivity()), new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int day) {
-                        month = month + 1;
-                        String date = day + "/" + month + "/" + year;
-                        edtdate.setText(date);
-
-
-                    }
-                }, year, month, day);
-                datePickerDialog.show();
-            }
-        });
-
-        edttime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                currentTime = Calendar.getInstance();
-                hour = currentTime.get(Calendar.HOUR_OF_DAY);
-                minute = currentTime.get(Calendar.MINUTE);
-
-                TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        startTime = con(selectedHour) + ":" + con(selectedMinute);
-                        edttime.setText(startTime);
-                        // alarmStartTime = mCurrentTime.getTimeInMillis();
-                    }
-                }, hour, minute, false);//Yes 24 hour time
-                mTimePicker.setTitle(getString(R.string.select_time));
-                mTimePicker.show();
-            }
-        });
-
-
 
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -249,10 +186,7 @@ public class KitFragment extends Fragment {
                 try {
                     AddmedFragment.dbHelper.updateData(
                             edtName.getText().toString().trim(),
-                            AddmedFragment.imageViewToByte(imgView),
-                            edtdate.getText().toString().trim(),
-                            edttime.getText().toString().trim(),
-                            position
+                            AddmedFragment.imageViewToByte(imgView), position
                     );
                     dialog.dismiss();
                     Toast.makeText(Objects.requireNonNull(getActivity()).getApplicationContext(), "Updated Succefully", Toast.LENGTH_SHORT).show();
@@ -263,13 +197,7 @@ public class KitFragment extends Fragment {
             }
         });
     }
-    public String con(int time) {
-        if (time >= 10) {
-            return String.valueOf(time);
-        } else {
-            return "0" + String.valueOf(time);
-        }
-    }
+
     private void updateMedicineList() {
         //get all data from sqlite
         Cursor cursor = AddmedFragment.dbHelper.getData("SELECT * FROM MEDICINE");
@@ -279,10 +207,7 @@ public class KitFragment extends Fragment {
                 int id = cursor.getInt(0);
                 String name = cursor.getString(1);
                 byte[] image = cursor.getBlob(2);
-                String date = cursor.getString(3);
-                String time = cursor.getString(4);
-
-                list.add(new medicine(id, name, image,date,time));
+                list.add(new medicine(id, name, image));
             }
         }
         adapter.notifyDataSetChanged();

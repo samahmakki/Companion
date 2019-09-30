@@ -36,6 +36,8 @@ import java.util.Locale;
 import java.util.Objects;
 
 import io.paperdb.Paper;
+import mehdi.sakout.aboutpage.AboutPage;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     LinearLayout medicationLayout;
@@ -49,7 +51,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-loadLocale();        setContentView(R.layout.activity_main);
+        loadLocale();
+        setContentView(R.layout.activity_main);
         drawer = findViewById(R.id.drawer_layout);
         medicationLayout = findViewById(R.id.medication);
         billsLayout = findViewById(R.id.bills);
@@ -183,6 +186,10 @@ loadLocale();        setContentView(R.layout.activity_main);
         } else if (id == R.id.lang) {
             showChangeLanguageDialog();
         }
+        else if(id == R.id.about){
+
+            startActivity(new Intent(MainActivity.this,About.class));
+        }
 
 
         return true;
@@ -199,7 +206,7 @@ loadLocale();        setContentView(R.layout.activity_main);
     private void setLocale(String lang) {
 
 
-        SharedPreferences.Editor editor =getSharedPreferences("CommonPrefs",
+        SharedPreferences.Editor editor = getSharedPreferences("CommonPrefs",
                 MODE_PRIVATE).edit();
         editor.putString("Language", lang);
         editor.apply();
@@ -209,7 +216,7 @@ loadLocale();        setContentView(R.layout.activity_main);
 
     private void showChangeLanguageDialog() {
         //Array of language to display in alert dialog
-        final String[] listItems = {"English", "عربي"};
+        final String[] listItems = {"عربي", "English"};
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
         mBuilder.setTitle("Choose Language..");
         mBuilder.setSingleChoiceItems(listItems, -1, new DialogInterface.OnClickListener() {
@@ -222,7 +229,7 @@ loadLocale();        setContentView(R.layout.activity_main);
                     Configuration config = new Configuration();
                     config.locale = locale;
                     getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-                    SharedPreferences.Editor editor =getSharedPreferences("CommonPrefs",
+                    SharedPreferences.Editor editor = getSharedPreferences("CommonPrefs",
                             MODE_PRIVATE).edit();
                     editor.putString("Language", "ar");
                     editor.apply();
@@ -236,7 +243,7 @@ loadLocale();        setContentView(R.layout.activity_main);
                     Configuration config = new Configuration();
                     config.locale = locale;
                     getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-                    SharedPreferences.Editor editor =getSharedPreferences("CommonPrefs",
+                    SharedPreferences.Editor editor = getSharedPreferences("CommonPrefs",
                             MODE_PRIVATE).edit();
                     editor.putString("Language", "en-rGB");
                     editor.apply();
@@ -244,7 +251,7 @@ loadLocale();        setContentView(R.layout.activity_main);
                     Toast.makeText(MainActivity.this, "English Language Selected", Toast.LENGTH_LONG).show();
                 }
                 //dismiss Alert dialog when language selected
-              dialog.dismiss();
+                dialog.dismiss();
             }
         });
         AlertDialog mDialog = mBuilder.create();
@@ -253,17 +260,16 @@ loadLocale();        setContentView(R.layout.activity_main);
     }
 
     //private void setAppLocale(String localeCode){
-        //Resources resources = getResources();
-        //DisplayMetrics dm = resources.getDisplayMetrics();
-        //Configuration config = resources.getConfiguration();
-        //if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.JELLY_BEAN_MR1){
-          //  config.setLocale(new Locale(localeCode.toLowerCase()));
-        //} else {
-          //  config.locale = new Locale(localeCode.toLowerCase());
-        //}
-       // resources.updateConfiguration(config, dm);
-   // }
-
+    //Resources resources = getResources();
+    //DisplayMetrics dm = resources.getDisplayMetrics();
+    //Configuration config = resources.getConfiguration();
+    //if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.JELLY_BEAN_MR1){
+    //  config.setLocale(new Locale(localeCode.toLowerCase()));
+    //} else {
+    //  config.locale = new Locale(localeCode.toLowerCase());
+    //}
+    // resources.updateConfiguration(config, dm);
+    // }
 
 
     @Override

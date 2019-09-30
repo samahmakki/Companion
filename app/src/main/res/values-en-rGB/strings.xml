@@ -84,9 +84,16 @@
     <string name="titlee">title</string>
     <string name="title">title</string>
     <string name="titttle">title</string>
+    <string name="about">About</string>
+    <string name="rafeeq_app">Rafeeq …All what you need!!</string>
+    <string name="add_advertise">Add Your Advertise Here!</string>
+    <string name="copyright">Copyright for SRDev"</string>
+
     <string name="alert_content">Alert content</string>
     <string name="hour_minutes">HH:mm</string>
     <string name="dateformate">dd/MM/yyyy</string>
     <string name="time">Time</string>
+    <string name="switchoffflash">Switch Off</string>
+
 
 </resources>
