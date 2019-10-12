@@ -1,10 +1,6 @@
 package com.samahmakki.companion;
-
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.ContentValues;
-import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -21,11 +17,9 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
 import com.samahmakki.companion.data.BillDbHelper;
-import com.samahmakki.companion.data.BillContract.BillEntry;
-
 import java.util.Calendar;
+import java.util.Objects;
 
 public class AddBillsFragment extends Fragment {
 
@@ -44,7 +38,6 @@ public class AddBillsFragment extends Fragment {
     int sReminderDays;
     RadioGroup radioGroup;
     RadioButton monthlyRadioButton, weeklyRadioButton;
-    private Button saveButton;
     BillDbHelper mBillHelper;
 
     @Nullable
@@ -61,13 +54,13 @@ public class AddBillsFragment extends Fragment {
         monthlyRadioButton = rootView.findViewById(R.id.monthly);
         weeklyRadioButton = rootView.findViewById(R.id.weekly);
 
-        saveButton = rootView.findViewById(R.id.save_button);
+        Button saveButton = rootView.findViewById(R.id.save_button);
 
         /*
         AutoCompleteText for bills
          */
         //Creating the instance of ArrayAdapter containing list of bills names
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(rootView.getContext()
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(rootView.getContext()
                 , android.R.layout.select_dialog_item, bills);
         //Getting the instance of AutoCompleteTextView
         billAutoCompleteTextView = rootView.findViewById(R.id.bill_autocomplete);
@@ -111,7 +104,7 @@ public class AddBillsFragment extends Fragment {
                 month = mCurrentDate.get(Calendar.MONTH);
                 day = mCurrentDate.get(Calendar.DAY_OF_MONTH);
 
-                mPickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                mPickerDialog = new DatePickerDialog(Objects.requireNonNull(getContext()), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int Year, int Month, int Day) {
                         startDate = Year + "-" + (Month + 1) + "-" + Day;
@@ -170,9 +163,9 @@ public class AddBillsFragment extends Fragment {
                     return;
                 }
 
-                if (mReminderDays == "monthly") {
+                if (mReminderDays.equals("monthly")) {
                     sReminderDays = 0;
-                } else if (mReminderDays == "weekly") {
+                } else if (mReminderDays.equals("weekly")) {
                     sReminderDays = 1;
                 }
                 mBillHelper = new BillDbHelper(rootView.getContext());

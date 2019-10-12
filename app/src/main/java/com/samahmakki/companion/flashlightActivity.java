@@ -1,5 +1,6 @@
 package com.samahmakki.companion;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.camera2.CameraAccessException;
@@ -70,6 +71,34 @@ public class flashlightActivity extends AppCompatActivity  {
                 Toast.makeText(this, "Not Available for your phone", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {            super.onBackPressed();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+            CameraManager cameraManager = (CameraManager) getSystemService
+                    (Context.CAMERA_SERVICE);
+            String cameraId = null;
+
+
+            if (cameraManager != null) {
+                try {
+                    cameraId = cameraManager.getCameraIdList()[0];
+                } catch (CameraAccessException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    cameraManager.setTorchMode(cameraId, false);
+                } catch (CameraAccessException e) {
+                    e.printStackTrace();
+                }
+
+                isSwitchedOn = false;
+            imgbtn.setImageResource(R.drawable.switch_off);
+        }}
     }
 }
 

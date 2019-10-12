@@ -36,7 +36,6 @@ import java.util.Locale;
 import java.util.Objects;
 
 import io.paperdb.Paper;
-import mehdi.sakout.aboutpage.AboutPage;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -46,18 +45,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     LinearLayout activitiesLayout;
     LinearLayout flashlightLayout;
     private DrawerLayout drawer;
-
+    SharedPref sharedpref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        sharedpref = new SharedPref(this);
+        if (sharedpref.loadNightModeState() == true) {
+            setTheme(R.style.ThemeDark);
+        } else {
+            setTheme(R.style.Theme1);
+        }
+
         loadLocale();
+
         setContentView(R.layout.activity_main);
         drawer = findViewById(R.id.drawer_layout);
         medicationLayout = findViewById(R.id.medication);
         billsLayout = findViewById(R.id.bills);
-        magnifierLayout = findViewById(R.id.magnifier);
-        activitiesLayout = findViewById(R.id.activities);
         flashlightLayout = findViewById(R.id.flashlight);
         //Navigation drawer
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -99,23 +105,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        magnifierLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent magnifierIntent = new Intent(MainActivity.this, MagnifierActivity.class);
-                startActivity(magnifierIntent);
-            }
-        });
-
-        activitiesLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent activitiesIntent = new Intent(MainActivity.this, ActivitiesActivity.class);
-                startActivity(activitiesIntent);
-            }
-        });
-
-
         flashlightLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -133,12 +122,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //}
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.nav__drawer, menu);
-        return true;
-    }
-
-    @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int id = menuItem.getItemId();
         if (id == R.id.share) {
@@ -148,6 +131,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             shrintent.setType("application/vnd.android.package-archive");
             shrintent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(apkpath)));
             startActivity(Intent.createChooser(shrintent, "Share Via"));
+
         } else if (id == R.id.exit) {
 
             // Toast.makeText(appContext, "BAck", Toast.LENGTH_LONG).show();
@@ -186,39 +170,41 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.lang) {
             showChangeLanguageDialog();
         }
-        else if(id == R.id.about){
 
-            startActivity(new Intent(MainActivity.this,About.class));
+        else if (id == R.id.night){
+            showNightModeDialog();
         }
 
-
+        else if (id == R.id.about){
+            Intent aboutIntent = new Intent(MainActivity.this, About.class);
+            startActivity(aboutIntent);
+        }
         return true;
+    }
+
+    private void setLocale(String lang) {
+        Locale locale = new Locale(lang);
+        Locale.setDefault(locale);
+        Configuration configuration = new Configuration();
+        configuration.locale = locale;
+        getBaseContext().getResources().updateConfiguration(configuration, getBaseContext().getResources().getDisplayMetrics());
+        SharedPreferences.Editor editor = getSharedPreferences("CommonPrefs", MODE_PRIVATE).edit();
+        editor.putString("Language", lang);
+        editor.apply();
     }
 
     public void loadLocale() {
         String langPref = "Language";
-        SharedPreferences prefs = getSharedPreferences("CommonPrefs",
-                Activity.MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         String language = prefs.getString(langPref, "");
         setLocale(language);
     }
 
-    private void setLocale(String lang) {
-
-
-        SharedPreferences.Editor editor = getSharedPreferences("CommonPrefs",
-                MODE_PRIVATE).edit();
-        editor.putString("Language", lang);
-        editor.apply();
-
-
-    }
-
     private void showChangeLanguageDialog() {
         //Array of language to display in alert dialog
-        final String[] listItems = {"عربي", "English"};
+        final String[] listItems = {"عربي" , "English"};
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
-        mBuilder.setTitle("Choose Language..");
+        mBuilder.setTitle(R.string.choose_language);
         mBuilder.setSingleChoiceItems(listItems, -1, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -228,35 +214,77 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     Locale.setDefault(locale);
                     Configuration config = new Configuration();
                     config.locale = locale;
-                    getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+                    getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources()
+                            .getDisplayMetrics());
                     SharedPreferences.Editor editor = getSharedPreferences("CommonPrefs",
                             MODE_PRIVATE).edit();
                     editor.putString("Language", "ar");
                     editor.apply();
                     recreate();
                     Toast.makeText(MainActivity.this, "تم إختيار اللغة العربية", Toast.LENGTH_LONG).show();
+
                 } else if (which == 1) {
 
                     //English
-                    Locale locale = new Locale("en-rGB");
+                    Locale locale = new Locale("en");
                     Locale.setDefault(locale);
                     Configuration config = new Configuration();
                     config.locale = locale;
-                    getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+                    getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources()
+                            .getDisplayMetrics());
                     SharedPreferences.Editor editor = getSharedPreferences("CommonPrefs",
                             MODE_PRIVATE).edit();
-                    editor.putString("Language", "en-rGB");
+                    editor.putString("Language", "en");
                     editor.apply();
                     recreate();
                     Toast.makeText(MainActivity.this, "English Language Selected", Toast.LENGTH_LONG).show();
                 }
-                //dismiss Alert dialog when language selected
+                //dismiss BillAlert dialog when language selected
                 dialog.dismiss();
             }
         });
         AlertDialog mDialog = mBuilder.create();
-        //show Alert Dialog
+        //show BillAlert Dialog
         mDialog.show();
+    }
+
+
+
+
+
+    private void showNightModeDialog() {
+        //Array of language to display in alert dialog
+        final String[] listItems = {getResources().getString(R.string.night_mode_on),
+                getResources().getString(R.string.night_mode_off)};
+
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
+        mBuilder.setTitle(R.string.choose_nightMode_state);
+        mBuilder.setSingleChoiceItems(listItems, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (which == 0) {
+                    sharedpref.setNightModeState(true);
+                    restartApp();
+                    Toast.makeText(MainActivity.this, getResources().getString(R.string.night_modeOn),
+                            Toast.LENGTH_LONG).show();
+
+                } else if (which == 1) {
+                    sharedpref.setNightModeState(false);
+                    restartApp();
+                    Toast.makeText(MainActivity.this, getResources().getString(R.string.night_modeOff),
+                            Toast.LENGTH_LONG).show();
+                }
+                dialog.dismiss();
+            }
+        });
+        AlertDialog mDialog = mBuilder.create();
+        mDialog.show();
+    }
+
+    public void restartApp() {
+        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(i);
+        finish();
     }
 
     //private void setAppLocale(String localeCode){
@@ -318,10 +346,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         }
                     });
             alert.show();
-
-
         }
     }
-
-
 }

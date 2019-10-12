@@ -1,12 +1,15 @@
 package com.samahmakki.companion;
+
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 
+import java.util.Objects;
 
-public class Alert extends Activity {
+  public class Alert extends Activity {
+
     MediaPlayer mp;
     int reso=R.raw.alarm;
     @Override
@@ -17,7 +20,7 @@ public class Alert extends Activity {
         mp=MediaPlayer.create(getApplicationContext(),reso);
         mp.start();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        String msg = "Alert" + getIntent().getExtras().getString( getString(R.string.title_msg));
+        String msg = getString(R.string.alarmtext) + Objects.requireNonNull(getIntent().getExtras()).getString( getString(R.string.title_msg));
         builder.setMessage(msg).setCancelable(
                 false).setPositiveButton(getString(R.string.ok),
                 new DialogInterface.OnClickListener() {

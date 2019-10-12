@@ -1,7 +1,43 @@
 <resources>
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
+    <string name="title_dashboard" translatable="false">Dashboard</string>
+    <string name="addBill">Add Bill</string>
+    <string name="allBills">All Bills</string>
+    <string name="Description">Description</string>
+    <string name="Update">Update</string>
+    <string name="Delete">Delete</string>
+    <string name="Choose_an_action">Choose an action</string>
+    <string name="action_example" translatable="false">Example action</string>
+    <string name="title_activity_main" translatable="false">MainActivity</string>
+    <string name="added_successfully">Added Successfully</string>
+    <string name="choose_start_time">start time</string>
+    <string name="choosee_start_time">start time</string>
+    <string name="reminders">Reminder</string>
+    <string name="select_frequency">Repetition times</string>
+    <string name="once_daily">once daily (every 24 hours)</string>
+    <string name="twice_daily">twice daily (every 12 hours)</string>
+    <string name="three_times_daily">three times daily (every 8 hours)</string>
+    <string name="four_times_daily">four times daily (every 6 hours)</string>
+    <string name="select_period_of_medication">select duration of medication</string>
+    <string name="period">duration</string>
+    <string name="Forever">Forever</string>
+    <string name="for_two_weeks">for two weeks</string>
+    <string name="for_ten_days">for ten days</string>
+    <string name="for_a_week">for a week</string>
+    <string name="medicine_image">medicine image</string>
+    <string name="medication_for_today">medication for today</string>
+    <string name="edit_photo">edit photo</string>
+    <string name="done">done</string>
+    <string name="time">time</string>
+    <string name="switchoffflash">switch off flash</string>
+    <string name="about">About</string>
+    <string name="rafeeq_app">Rafeeq, Find everything you need </string>
+    <string name="add_advertise">Add Advertise</string>
+    <string name="copyright"> copyright are specific to SR/Dev"</string>
     <string name="app_name">Rafeeq</string>
-    <string name="medications">Medication Reminder</string>
-    <string name="bills">Bill Reminder</string>
+    <string name="medications">Medication</string>
+    <string name="bills">Bills</string>
     <string name="activities">Activities</string>
     <string name="flashlight">Flashlight</string>
     <string name="time_is_required">Time is Required</string>
@@ -27,7 +63,6 @@
     <string name="night_mode">Night Mode On</string>
     <string name="language">Language</string>
     <string name="choose_country">Choose Your Country</string>
-    <string name="rate_app">Rate App</string>
     <string name="exit">Exit</string>
     <string name="title_notifications">Notification</string>
     <string name="magnifier">Magnifier</string>
@@ -52,48 +87,48 @@
     <string name="open_calendar">Open Calendar</string>
     <string name="new_medicine">New Medicine</string>
     <string name="select_time">Select Time</string>
-    <string name="added_succefully">Added Succefully</string>
-    <string name="choose_start_time">Start Time</string>
-    <string name="choosee_start_time">Choose Start Time</string>
-    <string name="reminders">Reminders</string>
-    <string name="select_frequency">Frequency Time</string>
-    <string name="once_daily">Once Daily(Every 24 Hours)</string>
-    <string name="twice_daily">Twice Daily(Every 12 Hours)</string>
-    <string name="three_times_daily">Three Times Daily(Every 8 Hours)</string>
-    <string name="four_times_daily">Four Times Daily(Every 6 Hours) </string>
-    <string name="select_period_of_medication">Select medication period</string>
-    <string name="period">Period of medication</string>
-    <string name="Forever">Foreverً</string>
-    <string name="for_two_weeks">For Two Weeks</string>
-    <string name="for_ten_days">For 10 days</string>
-    <string name="for_a_week">For Week</string>
-    <string name="medicine_image">Medicine Image</string>
-    <string name="medication_for_today">Medication For Today</string>
-    <string name="addBill">Add Bill</string>
-    <string name="allBills">All Bills</string>
-    <string name="Description">وصف</string>
-    <string name="Update">تعديل</string>
-    <string name="Delete">حذف</string>
-    <string name="Choose_an_action">اختر منهما</string>
-    <string name="edit_photo">Change Phaoto</string>
-    <string name="done">Done</string>
     <string name="set_alarm">Set Alarm</string>
     <string name="choose_start_day">Choose Start Day</string>
     <string name="ok">OK</string>
     <string name="title_msg">Time to take medicine</string>
+    <string name="title_msg_bill">title</string>
     <string name="titlee">title</string>
     <string name="title">title</string>
     <string name="titttle">title</string>
-    <string name="about">About</string>
-    <string name="rafeeq_app">Rafeeq …All what you need!!</string>
-    <string name="add_advertise">Add Your Advertise Here!</string>
-    <string name="copyright">Copyright for SRDev"</string>
-
     <string name="alert_content">Alert content</string>
     <string name="hour_minutes">HH:mm</string>
     <string name="dateformate">dd/MM/yyyy</string>
-    <string name="time">Time</string>
-    <string name="switchoffflash">Switch Off</string>
+
+    <string name="bill_name">Bill Name</string>
+    <string name="reminder_times">Reminder Times</string>
+    <string name="choose_reminder_time">Choose reminder time</string>
+    <string name="Schedule">Schedule</string>
+    <string name="Choose_Date">Choose Date</string>
+    <string name="choose_language">Choose Language..</string>
+    <string name="night_mode_on">On</string>
+    <string name="night_mode_off">Off</string>
+    <string name="choose_nightMode_state">Choose Night Mode State</string>
+    <string name="night_modeOn">Night Mode is On</string>
+    <string name="night_modeOff">Night Mode is Off</string>
+    <string name="Date">Date:"  "</string>
+    <string name="reminder_monthly">Reminder Monthly</string>
+    <string name="alarm">Set Alarm</string>
+    <string name="notification">Set Notification</string>
+    <string name="Done">Done ✔</string>
+    <string name="electricity_bill">Electricity Bill</string>
+    <string name="water_bill">Water Bill</string>
+    <string name="gas_bill">Gas Bill</string>
+    <string name="internet_bill">Internet Bill</string>
+    <string name="telephone_bill">Telephone Bill</string>
+    <string name="reAdd_bill">Re add bill</string>
+    <string name="bill_added_success">Bill added successfully</string>
+    <string name="app_version">1.0</string>
+
+    <string name="copyright_text" translatable="false">Copyright © 2019, SR\'Dev </string>
+    <string name="rights">All rights reserved</string>
+    <string name="alarmtext">Alert:"  "</string>
+    <string name="alert_title">title</string>
+    <string name="Not_Set">Not Set</string>
 
 
 </resources>

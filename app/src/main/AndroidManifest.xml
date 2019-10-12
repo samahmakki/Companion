@@ -84,9 +84,10 @@
 
         <service android:name=".ShakeDetectionService" />
 
-        <activity android:name=".Alert" />
         <activity android:name=".UpdateBillActivity" />
-        <activity android:name=".About"></activity>
+        <activity android:name=".About" />
+        <receiver android:name=".NotificationManager2"/>
+        <receiver android:name=".AlarmReciever"/>
     </application>
 
 </manifest>

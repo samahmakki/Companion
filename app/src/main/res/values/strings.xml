@@ -89,7 +89,7 @@
     <string name="title_msg">حان وقت الدواء</string>
     <string name="titlee">title</string>
     <string name="title">title</string>
-    <string name="titttle">title</string>
+    <string name="titttle">تذكير</string>
     <string name="alert_content">Alert content</string>
     <string name="hour_minutes">HH:mm</string>
     <string name="dateformate">dd/MM/yyyy</string>
@@ -99,6 +99,9 @@
     <string name="rafeeq_app">تطبيق رفيق ..تجد به كل ما تحتاجه</string>
     <string name="add_advertise">ضع إعلانك هنا</string>
     <string name="copyright">حقوق الحفظ خاصة ب\"إس آر ديف\"</string>
+    <string name="medicationlist">قائمة الأدوية</string>
+    <string name="alarmtext">alarmText</string>
+    <string name="bill_name">اسم الفاتورة</string>
 
 
 </resources>
