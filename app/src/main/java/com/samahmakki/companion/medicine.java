@@ -6,13 +6,13 @@ public class medicine {
     private int id;
 
 
-    public medicine(int id,String medName, byte[] medimg) {
+    public medicine(int id, String medName, byte[] medimg) {
         this.medName = medName;
         this.medimg = medimg;
+
         this.id = id;
 
     }
-
     public medicine() {
 
     }
@@ -21,6 +21,7 @@ public class medicine {
     public int getId(){
         return id;
     }
+
     public String getMedName() {
         return medName;
     }
@@ -28,6 +29,8 @@ public class medicine {
     public byte[] getMedimg() {
         return medimg;
     }
+
+
 
     //setter
     public void setId(int id){

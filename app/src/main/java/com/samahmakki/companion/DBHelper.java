@@ -10,8 +10,6 @@ import android.database.sqlite.SQLiteStatement;
 public class DBHelper extends SQLiteOpenHelper {
 
 
-
-
     public DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
@@ -32,8 +30,11 @@ public class DBHelper extends SQLiteOpenHelper {
         statement.clearBindings();
         statement.bindString(1, name);
         statement.bindBlob(2, image);
+
+
         statement.executeInsert();
     }
+
 
     //update data
     public void updateData(String name, byte[] image, int id) {
@@ -43,7 +44,7 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteStatement statement = db.compileStatement(sql);
         statement.bindString(1, name);
         statement.bindBlob(2, image);
-        statement.bindDouble(3, (double)id);
+        statement.bindDouble(3, (double) id);
         statement.execute();
         db.close();
     }
@@ -54,7 +55,7 @@ public class DBHelper extends SQLiteOpenHelper {
         String sql = "DELETE FROM MEDICINE WHERE id = ?";
         SQLiteStatement statement = db.compileStatement(sql);
         statement.clearBindings();
-        statement.bindDouble(1,(double)id);
+        statement.bindDouble(1, (double) id);
         statement.execute();
         db.close();
     }
@@ -64,6 +65,7 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         return db.rawQuery(sql, null);
     }
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {

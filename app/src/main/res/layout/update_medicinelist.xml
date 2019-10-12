@@ -73,8 +73,6 @@
             android:padding="4dp"
             android:src="@drawable/add_new_photo"
             android:contentDescription="@string/edit_photo" />
-
-
     </RelativeLayout>
 
     <Button

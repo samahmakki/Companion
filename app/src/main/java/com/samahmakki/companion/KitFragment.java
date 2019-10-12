@@ -73,7 +73,7 @@ public class KitFragment extends Fragment {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int position, long id) {
                 CharSequence[] items = { "Update","Delete"};
-                 AlertDialog.Builder dialog = new AlertDialog.Builder((getContext()));
+                AlertDialog.Builder dialog = new AlertDialog.Builder((getContext()));
                 dialog.setTitle("Choose an action");
                 dialog.setItems(items, new DialogInterface.OnClickListener() {
                     @Override
@@ -93,14 +93,14 @@ public class KitFragment extends Fragment {
 
                         if (which == 1){
 
-                           //delete
-                           Cursor c = AddmedFragment.dbHelper.getData("SELECT id FROM MEDICINE");
-                           ArrayList<Integer> arrID = new ArrayList<>();
-                           while (c.moveToNext()) {
-                               arrID.add(c.getInt(0));
-                           }
-                           showDialogDelete(arrID.get(position));
-                       }
+                            //delete
+                            Cursor c = AddmedFragment.dbHelper.getData("SELECT id FROM MEDICINE");
+                            ArrayList<Integer> arrID = new ArrayList<>();
+                            while (c.moveToNext()) {
+                                arrID.add(c.getInt(0));
+                            }
+                            showDialogDelete(arrID.get(position));
+                        }
 
 
 
@@ -122,14 +122,14 @@ public class KitFragment extends Fragment {
         dialogDelete.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-           try {
-               AddmedFragment.dbHelper.deleteData(medicineID);
-               Toast.makeText(getContext(), "Deleted Succefully", Toast.LENGTH_SHORT).show();
-           }
-           catch (Exception e){
-               Log.e("error",e.getMessage());
-           }
-          updateMedicineList();
+                try {
+                    AddmedFragment.dbHelper.deleteData(medicineID);
+                    Toast.makeText(getContext(), "Deleted Succefully", Toast.LENGTH_SHORT).show();
+                }
+                catch (Exception e){
+                    Log.e("error",e.getMessage());
+                }
+                updateMedicineList();
 
             }
         });
@@ -137,7 +137,7 @@ public class KitFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-           dialog.dismiss();
+                dialog.dismiss();
             }
         });
         dialogDelete.show();

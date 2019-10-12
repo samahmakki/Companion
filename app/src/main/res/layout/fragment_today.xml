@@ -24,25 +24,11 @@
             tools:ignore="RelativeOverlap" />
 
 
-        <Button
-            android:id="@+id/et_Date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="60dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="60dp"
-            android:background="#1976D2"
-            android:clickable="false"
-            android:focusable="false"
-            android:gravity="center"
-            android:text="@string/open_calendar"
-            android:textColor="#FFF"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            />
+
 
 
     </LinearLayout>
+
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_addmed"

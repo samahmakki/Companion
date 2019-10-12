@@ -14,10 +14,6 @@ public final class BillContract{
         public final static  String COLUMN_Bill_Name = "bill_name";
         public final static  String COLUMN_Bill_TIME = "Time";
         public final static  String COLUMN_Bill_DATE = "date";
-        public final static  String COLUMN_Bill_REMINDER_DAYS = "reminder_days";
-
-        public final static int MONTHLY_REMINDER = 0;
-        public final static int WEEKLY_REMINDER = 0;
 
     }
 }

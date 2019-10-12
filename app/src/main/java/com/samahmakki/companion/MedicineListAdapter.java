@@ -52,6 +52,8 @@ public class MedicineListAdapter extends BaseAdapter {
             holder.txtName = row.findViewById(R.id.med_name);
             holder.imageView = row.findViewById(R.id.med_img);
 
+
+
             row.setTag(holder);
         } else {
             holder = (ViewHolder) row.getTag();
@@ -64,11 +66,14 @@ public class MedicineListAdapter extends BaseAdapter {
         holder.imageView.setImageBitmap(bitmap);
 
 
+
+
         return row;
     }
 
     private class ViewHolder {
         ImageView imageView;
         TextView txtName;
+
     }
 }

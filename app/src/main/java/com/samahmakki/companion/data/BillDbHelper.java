@@ -14,7 +14,7 @@ public class BillDbHelper extends SQLiteOpenHelper {
     //DataBase Name
     private static final String DATABASE_NAME = "BILLS";
     //DataBase Version
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 7;
 
     SQLiteDatabase db;
 
@@ -61,6 +61,33 @@ public class BillDbHelper extends SQLiteOpenHelper {
                 .replace(R.id.fragments_container, nextFrag, "findThisFragment")
                 .addToBackStack(null).commit();
                 */
+    }
+
+    //insert data into the Bills Table
+    final public long insertBillReminder (String billName, String time, String date) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(BillEntry.COLUMN_Bill_Name, billName);
+        values.put(BillEntry.COLUMN_Bill_TIME, time);
+        values.put(BillEntry.COLUMN_Bill_DATE, date);
+
+        long newRowId = db.insert(BillEntry.TABLE_NAME, null, values);
+
+        db.close();
+        return newRowId;
+    }
+
+    final public void insert ( String time, String date) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(BillEntry.COLUMN_Bill_TIME, time);
+        values.put(BillEntry.COLUMN_Bill_DATE, date);
+
+        db.close();
     }
 
     public void updateName2(String newName, int id, String newTime, String newDate){

@@ -2,9 +2,6 @@ package com.samahmakki.companion;
 
 import android.Manifest;
 import android.app.ActionBar;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.app.TimePickerDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -14,7 +11,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -24,41 +20,31 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
-import java.util.Calendar;
 import java.util.Objects;
 
 import static android.app.Activity.RESULT_OK;
-import static android.content.Context.ALARM_SERVICE;
 
 public class AddmedFragment extends Fragment {
 
     private final static int REQUEST_IMAGE_CAPTURE = 1;
     private final static int REQUEST_CAMERA = 3;
     private final static int PERMISSION_CODE = 2;
-     public static DBHelper dbHelper;
+    public static DBHelper dbHelper;
     ImageButton btnopen;
     EditText etadd;
-    Calendar currentTime;
-    TextView starttime;
-    String startTime;
-    int hour,minute;
     ImageButton btnpick;
     Bitmap bitmap;
     Button addbtn;
     Uri imageUri;
     ImageView imageView;
+
 
     @Override
     public void onAttach(Context context) {
@@ -76,6 +62,7 @@ public class AddmedFragment extends Fragment {
 
         //VIEWS
         android.support.v7.app.ActionBar actionBar = ((AppCompatActivity)Objects.requireNonNull(getActivity())).getSupportActionBar();
+
         actionBar.setTitle(getString(R.string.new_medicine));
 
         etadd = view.findViewById(R.id.addet);
@@ -83,35 +70,9 @@ public class AddmedFragment extends Fragment {
         imageView = view.findViewById(R.id.img);
         btnpick = view.findViewById(R.id.pickbtn);
         addbtn = view.findViewById(R.id.addmedbtn);
-        starttime =view.findViewById(R.id.start_time);
         dbHelper = new DBHelper(getContext(),"RafeeqDB",null,1);
-         //creating table in database
+        //creating table in database
         dbHelper.queryData("CREATE TABLE IF NOT EXISTS MEDICINE (id INTEGER PRIMARY KEY AUTOINCREMENT ,name VARCHAR,image BLOB)");
-
-
-
-        starttime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                currentTime = Calendar.getInstance();
-                hour = currentTime.get(Calendar.HOUR_OF_DAY);
-                minute = currentTime.get(Calendar.MINUTE);
-
-                TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        startTime = con(selectedHour) + ":" + con(selectedMinute);
-                        starttime.setText(startTime);
-                        // alarmStartTime = mCurrentTime.getTimeInMillis();
-                    }
-                }, hour, minute, false);//Yes 24 hour time
-                mTimePicker.setTitle(getString(R.string.select_time));
-                mTimePicker.show();
-            }
-        });
-
-
 
 
 
@@ -145,7 +106,7 @@ public class AddmedFragment extends Fragment {
         });
 
 
-         // pick image from gallery
+        // pick image from gallery
 
         btnpick.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,26 +127,22 @@ public class AddmedFragment extends Fragment {
                 }
             }
         });
-
-
         //add to sqlite
-      addbtn.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
-            try{  dbHelper.insertData(etadd.getText().toString().trim(),
-                      imageViewToByte(imageView)
+        addbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try{  dbHelper.insertData(etadd.getText().toString().trim(),
+                        imageViewToByte(imageView)
 
-              );
-              Toast.makeText(getContext(),getString(R.string.added_succefully),Toast.LENGTH_SHORT).show();
-
-              //Reset views
-               etadd.setText("");
-               imageView.setImageResource(R.drawable.add_new_photo);
-          }
-          catch (Exception e){
-              e.printStackTrace();
-          }}
-      });
+                );
+                    Toast.makeText(getContext(),getString(R.string.added_successfully),Toast.LENGTH_SHORT).show();
+                    etadd.setText("");
+                    imageView.setImageResource(R.drawable.medication100);
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }}
+        });
 
 
         return view;
@@ -212,37 +169,13 @@ public class AddmedFragment extends Fragment {
 
     }
 
-   // public void createNotification() {
-     //   Intent myIntent = new Intent(Objects.requireNonNull(getActivity()).getApplicationContext() , NotifyService. class ) ;
-      //  AlarmManager alarmManager = (AlarmManager)getActivity().getSystemService(ALARM_SERVICE);
-      //  PendingIntent pendingIntent = PendingIntent. getService ( getContext(), 0 , myIntent , 0 ) ;
-       // Calendar calendar = Calendar. getInstance () ;
-       // calendar.set(Calendar. SECOND , 0 ) ;
-       // calendar.set(Calendar. MINUTE , 0 ) ;
-      //  calendar.set(Calendar. HOUR , 0 ) ;
-        //calendar.set(Calendar. AM_PM , Calendar. AM ) ;
-      //  calendar.add(Calendar. DAY_OF_MONTH , 1 ) ;
-      //  alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-       //         SystemClock.elapsedRealtime() +
-       //                 60 * 1000, pendingIntent);
-       // alarmManager.setRepeating(AlarmManager. RTC_WAKEUP , calendar.getTimeInMillis() , 1000 * 60 * 60 * 24 , pendingIntent) ;
-   // }
-
-
-
     private void pickImageFromGallery() {
         //intent to pick image
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), REQUEST_IMAGE_CAPTURE);
     }
-    public String con(int time) {
-        if (time >= 10) {
-            return String.valueOf(time);
-        } else {
-            return "0" + String.valueOf(time);
-        }
-    }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

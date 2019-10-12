@@ -50,7 +50,6 @@ public class UpdateBillActivity extends AppCompatActivity {
     int sReminderDays;
     RadioGroup radioGroup;
     RadioButton monthlyRadioButton, weeklyRadioButton;
-    private Button saveButton, deleteButton;
     BillDbHelper mBillHelper;
     private String selectedName;
     private int selectedID;
@@ -63,11 +62,8 @@ public class UpdateBillActivity extends AppCompatActivity {
         billAutoCompleteTextView = findViewById(R.id.bill_autocomplete);
         reminderTimesTextView = findViewById(R.id.reminder_times);
         reminderDateTextView = findViewById(R.id.reminder_date);
-        radioGroup = findViewById(R.id.radio_group);
-        monthlyRadioButton = findViewById(R.id.monthly);
-        weeklyRadioButton = findViewById(R.id.weekly);
-        saveButton = findViewById(R.id.save_button);
-        deleteButton = findViewById(R.id.delete_button);
+        Button saveButton = findViewById(R.id.save_button);
+        Button deleteButton = findViewById(R.id.delete_button);
 
 
         mBillHelper = new BillDbHelper(this);
@@ -148,43 +144,6 @@ public class UpdateBillActivity extends AppCompatActivity {
                 completeText = billAutoCompleteTextView.getText().toString().trim();
                 startDate2 = reminderDateTextView.getText().toString().trim();
                 startTime2 = reminderTimesTextView.getText().toString().trim();
-                ContentValues cv = new ContentValues();
-
-                if (mReminderDays == "monthly") {
-                    sReminderDays = 0;
-                    AlarmManager alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-                    Intent intent = new Intent(UpdateBillActivity.this, BillAlarmReceiver.class);
-
-                    String alertTitle = billAutoCompleteTextView.getText().toString();
-                    intent.putExtra(getString(R.string.alert_title), alertTitle);
-
-                    PendingIntent pendingIntent = PendingIntent.getBroadcast(UpdateBillActivity.this,
-                            0, intent, 0);
-
-                    alarmMgr.set(AlarmManager.RTC_WAKEUP, mCurrentTime.getTimeInMillis(), pendingIntent);
-                    cv.put(BillContract.BillEntry.COLUMN_Bill_TIME, startTime);
-                    cv.put(BillEntry.COLUMN_Bill_DATE, startDate);
-                }
-
-                else if (mReminderDays == "weekly") {
-                    sReminderDays = 1;
-
-                    SimpleDateFormat formatter = new SimpleDateFormat(getString(R.string.hour_minutes));
-                    startTime = formatter.format(new Date(mCurrentDate.getTimeInMillis()));
-                    SimpleDateFormat dateformatter = new SimpleDateFormat(getString(R.string.dateformate));
-                    startDate = dateformatter.format(new Date(mCurrentDate.getTimeInMillis()));
-
-                    AlarmManager alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-                    Intent intent = new Intent(UpdateBillActivity.this, BillNotificationManager.class);
-                    String alertTitle = billAutoCompleteTextView.getText().toString();
-                    intent.putExtra(getString(R.string.alert_title), alertTitle);
-                    PendingIntent pendingIntent = PendingIntent.getBroadcast(UpdateBillActivity.this,
-                            0, intent, 0);
-
-                    alarmMgr.set(AlarmManager.RTC_WAKEUP, mCurrentTime.getTimeInMillis(), pendingIntent);
-                    cv.put(BillEntry.COLUMN_Bill_TIME, startTime);
-                    cv.put(BillEntry.COLUMN_Bill_DATE, startDate);
-                }
                 //mBillHelper.updateName(completeText, selectedID, selectedName,startTime2, startTime, startDate2, startDate);
                 mBillHelper.updateName2(completeText, selectedID, startTime2, startDate2);
                 Intent intent = new Intent(UpdateBillActivity.this, BillsActivity.class);
