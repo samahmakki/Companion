@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -38,8 +39,7 @@ public class AddBillsFragment extends Fragment {
     AutoCompleteTextView billAutoCompleteTextView;
     String completeText;
     TextView reminderTimesTextView, reminderDateTextView;
-    Calendar mCurrentTime;
-    Calendar mCurrentDate;
+    Calendar calendar;
 
     DatePickerDialog mPickerDialog;
     TimePickerDialog mTimePicker;
@@ -53,6 +53,15 @@ public class AddBillsFragment extends Fragment {
     BillDbHelper mBillHelper;
     SQLiteDatabase db;
 
+    String timeString;
+    String dateString;
+
+    int timePickHour;
+    int timePickMinute;
+    int datePickMonth;
+    int datePickDay;
+    int datePickYear;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable final ViewGroup container,
@@ -62,6 +71,7 @@ public class AddBillsFragment extends Fragment {
 
         mBillHelper = new BillDbHelper(rootView.getContext());
         db = mBillHelper.getWritableDatabase();
+
         reminderTimesTextView = rootView.findViewById(R.id.reminder_times);
         reminderDateTextView = rootView.findViewById(R.id.reminder_date);
 
@@ -71,15 +81,36 @@ public class AddBillsFragment extends Fragment {
 
         saveButton = rootView.findViewById(R.id.save_button);
 
+        /*radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.alarm) {
+                    alarmRadioButton.setEnabled(true);
+                } else {
+                    alarmRadioButton.setEnabled(true);
+                    alarmRadioButton.setChecked(false);
+                }
+
+                if (checkedId == R.id.notify) {
+                    notifyRadioButton.setEnabled(true);
+                } else {
+                    notifyRadioButton.setEnabled(false);
+                    notifyRadioButton.setChecked(false);
+                }
+
+            }
+        });*/
+
+
         String[] bills = {getResources().getString(R.string.electricity_bill),
                 getResources().getString(R.string.water_bill),
                 getResources().getString(R.string.gas_bill),
                 getResources().getString(R.string.internet_bill),
                 getResources().getString(R.string.telephone_bill)};
-        /*
-        AutoCompleteText for bills
-         */
-        //Creating the instance of ArrayAdapter containing list of bills names
+    /*
+    AutoCompleteText for bills
+     */
+     //Creating the instance of ArrayAdapter containing list of bills names
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(rootView.getContext()
                 , android.R.layout.select_dialog_item, bills);
         //Getting the instance of AutoCompleteTextView
@@ -88,15 +119,87 @@ public class AddBillsFragment extends Fragment {
         billAutoCompleteTextView.setAdapter(adapter);//setting the adapter data into the AutoCompleteTextView
 
 
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                if (checkedId == R.id.alarm) {
+                 calendar = Calendar.getInstance();
+                    calendar.clear();
+                    calendar.set(Calendar.MONTH, datePickMonth);
+                    calendar.set(Calendar.DAY_OF_MONTH, datePickDay);
+                    calendar.set(Calendar.YEAR, datePickYear);
+                    calendar.set(Calendar.HOUR, timePickHour);
+                    calendar.set(Calendar.MINUTE, timePickMinute);
+                    calendar.set(Calendar.SECOND, 00);
+
+
+                    SimpleDateFormat formatter = new SimpleDateFormat(getString(R.string.hour_minutes));
+                    startTime = formatter.format(new Date(calendar.getTimeInMillis()));
+                    SimpleDateFormat dateformatter = new SimpleDateFormat(getString(R.string.dateformate));
+                    startDate = dateformatter.format(new Date(calendar.getTimeInMillis()));
+
+                    AlarmManager alarmMgr = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+
+                    Intent intent = new Intent(rootView.getContext(), AlarmReceiver.class);
+
+                    billAutoCompleteTextView = rootView.findViewById(R.id.bill_autocomplete);
+                    completeText = billAutoCompleteTextView.getText().toString().trim();
+                    intent.putExtra(getString(R.string.alert_title), completeText);
+
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(rootView.getContext()
+                            , 0, intent, 0);
+
+                    alarmMgr.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+
+                    mBillHelper.insertBillTime_Date(startTime, startDate);
+                }
+
+                else if (checkedId == R.id.notify) {
+                    calendar = Calendar.getInstance();
+                    calendar.clear();
+                    calendar.set(Calendar.MONTH, datePickMonth);
+                    calendar.set(Calendar.DAY_OF_MONTH, datePickDay);
+                    calendar.set(Calendar.YEAR, datePickYear);
+                    calendar.set(Calendar.HOUR, timePickHour);
+                    calendar.set(Calendar.MINUTE, timePickMinute);
+                    calendar.set(Calendar.SECOND, 00);
+
+
+                    SimpleDateFormat formatter = new SimpleDateFormat(getString(R.string.hour_minutes));
+                    startTime = formatter.format(new Date(calendar.getTimeInMillis()));
+                    SimpleDateFormat dateformatter = new SimpleDateFormat(getString(R.string.dateformate));
+                    startDate = dateformatter.format(new Date(calendar.getTimeInMillis()));
+
+                    AlarmManager alarmMgr = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+                    Intent intent = new Intent(rootView.getContext(), NotificationManager2.class);
+
+                    billAutoCompleteTextView = rootView.findViewById(R.id.bill_autocomplete);
+                    completeText = billAutoCompleteTextView.getText().toString().trim();
+                    intent.putExtra(getString(R.string.alert_title), completeText);
+
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(rootView.getContext()
+                            , 0, intent, 0);
+
+                    alarmMgr.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+
+                    mBillHelper.insertBillTime_Date(startTime, startDate);
+                }
+            }
+        });
+
          /*
         Reminder times
          */
-        reminderTimesTextView.setOnClickListener(new View.OnClickListener() {
+        reminderTimesTextView.setOnClickListener(new View.OnClickListener()
+
+        {
             @Override
             public void onClick(View view) {
-                mCurrentTime = Calendar.getInstance();
-                hour = mCurrentTime.get(Calendar.HOUR_OF_DAY);
-                minute = mCurrentTime.get(Calendar.MINUTE);
+                calendar = Calendar.getInstance();
+                hour = calendar.get(Calendar.HOUR_OF_DAY);
+                minute = calendar.get(Calendar.MINUTE);
 
                 mTimePicker = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
                     @Override
@@ -104,6 +207,8 @@ public class AddBillsFragment extends Fragment {
                         startTime = con(selectedHour) + ":" + con(selectedMinute);
                         String.format(startTime, Locale.getAvailableLocales());
                         reminderTimesTextView.setText(startTime);
+                        timePickHour = timePicker.getCurrentHour();
+                        timePickMinute = timePicker.getCurrentMinute();
                     }
                 }, hour, minute, false);//Yes 24 hour time
                 mTimePicker.setTitle("Select Time");
@@ -115,13 +220,15 @@ public class AddBillsFragment extends Fragment {
         /*
         Reminder date
          */
-        reminderDateTextView.setOnClickListener(new View.OnClickListener() {
+        reminderDateTextView.setOnClickListener(new View.OnClickListener()
+
+        {
             @Override
             public void onClick(View v) {
-                mCurrentDate = Calendar.getInstance();
-                year = mCurrentDate.get(Calendar.YEAR);
-                month = mCurrentDate.get(Calendar.MONTH);
-                day = mCurrentDate.get(Calendar.DAY_OF_MONTH);
+                calendar = Calendar.getInstance();
+                year = calendar.get(Calendar.YEAR);
+                month = calendar.get(Calendar.MONTH);
+                day = calendar.get(Calendar.DAY_OF_MONTH);
 
                 mPickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
                     @Override
@@ -129,7 +236,10 @@ public class AddBillsFragment extends Fragment {
                         startDate = Year + "-" + (Month + 1) + "-" + Day;
                         reminderDateTextView.setText(startDate);
 
-                        mCurrentDate.set(Year, (Month + 1), Day);
+                        calendar.set(Year, (Month + 1), Day);
+                        datePickMonth = datePicker.getMonth();
+                        datePickDay = datePicker.getDayOfMonth();
+                        datePickYear = datePicker.getYear();
                     }
                 }, year, month, day);
                 mPickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
@@ -141,14 +251,16 @@ public class AddBillsFragment extends Fragment {
          /*
         Save Button
          */
-        saveButton.setOnClickListener(new View.OnClickListener() {
+        saveButton.setOnClickListener(new View.OnClickListener()
+
+        {
             @Override
             public void onClick(View view) {
-                final ContentValues cv = new ContentValues();
-
                 completeText = billAutoCompleteTextView.getText().toString().trim();
-                startDate = reminderDateTextView.getText().toString().trim();
-                startTime = reminderTimesTextView.getText().toString().trim();
+                /*startDate = reminderDateTextView.getText().toString().trim();
+                startTime = reminderTimesTextView.getText().toString().trim();*/
+
+               mBillHelper.insertBillName(completeText);
 
                 if (completeText.isEmpty() || startDate.isEmpty() || startTime.isEmpty()) {
                     if (completeText.isEmpty()) {
@@ -168,52 +280,8 @@ public class AddBillsFragment extends Fragment {
                     return;
                 }
 
-                radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-
-                    @Override
-                    public void onCheckedChanged(RadioGroup group, int checkedId) {
-
-                        if (checkedId == R.id.alarm){
-
-                            AlarmManager alarmMgr = (AlarmManager)getActivity().getSystemService(Context.ALARM_SERVICE);
-
-                            Intent intent = new Intent(rootView.getContext(), AlarmReceiver.class);
-
-                            completeText = billAutoCompleteTextView.getText().toString().trim();
-                            intent.putExtra(getString(R.string.alert_title), completeText);
-
-                            PendingIntent pendingIntent = PendingIntent.getBroadcast(rootView.getContext()
-                                    , 0, intent, 0);
-
-                            alarmMgr.set(AlarmManager.RTC_WAKEUP, mCurrentTime.getTimeInMillis(), pendingIntent);
-
-                            /*cv.put(BillEntry.COLUMN_Bill_TIME, startTime);
-                            cv.put(BillEntry.COLUMN_Bill_DATE, startDate);*/
-                        }
-                        else if (checkedId == R.id.notify){
-                            AlarmManager alarmMgr = (AlarmManager)getActivity().getSystemService(Context.ALARM_SERVICE);
-                            Intent intent = new Intent(rootView.getContext(), NotificationManager2.class);
-                            intent.putExtra(getString(R.string.alert_title), completeText);
-
-                            PendingIntent pendingIntent = PendingIntent.getBroadcast(rootView.getContext()
-                                    , 0, intent, 0);
-                            alarmMgr.set(AlarmManager.RTC_WAKEUP, mCurrentTime.getTimeInMillis(), pendingIntent);
-
-                            /*cv.put(BillEntry.COLUMN_Bill_TIME, startTime);
-                            cv.put(BillEntry.COLUMN_Bill_DATE, startDate);*/
-                        }
-                        // db.insert(BillEntry.TABLE_NAME, null, cv);
-                        //mBillHelper.insert(startTime, startDate);
-                        Intent openMainScreen = new Intent(rootView.getContext(), BillsActivity.class);
-                        openMainScreen.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(openMainScreen);
-                    }
-                });
-
-
                 mBillHelper = new BillDbHelper(rootView.getContext());
                 long newRowId = mBillHelper.insertBill(completeText, startTime, startDate);
-
                 billAutoCompleteTextView.setText("");
                 reminderTimesTextView.setText("");
                 reminderDateTextView.setText("");
@@ -225,9 +293,9 @@ public class AddBillsFragment extends Fragment {
                     Toast.makeText(getContext(), getResources().getString(R.string.bill_added_success),
                             Toast.LENGTH_SHORT).show();
                 }
-
-
-
+                Intent openMainScreen = new Intent(rootView.getContext(), BillsActivity.class);
+                openMainScreen.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(openMainScreen);
             }
         });
         return rootView;
