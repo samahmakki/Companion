@@ -15,6 +15,14 @@ public class BillsActivity extends AppCompatActivity implements BottomNavigation
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bills);
 
+        setTitle(getResources().getString(R.string.bills));
+        SharedPref sharedpref = new SharedPref(this);
+        if (sharedpref.loadNightModeState() == true) {
+            setTheme(R.style.ThemeDark);
+        } else {
+            setTheme(R.style.Theme1);
+        }
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(this);

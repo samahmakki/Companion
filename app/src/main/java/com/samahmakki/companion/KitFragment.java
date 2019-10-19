@@ -41,7 +41,7 @@ public class KitFragment extends Fragment {
 
     ListView lstmed;
     MedicineListAdapter adapter = null;
-    ArrayList<medicine> list;
+    ArrayList<medicine>list;
     ImageView imgView;
 
     Calendar currentTime;
@@ -52,6 +52,7 @@ public class KitFragment extends Fragment {
     final int year = calendar.get(Calendar.YEAR);
     final int month = calendar.get(Calendar.MONTH);
     final int day = calendar.get(Calendar.DAY_OF_MONTH);
+    private SQLiteDatabase db;
 
 
     @Nullable
@@ -66,10 +67,12 @@ public class KitFragment extends Fragment {
 
         lstmed = view.findViewById(R.id.lst_med);
         list = new ArrayList<>();
+
         adapter = new MedicineListAdapter(getContext(), R.layout.item_medicine, list);
         //get all data from SQLite
-
-         Cursor cursor = AddmedFragment.dbHelper.getData("SELECT * FROM MEDICINE");
+       db = dbHelper.getWritableDatabase();
+        Cursor cursor;
+        cursor = dbHelper.getData("SELECT * FROM MEDICINE");
         lstmed.setAdapter(adapter);
 
         list.clear();
@@ -81,8 +84,9 @@ public class KitFragment extends Fragment {
             byte[] image = cursor.getBlob(2);
             String date = cursor.getString(3);
             String time = cursor.getString(4);
+            String interval = cursor.getString(5);
 
-            list.add(new medicine(id, name, image,date,time));
+            list.add(new medicine(id, name, image,date,time,interval));
         }
         adapter.notifyDataSetChanged();
 
@@ -171,9 +175,10 @@ public class KitFragment extends Fragment {
         dialog.setContentView(R.layout.update_medicinelist);
         dialog.setTitle("Update");
         imgView = dialog.findViewById(R.id.img);
-        final EditText edtName = dialog.findViewById(R.id.addet);
+        final EditText edtName = dialog.findViewById(R.id.edtname);
         final TextView edtdate  = dialog.findViewById(R.id.edtdate);
          final TextView edttime = dialog.findViewById(R.id.edttime);
+        final TextView edtinterval = dialog.findViewById(R.id.edtinterval);
 
         Button btnUpdate = dialog.findViewById(R.id.upbtn);
         //set width of dialog
@@ -226,10 +231,8 @@ public class KitFragment extends Fragment {
         edttime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                currentTime = Calendar.getInstance();
-                hour = currentTime.get(Calendar.HOUR_OF_DAY);
+           hour = currentTime.get(Calendar.HOUR_OF_DAY);
                 minute = currentTime.get(Calendar.MINUTE);
-
                 TimePickerDialog mTimePicker;
                 mTimePicker = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
                     @Override
@@ -255,6 +258,7 @@ public class KitFragment extends Fragment {
                             AddmedFragment.imageViewToByte(imgView),
                             edtdate.getText().toString().trim(),
                             edttime.getText().toString().trim(),
+                            edtinterval.getText().toString().trim(),
                             position
                     );
                     dialog.dismiss();
@@ -266,6 +270,7 @@ public class KitFragment extends Fragment {
             }
         });
     }
+
     public String con(int time) {
         if (time >= 10) {
             return String.valueOf(time);
@@ -273,9 +278,10 @@ public class KitFragment extends Fragment {
             return "0" + String.valueOf(time);
         }
     }
+
     private void updateMedicineList() {
         //get all data from sqlite
-        Cursor cursor = dbHelper.getData("SELECT * FROM MEDICINE");
+        Cursor cursor = dbHelper.getData("SELECT * FROM MEDICINE WHERE id = ?");
         list.clear();
         if (cursor != null) {
             while (cursor.moveToNext()) {
@@ -284,8 +290,9 @@ public class KitFragment extends Fragment {
                 byte[] image = cursor.getBlob(2);
                 String date = cursor.getString(3);
                 String time = cursor.getString(4);
+                String interval = cursor.getString(5);
 
-                list.add(new medicine(id, name, image,date,time));
+                list.add(new medicine(id, name, image,date,time,interval));
             }
         }
         adapter.notifyDataSetChanged();

@@ -27,19 +27,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="اسم الفاتورة"
+                android:text="@string/bill_name"
                 android:textAppearance="?android:textAppearanceLarge"
                 android:textColor="@color/colorPrimaryDark"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <AutoCompleteTextView
                 android:id="@+id/bill_autocomplete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="text"
                 android:textAppearance="?android:textAppearanceMedium"
-                android:textStyle="bold"
-                android:inputType="text"/>
-
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -56,7 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:text="أوقات التذكير"
+                android:text="@string/reminder_times"
                 android:textAppearance="?android:textAppearanceLarge"
                 android:textColor="@color/colorPrimaryDark"
                 android:textStyle="bold" />
@@ -65,13 +64,12 @@
                 android:id="@+id/reminder_times"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
                 android:layout_marginBottom="8dp"
-                android:drawableRight="@drawable/ic_access_time"
-                android:hint="اختر وقت التذكير"
+                android:drawableStart="@drawable/ic_access_time"
+                android:hint="@string/choose_reminder_time"
                 android:textAppearance="?android:textAppearanceMedium"
-                android:textStyle="bold"
-                android:textColor="#000000"/>
+                android:textColor="#000000"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -88,7 +86,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="جدولة"
+                android:text="@string/Schedule"
                 android:textAppearance="?android:textAppearanceLarge"
                 android:textColor="@color/colorPrimaryDark"
                 android:textStyle="bold" />
@@ -97,25 +95,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:gravity="right"
                 android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Date"
+                    android:textAppearance="?android:textAppearanceMedium"
+                    android:textColor="#000000"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/reminder_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="اختر التاريخ"
+                    android:hint="@string/Choose_Date"
                     android:textAppearance="?android:textAppearanceMedium"
                     android:textColor="@color/colorPrimaryDark"
                     android:textColorHint="@color/colorPrimary" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="تاريخ البدء:  "
-                    android:textAppearance="?android:textAppearanceMedium"
-                    android:textStyle="bold"
-                    android:textColor="#000000"/>
             </LinearLayout>
 
             <View
@@ -129,41 +126,38 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:gravity="right"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:text="أيام التذكير"
+                    android:text="@string/reminder_monthly"
                     android:textAppearance="?android:textAppearanceMedium"
-                    android:textStyle="bold"
-                    android:textColor="#000000"/>
+                    android:textColor="#000000"
+                    android:textStyle="bold" />
 
                 <RadioGroup
                     android:id="@+id/radio_group"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="right">
+                    android:layout_height="wrap_content">
 
                     <RadioButton
-                        android:id="@+id/monthly"
+                        android:id="@+id/alarm"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="أول كل شهر"
-                        android:layoutDirection="rtl"
-                        android:textAppearance="?android:textAppearanceMedium"/>
+                        android:text="@string/alarm"
+                        android:textAppearance="?android:textAppearanceMedium" />
 
                     <RadioButton
-                        android:id="@+id/weekly"
+                        android:id="@+id/notify"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="اسبوعيا"
-                        android:layoutDirection="rtl"
-                        android:textAppearance="?android:textAppearanceMedium"/>
+                        android:text="@string/notification"
+                        android:textAppearance="?android:textAppearanceMedium" />
                 </RadioGroup>
             </LinearLayout>
+
         </LinearLayout>
 
         <Button
@@ -174,7 +168,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:background="@color/colorPrimary"
-            android:text="تم ✔"
+            android:text="@string/Done"
             android:textAppearance="?android:textAppearanceLarge"
             android:textColor="@android:color/white"
             android:textStyle="bold" />

@@ -15,7 +15,6 @@ import java.util.ArrayList;
 public class MedicineListAdapter extends BaseAdapter {
     private Context context;
     private int layout;
-
     private ArrayList<medicine> medicinelist;
 
     public MedicineListAdapter(Context context, int layout, ArrayList<medicine> medicinelist) {
@@ -53,6 +52,7 @@ public class MedicineListAdapter extends BaseAdapter {
             holder.imageView = row.findViewById(R.id.med_img);
             holder.time = row.findViewById(R.id.time);
             holder.date = row.findViewById(R.id.date);
+            holder.interval = row.findViewById(R.id.interval);
 
 
             row.setTag(holder);
@@ -67,13 +67,14 @@ public class MedicineListAdapter extends BaseAdapter {
         holder.imageView.setImageBitmap(bitmap);
         holder.date.setText(med.getdate());
         holder.time.setText(med.gettime());
-
+        holder.interval.setText(med.getInterval());
 
 
         return row;
     }
 
     private class ViewHolder {
+        TextView interval;
         ImageView imageView;
         TextView txtName;
         TextView time;

@@ -23,7 +23,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/addet"
+            android:id="@+id/edtname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/medTV"
@@ -145,6 +145,77 @@
             />
 
     </LinearLayout>
+    <TextView
+        android:id="@+id/freqtv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/remtv"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/select_frequency"
+        android:textColor="#B71C1C"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/edtinterval"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/remtv"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="10dp"
+        android:textColor="#B71C1C"
+        android:textSize="20sp"
+        android:hint="interval"
+        android:textStyle="bold" />
+
+    <RadioGroup
+        android:id="@+id/fradio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/freqtv"
+        android:layout_marginBottom="8pt"
+        android:padding="4dp"
+        >
+
+        <RadioButton
+            android:id="@+id/once"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/once_daily"
+            android:onClick="checkButton"
+            android:textAppearance="?android:textAppearanceMedium" />
+
+        <RadioButton
+            android:id="@+id/twice"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:onClick="checkButton"
+
+            android:text="@string/twice_daily"
+            android:textAppearance="?android:textAppearanceMedium" />
+
+
+        <RadioButton
+            android:id="@+id/thrice"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/three_times_daily"
+            android:onClick="checkButton"
+
+            android:textAppearance="?android:textAppearanceMedium" />
+
+
+        <RadioButton
+            android:id="@+id/four"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:onClick="checkButton"
+
+            android:text="@string/four_times_daily"
+            android:textAppearance="?android:textAppearanceMedium" />
+
+
+    </RadioGroup>
 
 
     <Button

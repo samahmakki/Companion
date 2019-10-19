@@ -1,9 +1,12 @@
 package com.samahmakki.companion;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -19,9 +22,13 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.samahmakki.companion.data.BillContract;
+import com.samahmakki.companion.data.BillContract.BillEntry;
 import com.samahmakki.companion.data.BillDbHelper;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class UpdateBillActivity extends AppCompatActivity {
     String[] bills = {"فاتورة كهرباء", "فاتورة مياه", "فاتورة غاز", "فاتورة انترنت", "فاتورة تليفون"};
@@ -55,16 +62,13 @@ public class UpdateBillActivity extends AppCompatActivity {
         billAutoCompleteTextView = findViewById(R.id.bill_autocomplete);
         reminderTimesTextView = findViewById(R.id.reminder_times);
         reminderDateTextView = findViewById(R.id.reminder_date);
-        radioGroup = findViewById(R.id.radio_group);
-        monthlyRadioButton = findViewById(R.id.monthly);
-        weeklyRadioButton = findViewById(R.id.weekly);
         Button saveButton = findViewById(R.id.save_button);
         Button deleteButton = findViewById(R.id.delete_button);
 
 
         mBillHelper = new BillDbHelper(this);
 
-        Intent receivedIntent = getIntent();
+        final Intent receivedIntent = getIntent();
         selectedID = receivedIntent.getIntExtra("id", -1);
         selectedName = receivedIntent.getStringExtra("name");
         startTime = receivedIntent.getStringExtra("time");
@@ -140,9 +144,10 @@ public class UpdateBillActivity extends AppCompatActivity {
                 completeText = billAutoCompleteTextView.getText().toString().trim();
                 startDate2 = reminderDateTextView.getText().toString().trim();
                 startTime2 = reminderTimesTextView.getText().toString().trim();
-
-                mBillHelper.updateName(completeText, selectedID, selectedName, startTime2, startTime, startDate2, startDate);
-                // mBillHelper.updateName(completeText, selectedID, selectedName);
+                //mBillHelper.updateName(completeText, selectedID, selectedName,startTime2, startTime, startDate2, startDate);
+                mBillHelper.updateName2(completeText, selectedID, startTime2, startDate2);
+                Intent intent = new Intent(UpdateBillActivity.this, BillsActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -152,7 +157,8 @@ public class UpdateBillActivity extends AppCompatActivity {
                 mBillHelper.deleteName(selectedID, selectedName);
                 billAutoCompleteTextView.setText("");
                 Toast.makeText(getBaseContext(), "removed", Toast.LENGTH_SHORT).show();
-                finish();
+                Intent intent = new Intent(UpdateBillActivity.this, BillsActivity.class);
+                startActivity(intent);
             }
         });
     }

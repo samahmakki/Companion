@@ -1,4 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">رفيق</string>
+
+    <string name="addBill">إضافة فاتورة</string>
+    <string name="allBills">جميع الفواتير</string>
+    <string name="Description">وصف</string>
+    <string name="Update">تعديل</string>
+    <string name="Delete">حذف</string>
+    <string name="Choose_an_action">اختر منهما</string>
+    <string name="choose_start_time">وقت البدء</string>
+    <string name="choosee_start_time">اختر وقت البدء</string>
+    <string name="reminders">التذكير</string>
+    <string name="select_frequency">اختر مرات التكرار</string>
+    <string name="once_daily">مرة يومياً (كل 24 ساعة)</string>
+    <string name="twice_daily">مرتين في اليوم (كل 12 ساعة)</string>
+    <string name="three_times_daily">3 مرات باليوم (كل 8 ساعات)</string>
+    <string name="four_times_daily">اربع مرات باليوم (كل 6 ساعة)</string>
+    <string name="select_period_of_medication">اختر مدة اخذ العلاج</string>
+    <string name="period">المدة</string>
+    <string name="Forever">دائماً</string>
+    <string name="for_two_weeks">لمدة اسبوعين</string>
+    <string name="for_ten_days">لمدة عشر ايام</string>
+    <string name="for_a_week">لمدة اسبوع</string>
+    <string name="medicine_image">medicine image</string>
+    <string name="medication_for_today">أدوية هذا اليوم</string>
+    <string name="edit_photo">تعديل الصورة</string>
+    <string name="done">تم</string>
+
+    <string name="time">الوقت</string>
+    <string name="switchoffflash">غلق المصباح اليدوي</string>
+    <string name="about">عن التطبيق</string>
+    <string name="rafeeq_app">تطبيق رفيق ..تجد به كل ما تحتاجه</string>
+    <string name="add_advertise">ضع إعلانك هنا</string>
+    <string name="copyright">حقوق الحفظ خاصة ب\"إس آر ديف\"</string>
+
+    <string name="medications">الأدوية</string>
+    <string name="bills">الفواتير</string>
+    <string name="activities">الأنشطة</string>
+    <string name="flashlight">المصباح اليدوي</string>
+    <string name="time_is_required">الوقت مطلوب</string>
+    <string name="Quit">هل أنت متأكد أنك تريد الخروج؟</string>
+    <string name="Rate_app">تقييم التطبيق</string>
+    <string name="Yes">نعم</string>
+    <string name="switchOnCamera">أفتح المصباح اليدوي</string>
+    <string name="flash_light">المصباح اليدوي</string>
+    <string name="add_medicine">إضافة دواء</string>
+    <string name="all_medicines">جميع الأدوية</string>
+    <string name="title_activity_bills">الفواتير</string>
+    <string name="title_home">الصفحة الرئيسية</string>
+    <string name="title_activity_medications">الأدوية</string>
+    <string name="enter_medicine_name">أدخل اسم الدواء</string>
+    <string name="medicine_name">اسم الدواء</string>
+    <string name="currentBills">الفواتير الحالية</string>
+
+    <string name="set">Set</string>
+    <string name="medname">medName</string>
+    <string name="title_activity_nav__drawer">Nav_Drawer</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+    <string name="night_mode">تشغيل الوضع الليلي</string>
+    <string name="language">اللغة</string>
+    <string name="choose_country">أختر دولتك</string>
+    <string name="exit">الخروج</string>
+    <string name="title_notifications">الإشعارات</string>
+    <string name="magnifier">العدسة المكبرة</string>
+    <string name="add_bill_button">إضافة فاتورة جديدة</string>
+    <string name="add_bill">إضافة فاتورة</string>
+    <string name="billName_is_required">اسم الفاتورة مطلوب</string>
+    <string name="date_is_required">التاريخ مطلوب</string>
+    <string name="No">لا</string>
+    <string name="magnifier_glass">العدسة المكبرة</string>
+    <string name="today">اليوم</string>
+    <string name="empty_state">لا توجد فواتير</string>
+    <string name="date_of_day">تاريخ اليوم</string>
+    <string name="capture_medicine_picture">التقط صورة للدواء</string>
+    <string name="capture_pic">التقط صورة</string>
+    <string name="date">التاريخ</string>
+    <string name="action_settings">الإعدادات</string>
+    <string name="settings">الإعدادات</string>
+    <string name="share_app">مشاركة التطبيق</string>
+    <string name="social">التواصل</string>
+    <string name="open_calendar">افتح التقويم</string>
+    <string name="new_medicine">دواء جديد</string>
+    <string name="select_time">اختر الوقت</string>
+    <string name="set_alarm">اضبط التنبيه</string>
+    <string name="choose_start_day">اختر تاريخ البدء</string>
+    <string name="ok">تم</string>
+    <string name="title_msg">الوقت لتناول الدواء</string>
+    <string name="title_msg_bill">عنوان</string>
+
+    <string name="titlee">العنوان</string>
+    <string name="title">العنوان</string>
+    <string name="titttle">العنوان</string>
+    <string name="alert_content">Alert content</string>
+    <string name="hour_minutes">HH:mm</string>
+    <string name="dateformate">dd/MM/yyyy</string>
+    <string name="added_successfully">تمت الإضافة بنجاح</string>
+
+    <string name="bill_name">اسم الفاتورة</string>
+    <string name="reminder_times">أوقات التذكير</string>
+    <string name="choose_reminder_time">اختر وقت التذكير</string>
+    <string name="Schedule">جدولة</string>
+    <string name="Choose_Date">اختر التاريخ</string>
+    <string name="choose_language">اختر لغة..</string>
+    <string name="night_mode_on">تشغيل</string>
+    <string name="night_mode_off">إيقاف</string>
+    <string name="choose_nightMode_state">اختر حالة الوضع الليلي</string>
+    <string name="night_modeOn">تم تشغيل الوضع الليلي</string>
+    <string name="night_modeOff">تم إيقاف الوضع الليلي</string>
+    <string name="Date">التاريخ:"  "</string>
+    <string name="reminder_monthly">التذكير كل شهر</string>
+    <string name="alarm">تشغيل التنبيه</string>
+    <string name="notification">تشغيل الإشعارات</string>
+    <string name="Done">تم ✔</string>
+    <string name="electricity_bill">فاتورة كهرباء</string>
+    <string name="water_bill">فاتورة مياة</string>
+    <string name="gas_bill">فاتورة غاز</string>
+    <string name="internet_bill">فاتورة انترنت</string>
+    <string name="telephone_bill">فاتورة تليفون</string>
+    <string name="reAdd_bill">أعد إضافة الفاتورة</string>
+    <string name="bill_added_success">تم إضافة الفاتورة</string>
+    <string name="app_version">1.0</string>
+
+    <string name="copyright_text" translatable="false">Copyright © 2019, SR\'Dev </string>
+    <string name="rights">كل الحقوق محفوظة</string>
+    <string name="alarmtext">تنبيه:"  "</string>
+    <string name="alert_title">title</string>
+    <string name="Not_Set">Not Set</string>
+    <string name="missedBills">الفواتير الغير مدفوعة</string>
+    <string name="finishedBills">الفواتير المنتهية</string>
+
 </resources>

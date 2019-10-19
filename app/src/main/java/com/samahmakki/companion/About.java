@@ -32,8 +32,6 @@ public class About extends AppCompatActivity {
                 .addItem(createcopyright())
                 .create();
         setContentView(aboutpage);
-
-
     }
 
     private Element createcopyright() {

@@ -10,29 +10,30 @@ public class medicine {
     private int id;
     private String time;
     private String date;
+    private String interval;
 
 
-    public medicine(int id, String medName, byte[] medimg, String date, String time) {
+    public medicine(int id, String medName, byte[] medimg, String date, String time,String interval) {
+        this.id = id;
         this.medName = medName;
         this.medimg = medimg;
         this.date = date;
         this.time = time;
-        this.id = id;
+        this.interval = interval;
+
 
     }
 
-    public medicine() {
 
-    }
     //Getter
 
     public int getId(){
         return id;
     }
+
     public String getMedName() {
         return medName;
     }
-
 
     public byte[] getMedimg() {
         return medimg;
@@ -43,9 +44,15 @@ public class medicine {
 
         return date;
     }
+
     public String gettime() {
 
         return time;
+    }
+    public String getInterval() {
+
+
+        return interval;
     }
 
     //setter
@@ -60,4 +67,16 @@ public class medicine {
     public void setMedimg(byte[] medimg) {
         this.medimg = medimg;
     }
+    public void settime(String time) {
+        this.time = time;
+    }
+
+
+    public void setdate(String date) {
+        this.date = date;
+    }
+    public void setInterval(String interval) {
+        this.interval = interval;
+    }
+
 }
