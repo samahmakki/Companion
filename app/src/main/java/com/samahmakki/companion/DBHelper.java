@@ -120,4 +120,14 @@ public class DBHelper extends SQLiteOpenHelper {
 
         db.close();
     }
+//20october
+   /* public Cursor getDataToday(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("select * from "+TABLE_NAME+
+                " WHERE date(datetime(date/ 1000 , 'unixepoch', 'localtime')) = date('now', 'localtime') order by id desc", null);
+
+    }*/
+
+
+
 }

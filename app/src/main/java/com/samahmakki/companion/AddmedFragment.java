@@ -23,6 +23,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -130,7 +131,7 @@ public class AddmedFragment extends Fragment {
 
 
         starttime = view.findViewById(R.id.start_time);
-        dbHelper = new DBHelper(getContext(), "RafeeqDB", null, 4);
+        dbHelper = new DBHelper(getContext(), "RafeeqDB", null, 5);
         db = dbHelper.getWritableDatabase();
         //creating table in database
         dbHelper.queryData("CREATE TABLE IF NOT EXISTS MEDICINE (id INTEGER PRIMARY KEY AUTOINCREMENT ,name VARCHAR,image BLOB,date VARCHAR,time VARCHAR,interval VARCHAR)");
@@ -337,7 +338,7 @@ public class AddmedFragment extends Fragment {
                     String alertTitle = etadd.getText().toString();
                     intent.putExtra(getString(R.string.medicine_name), alertTitle);
 
-                    pendingIntent = PendingIntent.getBroadcast(getContext(), 0, intent, 0);
+                    pendingIntent = PendingIntent.getBroadcast(getContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
                     alarmMgr.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
                     dbHelper.insertMEDTime_Date(startTime, startDate, interval);
@@ -352,37 +353,54 @@ public class AddmedFragment extends Fragment {
                     @Override
                     public void onCheckedChanged(RadioGroup group, int checkedId) {
                         if (radioId == R.id.once) {
+                           /* calendar.set(Calendar.HOUR, timePickHour);
+                            calendar.set(Calendar.MINUTE, timePickMinute);
+                            calendar.set(Calendar.SECOND, 0);*/
+                            long startUpTime = calendar.getTimeInMillis();
+                            if (System.currentTimeMillis() > startUpTime) {
+                                startUpTime = startUpTime +24*60*60*1000 ;
+                            }
 
 
-
-                            alarmMgr.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                                    SystemClock.elapsedRealtime() +
-                                            60 * 1000, pendingIntent);
-                            alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 * 60 * 24, pendingIntent);
+                            alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, startUpTime, AlarmManager.INTERVAL_DAY, pendingIntent);
                         }
                         if (radioId == R.id.twice) {
+                            /* calendar.set(Calendar.HOUR, timePickHour);
+                            calendar.set(Calendar.MINUTE, timePickMinute);
+                            calendar.set(Calendar.SECOND, 0);*/
+                            long startUpTime = calendar.getTimeInMillis();
+                            if (System.currentTimeMillis() > startUpTime) {
+                                startUpTime = startUpTime +12*60*60*1000 ;
+                            }
 
-
-                            alarmMgr.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                                    SystemClock.elapsedRealtime() +
-                                            60 * 1000, pendingIntent);
-                            alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 * 60 * 12, pendingIntent);
+                            alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, startUpTime, AlarmManager.INTERVAL_HALF_DAY, pendingIntent);
 
                         }
                         if (radioId == R.id.thrice) {
+                            /* calendar.set(Calendar.HOUR, timePickHour);
+                            calendar.set(Calendar.MINUTE, timePickMinute);
+                            calendar.set(Calendar.SECOND, 0);*/
 
-
-                            alarmMgr.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                                    SystemClock.elapsedRealtime() +
-                                            60 * 1000, pendingIntent);
-                            alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 * 60 * 8, pendingIntent);
+                            long startUpTime = calendar.getTimeInMillis();
+                            if (System.currentTimeMillis() > startUpTime) {
+                                startUpTime = startUpTime +  8*60*60*1000 ;
+                            }
+                            alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, startUpTime, AlarmManager.INTERVAL_HOUR * 8, pendingIntent);
                         }
                         if (radioId == R.id.four) {
 
                           /*  alarmMgr.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
                                     SystemClock.elapsedRealtime() +
                                             60 * 1000, pendingIntent);*/
-                            alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 * 60 * 1, pendingIntent);
+                            /* calendar.set(Calendar.HOUR, timePickHour);
+                            calendar.set(Calendar.MINUTE, timePickMinute);
+                            calendar.set(Calendar.SECOND, 0);*/
+                            long startUpTime = calendar.getTimeInMillis();
+                            if (System.currentTimeMillis() > startUpTime) {
+                                startUpTime = startUpTime + 6*60*60*1000 ;
+                            }
+
+                            alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, startUpTime, AlarmManager.INTERVAL_HOUR * 6, pendingIntent);
                         }
 
 
@@ -420,7 +438,25 @@ public class AddmedFragment extends Fragment {
                 cv.put(DBHelper.time, startTime);*/
 
 
+           /*     Fragment addmedFragment = new AddmedFragment();
+                FragmentTransaction transaction = Objects.requireNonNull(getFragmentManager()).beginTransaction();
+                transaction.replace(R.id.fragment_container, addmedFragment);
+                // if written, this transaction will be added to backstack
+                transaction.addToBackStack(null);
+                transaction.commit();*/
+                Fragment kitFragment = new KitFragment();
+                FragmentTransaction transaction = (getFragmentManager()).beginTransaction();
+                transaction.replace(R.id.fragment_container, kitFragment);
+                // if written, this transaction will be added to backstack
+                transaction.addToBackStack(null);
+                transaction.commit();
+
             }
+
+
+
+
+
         });
 
         return view;

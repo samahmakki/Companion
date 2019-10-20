@@ -64,29 +64,35 @@ public class BillDbHelper extends SQLiteOpenHelper {
     }
 
     //insert data into the Bills Table
-    final public long insertBillReminder (String billName, String time, String date) {
+    final public void insertBillTime_Date (String time, String date) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(BillEntry.COLUMN_Bill_TIME, time);
+        values.put(BillEntry.COLUMN_Bill_DATE, date);
+
+        db.insert(BillEntry.TABLE_NAME, null, values);
+
+        db.close();
+    }
+
+    final public void insertBillName ( String billName) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
 
         values.put(BillEntry.COLUMN_Bill_Name, billName);
-        values.put(BillEntry.COLUMN_Bill_TIME, time);
-        values.put(BillEntry.COLUMN_Bill_DATE, date);
-
-        long newRowId = db.insert(BillEntry.TABLE_NAME, null, values);
-
+        db.insert(BillEntry.TABLE_NAME, null, values);
         db.close();
-        return newRowId;
     }
 
-    final public void insert ( String time, String date) {
+    final public void insert ( String billName) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
 
-        values.put(BillEntry.COLUMN_Bill_TIME, time);
-        values.put(BillEntry.COLUMN_Bill_DATE, date);
-
+        values.put(BillEntry.COLUMN_Bill_Name, billName);
         db.close();
     }
 

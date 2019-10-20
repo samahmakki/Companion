@@ -129,9 +129,11 @@
     <string name="copyright_text">Copyright © 2019, SR\'Dev </string>
     <string name="rights">All rights reserved</string>
     <string name="alarmtext">Alert:"  "</string>
-    <string name="alert_title">title</string>
+    <string name="alert_title">Reminder</string>
     <string name="Not_Set">Not Set</string>
     <string name="medName_is_required">medicine name is required</string>
+    <string name="edit_start_time">Edit start date</string>
+    <string name="open">Open</string>
 
 
 </resources>

@@ -125,6 +125,7 @@
     <string name="rights">All rights reserved</string>
     <string name="alert_title">title</string>
     <string name="Not_Set">Not Set</string>
-
+    <string name="medName_is_required">medicine name is required</string>
+    <string name="edit_start_time">Edit start date</string>
 
 </resources>

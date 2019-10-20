@@ -1,24 +1,28 @@
 package com.samahmakki.companion;
 
-import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.icu.text.SimpleDateFormat;
-import android.os.Build;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -29,9 +33,10 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.samahmakki.companion.data.BillContract;
 import com.samahmakki.companion.data.BillDbHelper;
+import com.samahmakki.companion.data.BillContract.BillEntry;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -42,8 +47,7 @@ public class AddBillsFragment extends Fragment {
     AutoCompleteTextView billAutoCompleteTextView;
     String completeText;
     TextView reminderTimesTextView, reminderDateTextView;
-    Calendar mCurrentTime;
-    Calendar mCurrentDate;
+    Calendar calendar;
 
     DatePickerDialog mPickerDialog;
     TimePickerDialog mTimePicker;
@@ -57,6 +61,15 @@ public class AddBillsFragment extends Fragment {
     BillDbHelper mBillHelper;
     SQLiteDatabase db;
 
+    String timeString;
+    String dateString;
+
+    int timePickHour;
+    int timePickMinute;
+    int datePickMonth;
+    int datePickDay;
+    int datePickYear;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable final ViewGroup container,
@@ -66,6 +79,7 @@ public class AddBillsFragment extends Fragment {
 
         mBillHelper = new BillDbHelper(rootView.getContext());
         db = mBillHelper.getWritableDatabase();
+
         reminderTimesTextView = rootView.findViewById(R.id.reminder_times);
         reminderDateTextView = rootView.findViewById(R.id.reminder_date);
 
@@ -75,16 +89,35 @@ public class AddBillsFragment extends Fragment {
 
         saveButton = rootView.findViewById(R.id.save_button);
 
+        /*radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.alarm) {
+                    alarmRadioButton.setEnabled(true);
+                } else {
+                    alarmRadioButton.setEnabled(true);
+                    alarmRadioButton.setChecked(false);
+                }
+                if (checkedId == R.id.notify) {
+                    notifyRadioButton.setEnabled(true);
+                } else {
+                    notifyRadioButton.setEnabled(false);
+                    notifyRadioButton.setChecked(false);
+                }
+            }
+        });*/
+
+
         String[] bills = {getResources().getString(R.string.electricity_bill),
                 getResources().getString(R.string.water_bill),
                 getResources().getString(R.string.gas_bill),
                 getResources().getString(R.string.internet_bill),
                 getResources().getString(R.string.telephone_bill)};
-        /*
-        AutoCompleteText for bills
-         */
+    /*
+    AutoCompleteText for bills
+     */
         //Creating the instance of ArrayAdapter containing list of bills names
-        final ArrayAdapter<String> adapter = new ArrayAdapter<>(rootView.getContext()
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(rootView.getContext()
                 , android.R.layout.select_dialog_item, bills);
         //Getting the instance of AutoCompleteTextView
         billAutoCompleteTextView = rootView.findViewById(R.id.bill_autocomplete);
@@ -92,22 +125,119 @@ public class AddBillsFragment extends Fragment {
         billAutoCompleteTextView.setAdapter(adapter);//setting the adapter data into the AutoCompleteTextView
 
 
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                if (checkedId == R.id.alarm) {
+                    calendar = Calendar.getInstance();
+                    calendar.clear();
+                    calendar.set(Calendar.MONTH, datePickMonth);
+                    calendar.set(Calendar.DAY_OF_MONTH, datePickDay);
+                    calendar.set(Calendar.YEAR, datePickYear);
+                    calendar.set(Calendar.HOUR, timePickHour);
+                    calendar.set(Calendar.MINUTE, timePickMinute);
+                    calendar.set(Calendar.SECOND, 00);
+
+
+                    SimpleDateFormat formatter = new SimpleDateFormat(getString(R.string.hour_minutes));
+                    startTime = formatter.format(new Date(calendar.getTimeInMillis()));
+                    SimpleDateFormat dateformatter = new SimpleDateFormat(getString(R.string.dateformate));
+                    startDate = dateformatter.format(new Date(calendar.getTimeInMillis()));
+
+                    AlarmManager alarmMgr = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+
+                    Intent intent = new Intent(rootView.getContext(), AlarmReceiver.class);
+
+                    billAutoCompleteTextView = rootView.findViewById(R.id.bill_autocomplete);
+                    completeText = billAutoCompleteTextView.getText().toString().trim();
+                    intent.putExtra(getString(R.string.alert_title), completeText);
+
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(rootView.getContext()
+                            , 0, intent, 0);
+
+                    alarmMgr.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+
+                    mBillHelper.insertBillTime_Date(startTime, startDate);
+                }
+
+                else if (checkedId == R.id.notify) {
+
+                    Intent intent = new Intent(rootView.getContext(), NotificationManager2.class);
+
+                    intent.putExtra(getString(R.string.alert_title), "Reminder");
+                    intent.putExtra(getString(R.string.bill_name), completeText);
+
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext()
+                            , 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    AlarmManager alarmMgr = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+                    calendar = Calendar.getInstance();
+                    calendar.clear();
+                    calendar.set(Calendar.MONTH, datePickMonth);
+                    calendar.set(Calendar.DAY_OF_MONTH, datePickDay);
+                    calendar.set(Calendar.YEAR, datePickYear);
+                    calendar.set(Calendar.HOUR, timePickHour);
+                    calendar.set(Calendar.MINUTE, timePickMinute);
+                    calendar.set(Calendar.SECOND, 00);
+
+
+                    SimpleDateFormat formatter = new SimpleDateFormat(getString(R.string.hour_minutes));
+                    startTime = formatter.format(new Date(calendar.getTimeInMillis()));
+                    SimpleDateFormat dateformatter = new SimpleDateFormat(getString(R.string.dateformate));
+                    startDate = dateformatter.format(new Date(calendar.getTimeInMillis()));
+
+
+                    billAutoCompleteTextView = rootView.findViewById(R.id.bill_autocomplete);
+                    completeText = billAutoCompleteTextView.getText().toString().trim();
+
+
+
+
+                    String Title = getString(R.string.alert_title);
+
+
+
+              /*      NotificationCompat.Builder builder =
+                            new NotificationCompat.Builder(getContext());
+                    builder.setSmallIcon(R.drawable.ic_action_alarms)
+                            .setContentTitle(Title)
+                            .setWhen(System.currentTimeMillis())
+                            .setDefaults(Notification.DEFAULT_LIGHTS)
+                            .setContentText(completeText)
+                            .setSound(Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE
+                                    + "://" + getContext().getPackageName() + "/raw/notify"));*/
+
+
+
+
+                     alarmMgr.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+
+                    mBillHelper.insertBillTime_Date(startTime, startDate);
+                }
+            }
+        });
+
          /*
         Reminder times
          */
-        reminderTimesTextView.setOnClickListener(new View.OnClickListener() {
+        reminderTimesTextView.setOnClickListener(new View.OnClickListener()
+
+        {
             @Override
             public void onClick(View view) {
-                mCurrentTime = Calendar.getInstance();
-                hour = mCurrentTime.get(Calendar.HOUR_OF_DAY);
-                minute = mCurrentTime.get(Calendar.MINUTE);
+                calendar = Calendar.getInstance();
+                hour = calendar.get(Calendar.HOUR_OF_DAY);
+                minute = calendar.get(Calendar.MINUTE);
 
                 mTimePicker = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                         startTime = con(selectedHour) + ":" + con(selectedMinute);
-                        String.format(startTime, (Object) Locale.getAvailableLocales());
+                        String.format(startTime, Locale.getAvailableLocales());
                         reminderTimesTextView.setText(startTime);
+                        timePickHour = timePicker.getCurrentHour();
+                        timePickMinute = timePicker.getCurrentMinute();
                     }
                 }, hour, minute, false);//Yes 24 hour time
                 mTimePicker.setTitle("Select Time");
@@ -119,21 +249,26 @@ public class AddBillsFragment extends Fragment {
         /*
         Reminder date
          */
-        reminderDateTextView.setOnClickListener(new View.OnClickListener() {
+        reminderDateTextView.setOnClickListener(new View.OnClickListener()
+
+        {
             @Override
             public void onClick(View v) {
-                mCurrentDate = Calendar.getInstance();
-                year = mCurrentDate.get(Calendar.YEAR);
-                month = mCurrentDate.get(Calendar.MONTH);
-                day = mCurrentDate.get(Calendar.DAY_OF_MONTH);
+                calendar = Calendar.getInstance();
+                year = calendar.get(Calendar.YEAR);
+                month = calendar.get(Calendar.MONTH);
+                day = calendar.get(Calendar.DAY_OF_MONTH);
 
-                mPickerDialog = new DatePickerDialog(Objects.requireNonNull(getContext()), new DatePickerDialog.OnDateSetListener() {
+                mPickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int Year, int Month, int Day) {
                         startDate = Year + "-" + (Month + 1) + "-" + Day;
                         reminderDateTextView.setText(startDate);
 
-                        mCurrentDate.set(Year, (Month + 1), Day);
+                        calendar.set(Year, (Month + 1), Day);
+                        datePickMonth = datePicker.getMonth();
+                        datePickDay = datePicker.getDayOfMonth();
+                        datePickYear = datePicker.getYear();
                     }
                 }, year, month, day);
                 mPickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
@@ -145,17 +280,22 @@ public class AddBillsFragment extends Fragment {
          /*
         Save Button
          */
-        saveButton.setOnClickListener(new View.OnClickListener() {
+        saveButton.setOnClickListener(new View.OnClickListener()
+
+        {
             @Override
             public void onClick(View view) {
-                final ContentValues cv = new ContentValues();
-
                 completeText = billAutoCompleteTextView.getText().toString().trim();
-                startDate = reminderDateTextView.getText().toString().trim();
-                startTime = reminderTimesTextView.getText().toString().trim();
+                /*startDate = reminderDateTextView.getText().toString().trim();
+                startTime = reminderTimesTextView.getText().toString().trim();*/
 
-                if (completeText.isEmpty() || startDate.isEmpty() || startTime.isEmpty()) {
-                   if (completeText.isEmpty()) {
+                mBillHelper.insertBillName(completeText);
+                Calendar c = Calendar.getInstance();
+                calendar.set(Calendar.HOUR, timePickHour);
+                calendar.set(Calendar.MINUTE, timePickMinute);
+                calendar.set(Calendar.SECOND, 0);
+                if (completeText.isEmpty() || startDate.isEmpty() || startTime.isEmpty() ||(c.getTimeInMillis() > calendar.getTimeInMillis())) {
+                    if (completeText.isEmpty()) {
                         billAutoCompleteTextView.setError(getString(R.string.billName_is_required));
                         billAutoCompleteTextView.requestFocus();
                     }
@@ -169,89 +309,23 @@ public class AddBillsFragment extends Fragment {
                         reminderTimesTextView.setError(getString(R.string.time_is_required));
                         reminderTimesTextView.requestFocus();
                     }
+
+                    if (c.getTimeInMillis() > calendar.getTimeInMillis()) {
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(Objects.requireNonNull(getContext()));
+                        alertDialog.setTitle("Warning !!");
+                        alertDialog.setMessage("Invalid time");
+                        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                        alertDialog.show();
+                    }
+
                     return;
                 }
-                cv.put(BillContract.BillEntry.COLUMN_Bill_Name,completeText);
-                cv.put(BillContract.BillEntry.COLUMN_Bill_TIME, startTime);
-                cv.put(BillContract.BillEntry.COLUMN_Bill_DATE, startDate);
 
-                radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-
-                    @RequiresApi(api = Build.VERSION_CODES.N)
-                    @Override
-                    public void onCheckedChanged(RadioGroup group, int checkedId) {
-
-                        if (checkedId == R.id.alarm){
-                            mCurrentTime = Calendar.getInstance();
-                            mCurrentDate.clear();
-                            mCurrentTime.clear();
-
-                            SimpleDateFormat formatter = new SimpleDateFormat(getString(R.string.hour_minutes));
-                            String timeString = formatter.format(new Date(mCurrentTime.getTimeInMillis()));
-
-                            SimpleDateFormat dateformatter = new SimpleDateFormat(getString(R.string.dateformate));
-                            String dateString = dateformatter.format(new Date(mCurrentDate.getTimeInMillis()));
-
-                            AlarmManager alarmMgr = (AlarmManager)Objects.requireNonNull(getActivity()).getSystemService(Context.ALARM_SERVICE);
-
-                            Intent intent = new Intent(getContext(), AlarmReceiver.class);
-
-                            completeText = billAutoCompleteTextView.getText().toString().trim();
-                            intent.putExtra(getString(R.string.alert_title), completeText);
-
-
-
-
-
-
-                            PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext()
-                                    , 0, intent, 0);
-
-                            alarmMgr.set(AlarmManager.RTC_WAKEUP, mCurrentTime.getTimeInMillis(), pendingIntent);
-                            cv.put(BillContract.BillEntry.COLUMN_Bill_TIME, timeString);
-                            cv.put(BillContract.BillEntry.COLUMN_Bill_DATE, dateString);
-
-                        }
-                        else if (checkedId == R.id.notify){
-                            mCurrentTime= Calendar.getInstance();
-                            mCurrentDate.clear();
-                            mCurrentTime.clear();
-
-
-                            SimpleDateFormat formatter = new SimpleDateFormat(getString(R.string.hour_minutes));
-                            String timeString = formatter.format(new Date(mCurrentTime.getTimeInMillis()));
-
-                            SimpleDateFormat dateformatter = new SimpleDateFormat(getString(R.string.dateformate));
-                            String dateString = dateformatter.format(new Date(mCurrentDate.getTimeInMillis()));
-                            Intent intent = new Intent(getContext(), NotificationManager2.class);
-
-                            PendingIntent pendingIntent = PendingIntent.getBroadcast(rootView.getContext()
-                                    , 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                            AlarmManager alarmMgr = (AlarmManager)Objects.requireNonNull(getActivity()).getSystemService(Context.ALARM_SERVICE);
-                            intent.putExtra(getString(R.string.alert_title), completeText);
-
-
-
-
-                            alarmMgr.set(AlarmManager.RTC_WAKEUP, mCurrentTime.getTimeInMillis(), pendingIntent);
-                            cv.put(BillContract.BillEntry.COLUMN_Bill_TIME, timeString);
-                            cv.put(BillContract.BillEntry.COLUMN_Bill_DATE, dateString);
-
-
-
-                        }
-                         db.insert(BillContract.BillEntry.TABLE_NAME, null, cv);
-                       // mBillHelper.insert(startTime, startDate);
-                        Intent openMainScreen = new Intent(getContext(), BillsActivity.class);
-                        openMainScreen.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(openMainScreen);
-                    }
-                });
-
-
-                mBillHelper = new BillDbHelper(getContext());
+                mBillHelper = new BillDbHelper(rootView.getContext());
                 long newRowId = mBillHelper.insertBill(completeText, startTime, startDate);
-
                 billAutoCompleteTextView.setText("");
                 reminderTimesTextView.setText("");
                 reminderDateTextView.setText("");
@@ -263,9 +337,9 @@ public class AddBillsFragment extends Fragment {
                     Toast.makeText(getContext(), getResources().getString(R.string.bill_added_success),
                             Toast.LENGTH_SHORT).show();
                 }
-
-
-
+                Intent openMainScreen = new Intent(rootView.getContext(), BillsActivity.class);
+                openMainScreen.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(openMainScreen);
             }
         });
         return rootView;

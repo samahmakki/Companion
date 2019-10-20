@@ -126,9 +126,12 @@
     <string name="copyright_text" translatable="false">Copyright © 2019, SR\'Dev </string>
     <string name="rights">كل الحقوق محفوظة</string>
     <string name="alarmtext">تنبيه:"  "</string>
-    <string name="alert_title">title</string>
+    <string name="alert_title">تذكير</string>
     <string name="Not_Set">Not Set</string>
     <string name="missedBills">الفواتير الغير مدفوعة</string>
     <string name="finishedBills">الفواتير المنتهية</string>
+    <string name="medName_is_required">اسم الدواء مطلوب</string>
+    <string name="edit_start_time">تعديل وقت البدء</string>
+
 
 </resources>

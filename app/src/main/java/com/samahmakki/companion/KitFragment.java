@@ -1,10 +1,14 @@
 package com.samahmakki.companion;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -28,11 +32,16 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 import static android.app.Activity.RESULT_OK;
 import static com.samahmakki.companion.AddmedFragment.dbHelper;
@@ -43,15 +52,21 @@ public class KitFragment extends Fragment {
     MedicineListAdapter adapter = null;
     ArrayList<medicine>list;
     ImageView imgView;
-
-    Calendar currentTime;
+    int year, month, day, hour, minute;
+    String startDate;
+    int datePickMonth;
+    int datePickDay;
+    int datePickYear;
     String startTime;
-    int hour, minute;
-    final Calendar calendar = Calendar.getInstance();
+    Calendar calendar = Calendar.getInstance();
+    int timePickHour;
+    int timePickMinute;
+    DatePickerDialog mPickerDialog;
+    AlarmManager alarmMgr;
+    PendingIntent pendingIntent;
+    String repeat;
 
-    final int year = calendar.get(Calendar.YEAR);
-    final int month = calendar.get(Calendar.MONTH);
-    final int day = calendar.get(Calendar.DAY_OF_MONTH);
+    RadioButton once, twice, thrice, four, forever, twoweek, tenday, week, radioButton;
     private SQLiteDatabase db;
 
 
@@ -63,7 +78,6 @@ public class KitFragment extends Fragment {
 
         android.support.v7.app.ActionBar actionBar = ((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar();
         Objects.requireNonNull(actionBar).setTitle("Medication list");
-
 
         lstmed = view.findViewById(R.id.lst_med);
         list = new ArrayList<>();
@@ -170,15 +184,18 @@ public class KitFragment extends Fragment {
         dialogDelete.show();
     }
 
-    private void showDialogUpdate(Activity activity, final int position) {
+    private void showDialogUpdate(final Activity activity, final int position) {
+
         final Dialog dialog = new Dialog(activity);
+
         dialog.setContentView(R.layout.update_medicinelist);
         dialog.setTitle("Update");
         imgView = dialog.findViewById(R.id.img);
         final EditText edtName = dialog.findViewById(R.id.edtname);
         final TextView edtdate  = dialog.findViewById(R.id.edtdate);
          final TextView edttime = dialog.findViewById(R.id.edttime);
-        final TextView edtinterval = dialog.findViewById(R.id.edtinterval);
+       final RadioGroup freqradio = dialog.findViewById(R.id.fradio_group);
+
 
         Button btnUpdate = dialog.findViewById(R.id.upbtn);
         //set width of dialog
@@ -214,52 +231,155 @@ public class KitFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                DatePickerDialog datePickerDialog = new DatePickerDialog(Objects.requireNonNull(getActivity()), new DatePickerDialog.OnDateSetListener() {
+                calendar = Calendar.getInstance();
+                year = calendar.get(Calendar.YEAR);
+                month = calendar.get(Calendar.MONTH);
+                day = calendar.get(Calendar.DAY_OF_MONTH);
+
+                mPickerDialog = new DatePickerDialog(Objects.requireNonNull(getContext()), new DatePickerDialog.OnDateSetListener() {
                     @Override
-                    public void onDateSet(DatePicker view, int year, int month, int day) {
-                        month = month + 1;
-                        String date = day + "/" + month + "/" + year;
-                        edtdate.setText(date);
+                    public void onDateSet(DatePicker datePicker, int Year, int Month, int Day) {
+                        startDate = Year + "-" + (Month + 1) + "-" + Day;
+                        edtdate.setText(startDate);
 
-
+                        calendar.set(Year, (Month + 1), Day);
+                        datePickMonth = datePicker.getMonth();
+                        datePickDay = datePicker.getDayOfMonth();
+                        datePickYear = datePicker.getYear();
                     }
                 }, year, month, day);
-                datePickerDialog.show();
+                mPickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+                mPickerDialog.setTitle("Select Date");
+                mPickerDialog.show();
             }
         });
+
 
         edttime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-           hour = currentTime.get(Calendar.HOUR_OF_DAY);
-                minute = currentTime.get(Calendar.MINUTE);
+                calendar = Calendar.getInstance();
+                hour = calendar.get(Calendar.HOUR_OF_DAY);
+                minute = calendar.get(Calendar.MINUTE);
+
                 TimePickerDialog mTimePicker;
                 mTimePicker = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                         startTime = con(selectedHour) + ":" + con(selectedMinute);
+                        // String.format(startTime, Locale.getAvailableLocales());
                         edttime.setText(startTime);
-                        // alarmStartTime = mCurrentTime.getTimeInMillis();
+                        timePickHour = timePicker.getCurrentHour();
+                        timePickMinute = timePicker.getCurrentMinute();
                     }
-                }, hour, minute, false);//Yes 24 hour time
+                }, hour, minute, false);
                 mTimePicker.setTitle(getString(R.string.select_time));
                 mTimePicker.show();
             }
         });
 
-
+       
 
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+
+                calendar = Calendar.getInstance();
+                calendar.clear();
+                calendar.set(Calendar.MONTH, datePickMonth);
+                calendar.set(Calendar.DAY_OF_MONTH, datePickDay);
+                calendar.set(Calendar.YEAR, datePickYear);
+                calendar.set(Calendar.HOUR, timePickHour);
+                calendar.set(Calendar.MINUTE, timePickMinute);
+                calendar.set(Calendar.SECOND, 0);
+
+                @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat(getString(R.string.hour_minutes));
+                startTime = formatter.format(new Date(calendar.getTimeInMillis()));
+                @SuppressLint("SimpleDateFormat") SimpleDateFormat dateformatter = new SimpleDateFormat(getString(R.string.dateformate));
+                startDate = dateformatter.format(new Date(calendar.getTimeInMillis()));
+
+                alarmMgr = (AlarmManager) Objects.requireNonNull(getActivity()).getSystemService(Context.ALARM_SERVICE);
+                Intent intent = new Intent(getContext(), medAlarmReceiver.class);
+
+                String alertTitle = edtName.getText().toString();
+                intent.putExtra(getString(R.string.medicine_name), alertTitle);
+
+                pendingIntent = PendingIntent.getBroadcast(getContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                alarmMgr.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+                dbHelper.insertMEDTime_Date(startTime, startDate, repeat);
+
+
+                  if (freqradio != null){
+                  freqradio.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+                        final int radioId = freqradio.getCheckedRadioButtonId();
+
+                        radioButton =freqradio.findViewById(radioId);
+
+                        repeat= radioButton.getText().toString();
+
+                        if (radioId == R.id.once) {
+
+                            long startUpTime = calendar.getTimeInMillis();
+                            if (System.currentTimeMillis() > startUpTime) {
+                                startUpTime = startUpTime + 24*60*60*1000 ;
+                            }
+
+
+                            alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, startUpTime, AlarmManager.INTERVAL_DAY, pendingIntent);
+                        }
+                        if (radioId == R.id.twice) {
+
+                            long startUpTime = calendar.getTimeInMillis();
+                            if (System.currentTimeMillis() > startUpTime) {
+                                startUpTime = startUpTime +12*60*60*1000 ;
+                            }
+
+                            alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, startUpTime, AlarmManager.INTERVAL_HALF_DAY, pendingIntent);
+
+                        }
+                        if (radioId == R.id.thrice) {
+
+
+                            long startUpTime = calendar.getTimeInMillis();
+                            if (System.currentTimeMillis() > startUpTime) {
+                                startUpTime = startUpTime +8*60*60*1000 ;
+                            }
+                            alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, startUpTime, AlarmManager.INTERVAL_HOUR * 8, pendingIntent);
+                        }
+                        if (radioId == R.id.four) {
+
+                          /*  alarmMgr.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                                    SystemClock.elapsedRealtime() +
+                                            60 * 1000, pendingIntent);*/
+
+                            long startUpTime = calendar.getTimeInMillis();
+                            if (System.currentTimeMillis() > startUpTime) {
+                                startUpTime = startUpTime + 6*60*60*1000;
+                            }
+
+                            alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, startUpTime, AlarmManager.INTERVAL_HOUR * 6, pendingIntent);
+                        }
+
+
+                    }
+                });}
+
+
+
+                
                 try {
                     dbHelper.updateData(
                             edtName.getText().toString().trim(),
                             AddmedFragment.imageViewToByte(imgView),
                             edtdate.getText().toString().trim(),
                             edttime.getText().toString().trim(),
-                            edtinterval.getText().toString().trim(),
-                            position
+                            radioButton.getText().toString().trim()
+,                            position
                     );
                     dialog.dismiss();
                     Toast.makeText(Objects.requireNonNull(getActivity()).getApplicationContext(), "Updated Succefully", Toast.LENGTH_SHORT).show();
