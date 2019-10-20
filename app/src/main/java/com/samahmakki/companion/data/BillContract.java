@@ -14,6 +14,6 @@ public final class BillContract{
         public final static  String COLUMN_Bill_Name = "bill_name";
         public final static  String COLUMN_Bill_TIME = "Time";
         public final static  String COLUMN_Bill_DATE = "date";
-
+        public final static  String COLUMN_Bill_REMINDER = "reminder";
     }
 }

@@ -36,8 +36,8 @@
     <string name="add_advertise">Add Advertise</string>
     <string name="copyright"> copyright are specific to SR/Dev"</string>
     <string name="app_name">Rafeeq</string>
-    <string name="medications">Medication</string>
-    <string name="bills">Bills</string>
+    <string name="medications">Medications Reminder</string>
+    <string name="bills">Bills Reminder</string>
     <string name="activities">Activities</string>
     <string name="flashlight">Flashlight</string>
     <string name="time_is_required">Time is Required</string>
@@ -111,7 +111,7 @@
     <string name="night_modeOn">Night Mode is On</string>
     <string name="night_modeOff">Night Mode is Off</string>
     <string name="Date">Date:"  "</string>
-    <string name="reminder_monthly">Reminder Monthly</string>
+    <string name="reminder_monthly">Reminder</string>
     <string name="alarm">Set Alarm</string>
     <string name="notification">Set Notification</string>
     <string name="Done">Done ✔</string>
@@ -129,6 +129,19 @@
     <string name="alarmtext">Alert:"  "</string>
     <string name="alert_title">title</string>
     <string name="Not_Set">Not Set</string>
+    <string name="bills_array2" />
+    <string name="both">Both</string>
+    <string name="intent_row_id">rowID</string>
+    <string name="row_id_log">rowID</string>
+    <string name="update_delete">Update/Delete</string>
+    <string name="deleted">Deleted</string>
 
+    <string-array name="bills_array">
+        <item>Electricity Bill</item>
+        <item>Water Bill</item>
+        <item>Gas Bill</item>
+        <item>Internet Bill</item>
+        <item>Telephone Bill</item>
+    </string-array>
 
 </resources>

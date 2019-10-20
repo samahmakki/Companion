@@ -20,11 +20,12 @@ android {
         enabled = true
     }
 
-    bundle {
+    def var = bundle {
         language {
             enableSplit = false
         }
     }
+    var
 
 }
 

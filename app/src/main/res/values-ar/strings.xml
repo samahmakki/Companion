@@ -36,8 +36,8 @@
     <string name="copyright">حقوق الحفظ خاصة ب\"إس آر ديف\"</string>
 
     <string name="app_name">رفيق</string>
-    <string name="medications">الأدوية</string>
-    <string name="bills">الفواتير</string>
+    <string name="medications">تذكير الأدوية</string>
+    <string name="bills">تذكير الفواتير</string>
     <string name="activities">الأنشطة</string>
     <string name="flashlight">المصباح اليدوي</string>
     <string name="time_is_required">الوقت مطلوب</string>
@@ -97,7 +97,8 @@
     <string name="titttle">العنوان</string>
     <string name="alert_content">Alert content</string>
     <string name="hour_minutes">HH:mm</string>
-    <string name="dateformate">dd/MM/yyyy</string>
+    <string name="dateformate">yyyy/MM/dd</string>
+
     <string name="added_successfully">تمت الإضافة بنجاح</string>
 
     <string name="bill_name">اسم الفاتورة</string>
@@ -112,7 +113,7 @@
     <string name="night_modeOn">تم تشغيل الوضع الليلي</string>
     <string name="night_modeOff">تم إيقاف الوضع الليلي</string>
     <string name="Date">التاريخ:"  "</string>
-    <string name="reminder_monthly">التذكير كل شهر</string>
+    <string name="reminder_monthly">التذكير</string>
     <string name="alarm">تشغيل التنبيه</string>
     <string name="notification">تشغيل الإشعارات</string>
     <string name="Done">تم ✔</string>
@@ -128,7 +129,17 @@
     <string name="copyright_text" translatable="false">Copyright © 2019, SR\'Dev </string>
     <string name="rights">كل الحقوق محفوظة</string>
     <string name="alarmtext">تنبيه:"  "</string>
-    <string name="alert_title">title</string>
+    <string name="alert_title">عنوان</string>
     <string name="Not_Set">Not Set</string>
+    <string name="both">كلاهما</string>
+    <string name="update_delete">تعديل/حذف</string>
+    <string name="deleted">تم الحذف</string>
 
+    <string-array name="bills_array">
+        <item>فاتورة كهرباء</item>
+        <item>فاتورة مياة</item>
+        <item>فاتورة غاز</item>
+        <item>فاتورة انترنت</item>
+        <item>فاتورة تليفون</item>
+    </string-array>
 </resources>

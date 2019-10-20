@@ -16,12 +16,13 @@ public class BillsActivity extends AppCompatActivity implements BottomNavigation
         setContentView(R.layout.activity_bills);
 
         setTitle(getResources().getString(R.string.bills));
-        SharedPref sharedpref = new SharedPref(this);
+
+       /* SharedPref sharedpref = new SharedPref(this);
         if (sharedpref.loadNightModeState() == true) {
             setTheme(R.style.ThemeDark);
         } else {
             setTheme(R.style.Theme1);
-        }
+        }*/
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
 
@@ -44,7 +45,6 @@ public class BillsActivity extends AppCompatActivity implements BottomNavigation
                 break;
             case R.id.nav_allBills:
                 selectedFragment = new AllBillsFragment();
-               // billActivityNumber = 3;
                 break;
         }
 

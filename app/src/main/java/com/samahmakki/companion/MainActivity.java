@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         flashlightLayout = findViewById(R.id.flashlight);
         //Navigation drawer
         Toolbar toolbar = findViewById(R.id.toolbar);
-       setSupportActionBar(toolbar);
+        setSupportActionBar(toolbar);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -247,9 +247,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //show BillAlert Dialog
         mDialog.show();
     }
-
-
-
 
 
     private void showNightModeDialog() {

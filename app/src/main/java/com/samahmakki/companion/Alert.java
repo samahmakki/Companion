@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.provider.Settings;
 
 
 public class Alert extends Activity {
@@ -16,7 +17,7 @@ public class Alert extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alert);
 
-        mp = MediaPlayer.create(getApplicationContext(), reso);
+        mp = MediaPlayer.create(getApplicationContext(), Settings.System.DEFAULT_RINGTONE_URI);
         mp.start();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         String msg = getString(R.string.alarmtext) + getIntent().getExtras().getString(getString(R.string.title_msg_bill));

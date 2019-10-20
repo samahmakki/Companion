@@ -4,11 +4,19 @@ public class Bill {
     private String mBillName;
     private String mBillDate;
     private String mBillTime;
+    private int mReminder;
 
     public Bill(String billName, String billDate, String billTime) {
         mBillName = billName;
         mBillDate = billDate;
         mBillTime = billTime;
+    }
+
+    public Bill(String billName, String billDate, String billTime, int reminder) {
+        mBillName = billName;
+        mBillDate = billDate;
+        mBillTime = billTime;
+        mReminder = reminder;
     }
 
     public String getBillName(){
@@ -21,5 +29,9 @@ public class Bill {
 
     public String getBillTime(){
         return mBillTime;
+    }
+
+    public int getReminder(){
+        return mReminder;
     }
 }
