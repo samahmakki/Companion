@@ -14,7 +14,7 @@ public class BillDbHelper extends SQLiteOpenHelper {
     //DataBase Name
     private static final String DATABASE_NAME = "BILLS";
     //DataBase Version
-    private static final int DATABASE_VERSION = 7;
+    private static final int DATABASE_VERSION = 8;
 
     SQLiteDatabase db;
 
@@ -23,6 +23,7 @@ public class BillDbHelper extends SQLiteOpenHelper {
             + BillEntry._Id + " INTEGER  PRIMARY KEY  AUTOINCREMENT , "
             + BillEntry.COLUMN_Bill_Name + " TEXT NOT NULL, "
             + BillEntry.COLUMN_Bill_TIME + " TEXT NOT NULL, "
+            + BillEntry.COLUMN_Bill_REMINDER + " INTEGER NOT NULL, "
             + BillEntry.COLUMN_Bill_DATE + " TEXT NOT NULL);";
 
     //Constructor
@@ -64,6 +65,23 @@ public class BillDbHelper extends SQLiteOpenHelper {
     }
 
     //insert data into the Bills Table
+    final public long insertBill2 (String billName, String time, String date, int reminder) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(BillEntry.COLUMN_Bill_Name, billName);
+        values.put(BillEntry.COLUMN_Bill_TIME, time);
+        values.put(BillEntry.COLUMN_Bill_DATE, date);
+        values.put(BillEntry.COLUMN_Bill_REMINDER, reminder);
+
+        long newRowId = db.insert(BillEntry.TABLE_NAME, null, values);
+
+        db.close();
+        return newRowId;
+    }
+
+        //insert data into the Bills Table
     final public void insertBillTime_Date (String time, String date) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -72,9 +90,8 @@ public class BillDbHelper extends SQLiteOpenHelper {
         values.put(BillEntry.COLUMN_Bill_TIME, time);
         values.put(BillEntry.COLUMN_Bill_DATE, date);
 
-        db.insert(BillEntry.TABLE_NAME, null, values);
-
-        db.close();
+       /* db.insert(BillEntry.TABLE_NAME, null, values);
+        db.close();*/
     }
 
     final public void insertBillName ( String billName) {
@@ -83,8 +100,8 @@ public class BillDbHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
 
         values.put(BillEntry.COLUMN_Bill_Name, billName);
-        db.insert(BillEntry.TABLE_NAME, null, values);
-        db.close();
+//        db.insert(BillEntry.TABLE_NAME, null, values);
+//        db.close();
     }
 
     final public void insert ( String billName) {
@@ -96,15 +113,31 @@ public class BillDbHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void updateName2(String newName, int id, String newTime, String newDate){
+    public void updateBill(String newName, int id, String newTime, String newDate){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "UPDATE " + BillEntry.TABLE_NAME + " SET " + BillEntry.COLUMN_Bill_Name +
                 " = '" + newName +  "' , " + BillEntry.COLUMN_Bill_TIME + " = '" + newTime + "'" +
                 " , " + BillEntry.COLUMN_Bill_DATE + " = '" + newDate + "'" +
                 " WHERE " + BillEntry._Id + " = '" + id + "'";
+       db.execSQL(query);
+    }
+
+    public void updateName(int id, String newName){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "UPDATE " + BillEntry.TABLE_NAME + " SET " + BillEntry.COLUMN_Bill_Name +
+                " = '" + newName +  "'" + " WHERE " + BillEntry._Id + " = '" + id + "'";
         db.execSQL(query);
     }
-    public void updateName(String newName, int id, String oldName, String newTime, String oldTime, String newDate, String oldDate){
+
+    public void updateTime_Date(int id, String newTime, String newDate){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "UPDATE " + BillEntry.TABLE_NAME + " SET " + BillEntry.COLUMN_Bill_TIME + " = '" + newTime + "'" +
+                " , " + BillEntry.COLUMN_Bill_DATE + " = '" + newDate + "'" +
+                " WHERE " + BillEntry._Id + " = '" + id + "'";
+        db.execSQL(query);
+    }
+
+    public void updateName2(String newName, int id, String oldName, String newTime, String oldTime, String newDate, String oldDate){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "UPDATE " + BillEntry.TABLE_NAME + " SET " + BillEntry.COLUMN_Bill_Name +
                 " = '" + newName +  "' , " + BillEntry.COLUMN_Bill_TIME + " = '" + newTime + "'" +

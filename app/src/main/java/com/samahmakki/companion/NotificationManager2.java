@@ -26,28 +26,28 @@ public class NotificationManager2 extends BroadcastReceiver {
 
 
 
-Intent mainIntent = new Intent(context,BillsActivity.class);
+        Intent mainIntent = new Intent(context,BillsActivity.class);
         mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-PendingIntent contentIntent = PendingIntent.getActivity(context,requestCode,mainIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent contentIntent = PendingIntent.getActivity(context,requestCode,mainIntent,PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
 
-       Notification.Builder builder =
+        Notification.Builder builder =
                 new Notification.Builder(context);
-              builder.setSmallIcon(R.drawable.ic_action_alarms)
-        .setContentIntent(contentIntent)
-                        .setContentTitle(Title)
-        .setWhen(System.currentTimeMillis())
-        //.setDefaults(Notification.DEFAULT_LIGHTS)
-                        .setContentText(content)
-                      .setAutoCancel(true)
-                      //.addAction(R.drawable.alert,"Snooze",)
-                      .setStyle(new Notification.BigTextStyle().bigText((content)))
-                      .setColor(Color.BLUE)
+        builder.setSmallIcon(R.drawable.ic_action_alarms)
+                .setContentIntent(contentIntent)
+                .setContentTitle(Title)
+                .setWhen(System.currentTimeMillis())
+                //.setDefaults(Notification.DEFAULT_LIGHTS)
+                .setContentText(content)
+                .setAutoCancel(true)
+                //.addAction(R.drawable.alert,"Snooze",)
+                .setStyle(new Notification.BigTextStyle().bigText((content)))
+                .setColor(Color.BLUE)
 
-                        .setSound(Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE
+                .setSound(Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE
                         + "://" + context.getPackageName() + "/raw/notify"));
 
         // Add as notification

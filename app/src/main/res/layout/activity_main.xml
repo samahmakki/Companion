@@ -72,7 +72,8 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/medications"
                                 android:textAppearance="?android:textAppearanceLarge"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                android:textAlignment="center"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -102,7 +103,8 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/bills"
                                 android:textAppearance="?android:textAppearanceLarge"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                android:textAlignment="center"/>
                         </LinearLayout>
                     </LinearLayout>
 

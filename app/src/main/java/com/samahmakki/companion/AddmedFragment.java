@@ -124,7 +124,7 @@ public class AddmedFragment extends Fragment {
         four = view.findViewById(R.id.four);
 
         freqradio = view.findViewById(R.id.fradio_group);
-        durradio = view.findViewById(R.id.dradio_group);
+       // durradio = view.findViewById(R.id.dradio_group);
 
 
         starttime = view.findViewById(R.id.start_time);

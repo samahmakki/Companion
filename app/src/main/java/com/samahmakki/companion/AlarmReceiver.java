@@ -5,7 +5,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
- public class AlarmReceiver extends BroadcastReceiver {
+/**
+ * Created by Dominic on 13/04/2015.
+ */
+public class AlarmReceiver extends BroadcastReceiver {
 
 
             @Override

@@ -71,23 +71,23 @@ public class KitFragment extends Fragment {
 
         adapter = new MedicineListAdapter(getContext(), R.layout.item_medicine, list);
         //get all data from SQLite
-          db = dbHelper.getWritableDatabase();
+        db = dbHelper.getWritableDatabase();
         cursor = dbHelper.getData("SELECT * FROM MEDICINE");
         lstmed.setAdapter(adapter);
 
         list.clear();
 
-if(cursor != null ){
-        while (cursor.moveToNext()) {
-            int id = cursor.getInt(0);
-            String name = cursor.getString(1);
-            byte[] image = cursor.getBlob(2);
-            String date = cursor.getString(3);
-            String time = cursor.getString(4);
-            String interval = cursor.getString(5);
+        if(cursor != null ){
+            while (cursor.moveToNext()) {
+                int id = cursor.getInt(0);
+                String name = cursor.getString(1);
+                byte[] image = cursor.getBlob(2);
+                String date = cursor.getString(3);
+                String time = cursor.getString(4);
+                String interval = cursor.getString(5);
 
-            list.add(new medicine(id, name, image,date,time,interval));
-        }}
+                list.add(new medicine(id, name, image,date,time,interval));
+            }}
         adapter.notifyDataSetChanged();
 
         if (list.size() == 0) {
@@ -178,7 +178,7 @@ if(cursor != null ){
         final EditText edtName = dialog.findViewById(R.id.edtname);
         final TextView edtdate  = dialog.findViewById(R.id.edtdate);
         final TextView edttime = dialog.findViewById(R.id.edttime);
-      //  final TextView edtinterval = dialog.findViewById(R.id.edtinterval);
+        //  final TextView edtinterval = dialog.findViewById(R.id.edtinterval);
 
         Button btnUpdate = dialog.findViewById(R.id.upbtn);
         //set width of dialog
@@ -258,7 +258,7 @@ if(cursor != null ){
                             AddmedFragment.imageViewToByte(imgView),
                             edtdate.getText().toString().trim(),
                             edttime.getText().toString().trim(),
-                           edtinterval.getText().toString().trim(),
+                            edtinterval.getText().toString().trim(),
                             position
                     );
                     dialog.dismiss();

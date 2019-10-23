@@ -6,7 +6,7 @@ android {
         applicationId "com.samahmakki.companion"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 1
+        versionCode 5
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -20,11 +20,12 @@ android {
         enabled = true
     }
 
-    bundle {
+    def var = bundle {
         language {
             enableSplit = false
         }
     }
+    var
 
 }
 

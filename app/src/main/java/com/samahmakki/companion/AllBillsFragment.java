@@ -69,6 +69,7 @@ public class AllBillsFragment extends Fragment {
                 String name = bill.getBillName();
                 String time = bill.getBillTime();
                 String date = bill.getBillDate();
+                int reminder = bill.getReminder();
 
                 Cursor data = mBillHelper.getItemID2(name, time, date);
                 int itemID = -1;
@@ -85,6 +86,7 @@ public class AllBillsFragment extends Fragment {
                     updateActivity.putExtra("name", name);
                     updateActivity.putExtra("time", time);
                     updateActivity.putExtra("date", date);
+                    updateActivity.putExtra("reminder", reminder);
                     startActivity(updateActivity);
                 }
             }
@@ -141,9 +143,8 @@ public class AllBillsFragment extends Fragment {
             cursor.close();
         }
     }
-
-
 }
+
 
 
 
