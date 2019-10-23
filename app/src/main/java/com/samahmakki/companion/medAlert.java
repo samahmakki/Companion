@@ -32,8 +32,8 @@ public class medAlert extends Activity {
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             //set intent to open activity
-                           // Intent i = new Intent(medAlert.this, MedicationActivity.class);
-                          //  startActivity(i);
+                           Intent i = new Intent(medAlert.this, MedicationActivity.class);
+                          startActivity(i);
 
                             dialog.dismiss();
                            medAlert.this.finish();

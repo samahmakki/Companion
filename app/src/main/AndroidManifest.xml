@@ -73,7 +73,8 @@
 
         <activity
             android:name=".Alert"
-            android:theme="@style/Theme.AppCompat" />
+            android:theme="@style/Theme.AppCompat"
+            />
 
         <receiver
             android:name=".AlarmReceiver"
@@ -81,7 +82,8 @@
             android:exported="true" />
         <activity
             android:name=".medAlert"
-            android:theme="@android:style/Theme.Dialog"/>
+            android:theme="@style/Theme.AppCompat"
+            />
         <receiver
             android:name=".medAlarmReceiver"
             android:enabled="true"

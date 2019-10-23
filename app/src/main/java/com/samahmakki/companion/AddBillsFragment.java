@@ -152,7 +152,7 @@ public class AddBillsFragment extends Fragment {
 
                     billAutoCompleteTextView = rootView.findViewById(R.id.bill_autocomplete);
                     completeText = billAutoCompleteTextView.getText().toString().trim();
-                    intent.putExtra(getString(R.string.alert_title), completeText);
+                    intent.putExtra(getString(R.string.bill_name), completeText);
 
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(rootView.getContext()
                             , 0, intent, 0);

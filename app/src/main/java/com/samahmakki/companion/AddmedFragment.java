@@ -88,7 +88,7 @@ public class AddmedFragment extends Fragment {
     RadioGroup freqradio, durradio;
 
 
-    RadioButton once, twice, thrice, four, forever, twoweek, tenday, week, radioButton;
+    RadioButton once, twice, thrice, four,  radioButton;
 
 
     @Override
@@ -122,10 +122,7 @@ public class AddmedFragment extends Fragment {
         twice = view.findViewById(R.id.twice);
         thrice = view.findViewById(R.id.thrice);
         four = view.findViewById(R.id.four);
-        week = view.findViewById(R.id.weekly);
-        forever = view.findViewById(R.id.forever);
-        tenday = view.findViewById(R.id.tenday);
-        twoweek = view.findViewById(R.id.twoweek);
+
         freqradio = view.findViewById(R.id.fradio_group);
         durradio = view.findViewById(R.id.dradio_group);
 
@@ -257,10 +254,11 @@ public class AddmedFragment extends Fragment {
         addbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                calendar = Calendar.getInstance();
                 Calendar c = Calendar.getInstance();
-                calendar.set(Calendar.HOUR, timePickHour);
+               calendar.set(Calendar.HOUR, timePickHour);
                 calendar.set(Calendar.MINUTE, timePickMinute);
-                calendar.set(Calendar.SECOND, 0);
+               calendar.set(Calendar.SECOND, 0);
                 String name = etadd.getText().toString().trim();
                 startDate = startdate.getText().toString().trim();
                 startTime = starttime.getText().toString().trim();
@@ -333,7 +331,7 @@ public class AddmedFragment extends Fragment {
                     startDate = dateformatter.format(new Date(calendar.getTimeInMillis()));
 
                     alarmMgr = (AlarmManager) Objects.requireNonNull(getActivity()).getSystemService(Context.ALARM_SERVICE);
-                    Intent intent = new Intent(getContext(), AlarmReceiver.class);
+                    Intent intent = new Intent(getContext(), medAlarmReceiver.class);
 
                     String alertTitle = etadd.getText().toString();
                     intent.putExtra(getString(R.string.medicine_name), alertTitle);
@@ -525,8 +523,13 @@ public class AddmedFragment extends Fragment {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     //permission was granted
                     pickImageFromGallery();
+                }
+                else if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
                     openCamera();
-                } else {
+
+                }
+
+                else {
                     //permission was denied
                     Toast.makeText(getContext(), "Permission denied..!", Toast.LENGTH_SHORT).show();
                 }

@@ -24,7 +24,8 @@ public class Alert extends Activity {
 
         mp = MediaPlayer.create(getApplicationContext(), reso);
         mp.start();
-        String msg = getString(R.string.alarmtext) + "Rafeeq";
+
+        String msg = getString(R.string.alarmtext) + (getIntent().getExtras()).getString( getString(R.string.title_msg_bill));
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         // String msg = getString(R.string.alarmtext) + Objects.requireNonNull(getIntent().getExtras()).getString( getString(R.string.title_msg));
@@ -35,8 +36,8 @@ public class Alert extends Activity {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         //set intent to open activity
-                      /*  Intent i = new Intent(Alert.this, BillsActivity.class);
-                        startActivity(i);*/
+                       Intent i = new Intent(Alert.this, BillsActivity.class);
+                        startActivity(i);
 
                         dialog.dismiss();
                         Alert.this.finish();
