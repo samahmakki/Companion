@@ -252,7 +252,7 @@ public class UpdateBillActivity extends AppCompatActivity {
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                         startTime2 = con(selectedHour) + ":" + con(selectedMinute);
 
-                        String.format(startTime2, Locale.getAvailableLocales());
+                       // String.format(startTime2, Locale.getAvailableLocales());
 
                         calendar = Calendar.getInstance();
                         calendar.clear();

@@ -2,7 +2,12 @@ package com.samahmakki.companion;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.Dialog;
+import android.app.FragmentManager;
+import android.app.PendingIntent;
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -21,8 +26,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.samahmakki.companion.R;
@@ -30,7 +37,10 @@ import com.samahmakki.companion.data.BillContract;
 import com.samahmakki.companion.data.BillContract.BillEntry;
 import com.samahmakki.companion.data.BillDbHelper;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
 public class AllBillsFragment extends Fragment {
@@ -41,12 +51,15 @@ public class AllBillsFragment extends Fragment {
     BillDbHelper mBillHelper;
     BillAdapter adapter;
 
+
     @Nullable
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.all_bills_fragment, container, false);
         readBill();
+
+
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -63,11 +76,11 @@ public class AllBillsFragment extends Fragment {
                 String itemName;
                 String itemTime;
                 String itemDate;
-                while (data.moveToNext()){
+                while (data.moveToNext()) {
                     itemID = data.getInt(0);
 
                 }
-                if (itemID > -1){
+                if (itemID > -1) {
                     Intent updateActivity = new Intent(getContext(), UpdateBillActivity.class);
                     updateActivity.putExtra("id", itemID);
                     updateActivity.putExtra("name", name);
@@ -131,3 +144,9 @@ public class AllBillsFragment extends Fragment {
         }
     }
 }
+
+
+
+
+
+

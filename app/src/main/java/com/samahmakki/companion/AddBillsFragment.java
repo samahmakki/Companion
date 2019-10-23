@@ -122,7 +122,7 @@ public class AddBillsFragment extends Fragment {
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                         startTime = con(selectedHour) + ":" + con(selectedMinute);
 
-                        String.format(startTime, Locale.getAvailableLocales());
+                       // String.format(startTime, Locale.getAvailableLocales());
 
                         calendar = Calendar.getInstance();
                         calendar.clear();

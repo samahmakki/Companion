@@ -29,7 +29,6 @@
     <string name="medication_for_today">medication for today</string>
     <string name="edit_photo">edit photo</string>
     <string name="done">done</string>
-    <string name="time">time</string>
     <string name="switchoffflash">switch off flash</string>
     <string name="about">About</string>
     <string name="rafeeq_app">Rafeeq, Find everything you need </string>
@@ -40,7 +39,8 @@
     <string name="bills">Bills Reminder</string>
     <string name="activities">Activities</string>
     <string name="flashlight">Flashlight</string>
-    <string name="time_is_required">Time is Required</string>
+    <string name="time_is_required">
+ is Required</string>
     <string name="Quit">Are you sure you want to exit?</string>
     <string name="Rate_app">Rate App</string>
     <string name="Yes">Yes</string>
@@ -94,10 +94,11 @@
     <string name="title_msg_bill">title</string>
     <string name="titlee">title</string>
     <string name="title">title</string>
-    <string name="titttle">title</string>
+    <string name="titttle">تذكير</string>
     <string name="alert_content">Alert content</string>
     <string name="hour_minutes">HH:mm</string>
     <string name="dateformate">dd/MM/yyyy</string>
+
 
     <string name="bill_name">Bill Name</string>
     <string name="reminder_times">Reminder Times</string>
@@ -123,11 +124,12 @@
     <string name="reAdd_bill">Re add bill</string>
     <string name="bill_added_success">Bill added successfully</string>
     <string name="app_version">1.0</string>
+    <string name="time">Time</string>
 
-    <string name="copyright_text" translatable="false">Copyright © 2019, SR\'Dev </string>
+    <string name="copyright_text">Copyright © 2019, SR\'Dev </string>
     <string name="rights">All rights reserved</string>
     <string name="alarmtext">Alert:"  "</string>
-    <string name="alert_title">title</string>
+    <string name="alert_title">Reminder</string>
     <string name="Not_Set">Not Set</string>
     <string name="bills_array2" />
     <string name="both">Both</string>
@@ -135,6 +137,9 @@
     <string name="row_id_log">rowID</string>
     <string name="update_delete">Update/Delete</string>
     <string name="deleted">Deleted</string>
+    <string name="medName_is_required">medicine name is required</string>
+    <string name="edit_start_time">Edit start date</string>
+    <string name="open">Open</string>
 
     <string-array name="bills_array">
         <item>Electricity Bill</item>

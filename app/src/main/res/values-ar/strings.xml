@@ -1,15 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
-    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
-    <string name="title_dashboard" translatable="false">Dashboard</string>
+    <string name="app_name">رفيق</string>
+
     <string name="addBill">إضافة فاتورة</string>
     <string name="allBills">جميع الفواتير</string>
     <string name="Description">وصف</string>
     <string name="Update">تعديل</string>
     <string name="Delete">حذف</string>
     <string name="Choose_an_action">اختر منهما</string>
-    <string name="action_example" translatable="false">Example action</string>
-    <string name="title_activity_main" translatable="false">MainActivity</string>
     <string name="choose_start_time">وقت البدء</string>
     <string name="choosee_start_time">اختر وقت البدء</string>
     <string name="reminders">التذكير</string>
@@ -28,6 +26,7 @@
     <string name="medication_for_today">أدوية هذا اليوم</string>
     <string name="edit_photo">تعديل الصورة</string>
     <string name="done">تم</string>
+
     <string name="time">الوقت</string>
     <string name="switchoffflash">غلق المصباح اليدوي</string>
     <string name="about">عن التطبيق</string>
@@ -35,9 +34,9 @@
     <string name="add_advertise">ضع إعلانك هنا</string>
     <string name="copyright">حقوق الحفظ خاصة ب\"إس آر ديف\"</string>
 
-    <string name="app_name">رفيق</string>
     <string name="medications">تذكير الأدوية</string>
     <string name="bills">تذكير الفواتير</string>
+
     <string name="activities">الأنشطة</string>
     <string name="flashlight">المصباح اليدوي</string>
     <string name="time_is_required">الوقت مطلوب</string>
@@ -129,11 +128,16 @@
     <string name="copyright_text" translatable="false">Copyright © 2019, SR\'Dev </string>
     <string name="rights">كل الحقوق محفوظة</string>
     <string name="alarmtext">تنبيه:"  "</string>
-    <string name="alert_title">عنوان</string>
-    <string name="Not_Set">Not Set</string>
     <string name="both">كلاهما</string>
     <string name="update_delete">تعديل/حذف</string>
     <string name="deleted">تم الحذف</string>
+    <string name="alert_title">تذكير</string>
+    <string name="Not_Set">Not Set</string>
+    <string name="missedBills">الفواتير الغير مدفوعة</string>
+    <string name="finishedBills">الفواتير المنتهية</string>
+    <string name="medName_is_required">اسم الدواء مطلوب</string>
+    <string name="edit_start_time">تعديل وقت البدء</string>
+
 
     <string-array name="bills_array">
         <item>فاتورة كهرباء</item>

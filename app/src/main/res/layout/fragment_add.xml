@@ -7,6 +7,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#E0E0E0"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -43,7 +44,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="130dp"
             android:layout_marginTop="8dp"
             android:background="#FFF">
 
@@ -64,36 +65,291 @@
                 android:layout_below="@id/captv"
                 android:layout_alignParentEnd="true"
                 android:background="#FFF"
+                android:layout_marginTop="28dp"
                 android:contentDescription="@string/capture_pic"
                 android:src="@drawable/ic_photo_camera" />
-
-
-            <ImageView
-                android:id="@+id/img"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="40dp"
-                android:layout_marginBottom="4dp"
-                android:layout_toStartOf="@id/captv"
-                android:contentDescription="@string/medicine_image"
-                android:padding="4dp"
-                android:scaleType="centerCrop" />
-
             <ImageButton
                 android:id="@+id/pickbtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/captv"
+                android:layout_marginTop="28dp"
                 android:layout_toStartOf="@id/openbtn"
                 android:background="#FFF"
                 android:contentDescription="@string/capture_pic"
                 android:src="@drawable/ic_insert_photo" />
 
+            <ImageView
+                android:id="@+id/img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="36dp"
+                android:foregroundGravity="center_horizontal"
+                android:layout_toStartOf="@id/pickbtn"
+                android:layout_marginEnd="40dp"
+                android:layout_marginBottom="4dp"
+                android:layout_below="@id/captv"
+                android:contentDescription="@string/medicine_image"
+                android:padding="4dp"
+                android:scaleType="fitXY"
+                android:adjustViewBounds="true"
+
+                />
+
+
+
         </RelativeLayout>
+
+        <CheckBox
+            android:id="@+id/chckbox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="4dp"
+            android:background="#FFF"
+            android:padding="8dp"
+            android:text="@string/set_alarm"
+            android:textColor="#1976D2"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+        <LinearLayout
+            android:id="@+id/visiblelist"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:background="@drawable/add_bill_ac"
+                android:orientation="vertical"
+                android:paddingTop="8dp">
+
+                <TextView
+                    android:id="@+id/et_Date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:background="#FFF"
+                    android:padding="6dp"
+                    android:text="@string/open_calendar"
+                    android:textColor="#1976D2"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/start_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginBottom="8dp"
+                    android:clickable="true"
+                    android:drawableEnd="@drawable/ic_today_black_24dp"
+                    android:focusable="true"
+                    android:hint="@string/choose_start_day"
+                    android:textColor="#000000"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:background="@drawable/add_bill_ac"
+                android:orientation="vertical"
+                android:paddingTop="8dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/choose_start_time"
+                    android:textColor="#1976D2"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/start_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginBottom="8dp"
+                    android:drawableEnd="@drawable/ic_access_time"
+                    android:hint="@string/choosee_start_time"
+                    android:textColor="#000000"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    />
+
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="#FFF">
+
+                <TextView
+                    android:id="@+id/remtv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:text="@string/reminders"
+                    android:textColor="#1976D2"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+
+                    />
+
+                <TextView
+                    android:id="@+id/freqtv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/remtv"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/select_frequency"
+                    android:textColor="#B71C1C"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/fradio_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/freqtv"
+                    android:layout_marginBottom="8pt"
+                    android:padding="4dp"
+                    >
+
+                    <RadioButton
+                        android:id="@+id/once"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/once_daily"
+                        android:textAppearance="?android:textAppearanceMedium" />
+
+                    <RadioButton
+                        android:id="@+id/twice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+
+                        android:text="@string/twice_daily"
+                        android:textAppearance="?android:textAppearanceMedium" />
+
+
+                    <RadioButton
+                        android:id="@+id/thrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/three_times_daily"
+
+                        android:textAppearance="?android:textAppearanceMedium" />
+
+
+                    <RadioButton
+                        android:id="@+id/four"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+
+                        android:text="@string/four_times_daily"
+                        android:textAppearance="?android:textAppearanceMedium" />
+
+
+                </RadioGroup>
+
+
+            </RelativeLayout>
+
+           <!-- <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="#FFFFFF"
+                android:padding="4dp">
+
+                <TextView
+                    android:id="@+id/prdtv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:text="@string/period"
+                    android:textColor="#1976D2"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+
+                    />
+
+                <TextView
+                    android:id="@+id/periodtv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/prdtv"
+                    android:layout_margin="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:text="@string/select_period_of_medication"
+                    android:textColor="#B71C1C"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/dradio_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/periodtv"
+                    android:layout_marginBottom="8dp"
+                    android:padding="6dp">
+
+                    <RadioButton
+                        android:id="@+id/forever"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/Forever"
+                        android:textAppearance="?android:textAppearanceMedium" />
+
+                    <RadioButton
+                        android:id="@+id/twoweek"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/for_two_weeks"
+                        android:textAppearance="?android:textAppearanceMedium" />
+
+
+                    <RadioButton
+                        android:id="@+id/tenday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/for_ten_days"
+                        android:textAppearance="?android:textAppearanceMedium" />
+
+
+                    <RadioButton
+                        android:id="@+id/week"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/for_a_week"
+                        android:textAppearance="?android:textAppearanceMedium" />
+
+
+                </RadioGroup>
+
+            </RelativeLayout>-->
+        </LinearLayout>
 
         <Button
             android:id="@+id/addmedbtn"
@@ -101,16 +357,15 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginLeft="60dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="60dp"
             android:layout_marginBottom="10dp"
             android:background="#1976D2"
             android:text="@string/add_medicine"
             android:textColor="#FFF"
+            android:foreground="?android:attr/selectableItemBackground"
             android:textSize="22sp" />
 
 
-
     </LinearLayout>
-
 </ScrollView>

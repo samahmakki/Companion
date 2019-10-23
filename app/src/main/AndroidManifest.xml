@@ -12,6 +12,7 @@
 
     <uses-feature android:name="android.hardware.camera" />
 
+
     <application
         android:allowBackup="true"
         android:fullBackupContent="false"
@@ -67,21 +68,29 @@
 
         <service android:name=".ShakeDetectionService" />
 
-        <activity android:name=".UpdateBillActivity"></activity>
-        <activity android:name=".About"></activity>
+        <activity android:name=".UpdateBillActivity" />
+        <activity android:name=".About" />
 
-        <activity android:name=".Alert"
-                  android:theme="@android:style/Theme.Dialog"></activity>
+        <activity
+            android:name=".Alert"
+            android:theme="@style/Theme.AppCompat" />
 
         <receiver
             android:name=".AlarmReceiver"
             android:enabled="true"
-            android:exported="true"></receiver>
+            android:exported="true" />
+        <activity
+            android:name=".medAlert"
+            android:theme="@android:style/Theme.Dialog"/>
+        <receiver
+            android:name=".medAlarmReceiver"
+            android:enabled="true"
+            android:exported="true" />
 
         <receiver
             android:name=".NotificationManager2"
             android:enabled="true"
-            android:exported="true"></receiver>
+            android:exported="true" />
 
     </application>
 

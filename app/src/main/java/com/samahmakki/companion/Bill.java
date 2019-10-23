@@ -23,6 +23,11 @@ public class Bill {
         return mBillName;
     }
 
+    public int sum(int a ,int b){
+        return a + b;
+    }
+
+
     public String getBillDate(){
         return mBillDate;
     }

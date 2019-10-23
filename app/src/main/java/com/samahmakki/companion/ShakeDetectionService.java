@@ -83,4 +83,15 @@ public class ShakeDetectionService extends Service implements SensorEventListene
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
     }
+
+    @Override
+    public void  onDestroy() {
+        super.onDestroy();
+        try {
+            isFlashLightOn = utility.torchToggle("off");
+        } catch (@SuppressLint("NewApi") CameraAccessException e) {
+            e.printStackTrace();
+        }
+
+    }
 }

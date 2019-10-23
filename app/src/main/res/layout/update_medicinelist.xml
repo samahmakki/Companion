@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E0E0E0"
+    android:background="#E0E0E0">
+<LinearLayout
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:background="#E0E0E0"
+    android:padding="4dp"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -23,7 +28,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/addet"
+            android:id="@+id/edtname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/medTV"
@@ -70,10 +75,136 @@
             android:layout_toStartOf="@id/captv"
             android:clickable="true"
             android:focusable="true"
+            android:scaleType="fitXY"
             android:padding="4dp"
             android:src="@drawable/add_new_photo"
             android:contentDescription="@string/edit_photo" />
     </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/add_bill_ac"
+        android:orientation="vertical"
+        android:paddingTop="8dp">
+
+        <TextView
+            android:id="@+id/et_Date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:background="#FFF"
+            android:padding="6dp"
+            android:text="@string/open_calendar"
+            android:textColor="#1976D2"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/edtdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="6dp"
+            android:layout_marginBottom="8dp"
+            android:clickable="true"
+            android:paddingLeft="6dp"
+            android:drawableEnd="@drawable/ic_today_black_24dp"
+            android:focusable="true"
+            android:text="@string/edit_start_time"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/add_bill_ac"
+        android:orientation="vertical"
+        android:paddingLeft="4dp"
+        android:paddingTop="8dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/choosee_start_time"
+            android:textColor="#1976D2"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/edttime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:drawableEnd="@drawable/ic_access_time"
+            android:hint="@string/choosee_start_time"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            />
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/freqtv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/select_frequency"
+        android:textColor="#B71C1C"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+
+    <RadioGroup
+        android:id="@+id/fradio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8pt"
+        android:padding="4dp"
+        >
+
+        <RadioButton
+            android:id="@+id/once"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/once_daily"
+            android:textAppearance="?android:textAppearanceMedium" />
+
+        <RadioButton
+            android:id="@+id/twice"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+
+            android:text="@string/twice_daily"
+            android:textAppearance="?android:textAppearanceMedium" />
+
+
+        <RadioButton
+            android:id="@+id/thrice"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/three_times_daily"
+            android:textAppearance="?android:textAppearanceMedium" />
+
+
+        <RadioButton
+            android:id="@+id/four"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/four_times_daily"
+            android:textAppearance="?android:textAppearanceMedium" />
+
+
+    </RadioGroup>
+
 
     <Button
         android:id="@+id/upbtn"
@@ -86,3 +217,4 @@
 
 
 </LinearLayout>
+</ScrollView>
